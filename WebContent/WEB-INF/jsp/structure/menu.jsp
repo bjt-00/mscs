@@ -45,7 +45,7 @@
       <ul class="nav navbar-nav navbar-right">
       
 					        <!-- a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li-->
-        <li><a href="orderstatus.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="login.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 		      </ul>
                 
                 

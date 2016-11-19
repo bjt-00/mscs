@@ -26,7 +26,7 @@
                     </li>
                 
                     <li class="">
-                        <a href="#">View Cars</a>
+                        <a href="cars.do">View Cars</a>
                     </li>
                     <li class="">
                        <a  href="reservationsList.do">My Reservations</a>

@@ -1,4 +1,4 @@
-package com.bitguiders.rest;
+package edu.mum.ea.crs.rest;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

@@ -8,25 +8,7 @@ body {
 </style>
 </head>
 <body>
-	<br>
-	<div style="text-align:center">
-		<h2>
-			Spring Features Lab test change<br> <br>
-		</h2>
-		<ul>
-			<li>
-			TestBean => ${testBean.name}
-			</li>
-			<li>
-			<a href="welcome.do">TestController => welcome </a>
-			</li>
-			<li>
-			<a href="rest/tr/test">TestRest </a>
-			</li>
-			<li>
-			<a href="inputTest.do">Input Test </a>
-			</li>
-		</ul>
-	</div>
+	<br> <%=request.getContextPath() %>
+	<jsp:include page="WEB-INF/jsp/dashboard.jsp"/>
 </body>
 </html>

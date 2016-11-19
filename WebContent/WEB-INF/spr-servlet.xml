@@ -12,16 +12,19 @@
  
  	<context:annotation-config/>
  	<mvc:annotation-driven/>
-	<context:component-scan base-package="com.bitguiders.controller" />
+	<context:component-scan base-package="edu.mum.ea.crs.controller" />
 
    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
       <property name="prefix" value="/WEB-INF/jsp/" />
       <property name="suffix" value=".jsp" />
    </bean>
    
-	<context:component-scan base-package="com.bitguiders.model" />
+	<context:component-scan base-package="edu.mum.ea.crs.model" />
 
-	<bean id="testBean" class="com.bitguiders.model.TestBean" scope="request"  >
+	<bean id="testBean" class="edu.mum.ea.crs.model.TestBean" scope="request"  >
+		<property name="name" value="Waqas" />
+	</bean>
+	<bean id="customerBean" class="edu.mum.ea.crs.model.CustomerBean" scope="request"  >
 		<property name="name" value="Waqas" />
 	</bean>
 

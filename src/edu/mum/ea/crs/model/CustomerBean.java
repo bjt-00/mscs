@@ -1,15 +1,15 @@
-package com.bitguiders.model;
+package edu.mum.ea.crs.model;
 
 
 import org.springframework.beans.factory.annotation.Value;
 
-public class TestBean {
+public class CustomerBean extends GenericBean {
 
 	
 	@Value("Abdul Kareem")
 	private String name="Default";
 	
-	public TestBean(){
+	public CustomerBean(){
 		this.name="Sohail";
 		System.out.println("-------> TestBean initiated-------"+name);
 	}

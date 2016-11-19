@@ -1,4 +1,4 @@
-package com.bitguiders.controller;
+package edu.mum.ea.crs.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bitguiders.model.TestBean;
+import edu.mum.ea.crs.model.TestBean;
 
 @Controller
 public class TestController {
@@ -20,17 +20,21 @@ public class TestController {
 		
 		return new ModelAndView("welcome", "message", message);
 	}
-	 @RequestMapping(value = "/inputTest", method = RequestMethod.GET)
-	   public ModelAndView student() {
-	      return new ModelAndView("input", "command", new TestBean());
+	 @RequestMapping(value = "/input", method = RequestMethod.GET)
+	   public ModelAndView student(ModelMap model) {
+		 System.out.println("----inputTest controller called----");
+		 model.addAttribute("view","input");
+		TestBean bean = new TestBean();
+	      return new ModelAndView("dashboard", "command", bean);
 	   }
 
 	 @RequestMapping(value = "/addTest", method = RequestMethod.POST)
 	   public String addStudent(@ModelAttribute("SpringWeb")TestBean testBean, 
 	   ModelMap model) {
 	      model.addAttribute("name", testBean.getName());
+	      model.addAttribute("view","output");
 	      
-	      return "output";
+	      return "dashboard";
 	   }
 	/*
 	public void sendMessage(){

@@ -9,12 +9,14 @@
 </head>
 <body>
 	<h2>List of Car</h2>
-	<form action="ea-fp/cars/search">
-		<input type="text" value=""/><span><button type="submit"> Search</button> </span>		
+	<form action="${pageContext.request.contextPath}/cars/search">
+		<input id="txtCarSearch" type="text" value=""/><span><button id="btnCarSearch" type="button"> Search</button> </span>		
 	</form>
+	<span><button class ="linkToUrl" data-url="${pageContext.request.contextPath}/cars/add" id="btnAddCar" type="button"> Add</button> </span>
 	<table>
 	<tr>		
 		<th>Manufacturer</th>
+		<th>Model</th>
 		<th>Year</th>
 		<th>Color</th>
 		<th>Speed</th>		
@@ -22,8 +24,9 @@
 		<th>Status</th>
 	</tr>	
 	<c:forEach var="car" items="${cars}">
-		<tr onclick="/cars/u/${car.id}">
+		<tr class="linkToUrl" data-url="${pageContext.request.contextPath}/cars/u/${car.id}">
 			<td>${car.manufacturer}</td>
+			<td>${car.carModel}</td>
 			<td>${car.year}</td>
 			<td>${car.color}</td>
 			<td>${car.speed}</td>

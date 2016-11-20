@@ -1,8 +1,13 @@
 package edu.mum.ea.crs.data.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
+import edu.mum.ea.crs.enumeration.CarStatus;
 
 @Entity
 public class Car {
@@ -13,7 +18,9 @@ public class Car {
 	private String color;
 	private int speed;
 	private String plateNo;
-	private short status;
+	@Enumerated(EnumType.ORDINAL)
+	@Column(name = "status")
+	private CarStatus status;
 
 	@Id
 	@GeneratedValue
@@ -75,11 +82,12 @@ public class Car {
 		return manufacturer;
 	}
 
-	public short getStatus() {
+	public CarStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(short status) {
+	public void setStatus(CarStatus status) {
 		this.status = status;
 	}
+
 }

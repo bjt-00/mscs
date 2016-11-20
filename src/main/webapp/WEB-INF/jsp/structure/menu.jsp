@@ -2,7 +2,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 
-<img id="Logo" src="themes/default/images/crs.png" alt="CRS ::: Car Reservtion System" title="CRS ::: Car Reservtion System" />
+<img id="Logo" src="${pageContext.request.contextPath}/themes/default/images/crs.png" alt="CRS ::: Car Reservtion System" title="CRS ::: Car Reservtion System" />
    
 <div class="Menu">        
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -19,17 +19,17 @@
 				<!-- left menu -->
                 <ul class="nav navbar-nav">
                      <li class="${(not empty view and view eq 'user/customersList'?'active':'')}">
-                        <a href="customersList.do">Customers List</a>
+                        <a href="${pageContext.request.contextPath}/customersList.do">Customers List</a>
                     </li>
                      <li class="${(not empty view and view eq 'car/paymentForm'?'active':'')}">
-                        <a href="paymentForm.do">Payment Form</a>
+                        <a href="${pageContext.request.contextPath}/paymentForm.do">Payment Form</a>
                     </li>
                 
                     <li class="">
-                        <a href="cars.do">View Cars</a>
+                        <a href="${pageContext.request.contextPath}/cars.do">View Cars</a>
                     </li>
                     <li class="">
-                       <a  href="reservationsList.do">My Reservations</a>
+                       <a  href="${pageContext.request.contextPath}/reservationsList.do">My Reservations</a>
                     </li>
                     <!-- >li class="">
                        <a  href="rest/tr/test">Rest Test </a>

@@ -8,10 +8,11 @@
 
 <!-- data table style and scripts -->
   <link rel="stylesheet" type="text/css" href="js/dataTable/pagination.css" />
-	<script type="text/javascript" src="js/dataTable/paginator.js"></script>
-	<script type="text/javascript" src="js/dataTable/sortable.js"></script>
-	<script type="text/javascript" src="js/dataTable/jquery-1.8.2.min.js"></script>
-	<script type="text/javascript" src="js/dataTable/jquery-pagination.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/dataTable/paginator.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/dataTable/sortable.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/dataTable/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/dataTable/jquery-pagination.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/scripts.js" ></script>
 		       
 		       
 <!-- 

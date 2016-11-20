@@ -7,8 +7,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Car Detail Page</title>
 </head>
-<body>	
-	<form action="ea-fp/cars/u/${car.id}" method="post">
+<body>
+	<c:if test="${not empty msg}">
+		<p><c:out value="${mgs}"/> Test Result </p>
+	</c:if>
+	
+	<form action="${pageContext.request.contextPath}/cars/add" method="post">
 	<table border="1">
 		<tr>
 			<td>Make:</td>
@@ -16,7 +20,7 @@
 		</tr>
 		<tr>
 			<td>Model:</td>
-			<td><input type="text" name="model" value="${car.carModel}" /> </td>
+			<td><input type="text" name="carModel" value="${car.carModel}" /> </td>
 		</tr>
 		<tr>
 			<td>Year:</td>
@@ -46,7 +50,8 @@
 		</tr>
 	</table>
 	<input type="submit" value="Save"/>
-	<input id="btnCarDelete" data-url="/cars/remove?carId=${car.id}" type="button" value="Delete">
+	<input id="btnCarDelete" data-url="${pageContext.request.contextPath}/cars/remove?carId=${car.id}" type="button" value="Delete">
+	<input type="hidden" name="id" value="${car.id}">
 	</form>	
 </body>
 </html>

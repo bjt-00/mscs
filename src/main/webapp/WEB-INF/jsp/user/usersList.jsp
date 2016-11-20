@@ -7,18 +7,33 @@
 
 </head>
 <body class="Body">
-<span class="PageTitle">&nbsp; Customers List</span>
+<span class="PageTitle">&nbsp; Users List</span>
+<br>
+${message}
 	<table class="sortable" id='tblList'>
 	<tr>		
-		<th>Customer Id</th>
-		<th>Name</th>
+		<th>First Name</th>
+		<th>Last Name</th>
+		<th>Phone</th>
+		<th>Email</th>
+		<th>login Id</th>
+		<th>Role</th>
+		<th>Status</th>
 		<th>Operations</th>
 	</tr>	
-	<c:forEach var="customer" items="${customers}">
-		<tr onclick="/cars/u/${customer.id}">
-			<td>${customer.id}</td>
-			<td>${customer.name}</td>
-			<td>x</td>
+	<c:forEach var="user" items="${usersList}">
+		<tr>
+			<td>${user.firstName}</td>
+			<td>${user.lastName}</td>
+			<td>${user.phone}</td>
+			<td>${user.email}</td>
+			<td>${user.loginId}</td>
+			<td>${user.role}</td>
+			<td>${user.active}</td>
+			<td>
+			<a href="${pageContext.request.contextPath}/user/edit?id=${user.id}">edit</a>
+			<a href="${pageContext.request.contextPath}/user/delete?id=${user.id}">x</a>
+			</td>
 		</tr>
 	</c:forEach>	
 	</table>	

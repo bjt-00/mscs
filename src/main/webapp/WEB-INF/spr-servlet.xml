@@ -61,7 +61,7 @@
 	<bean id="testBean" class="edu.mum.ea.crs.model.TestBean" scope="request"  >
 		<property name="name" value="Waqas" />
 	</bean>
-	<bean id="customerBean" class="edu.mum.ea.crs.model.CustomerBean" scope="request"  >
+	<bean id="userBean" class="edu.mum.ea.crs.model.UserBean" scope="request"  >
 		<property name="name" value="Waqas" />
 	</bean>
 

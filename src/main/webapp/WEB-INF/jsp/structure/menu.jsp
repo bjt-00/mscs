@@ -1,3 +1,4 @@
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -18,14 +19,14 @@
 <div class="collapse navbar-collapse Menu" id="bs-example-navbar-collapse-1">
 				<!-- left menu -->
                 <ul class="nav navbar-nav">
-                     <li class="${(not empty view and view eq 'user/customersList'?'active':'')}">
-                        <a href="${pageContext.request.contextPath}/customersList.do">Customers List</a>
+                     <li class="${(not empty view and fn:containsIgnoreCase(view, 'user/') ?'active':'')}">
+                        <a href="${pageContext.request.contextPath}/user/list.do">Users List</a>
                     </li>
                      <li class="${(not empty view and view eq 'car/paymentForm'?'active':'')}">
                         <a href="${pageContext.request.contextPath}/paymentForm.do">Payment Form</a>
                     </li>
                 
-                    <li class="">
+                    <li class="${(not empty view and fn:containsIgnoreCase(view, 'car/') ?'active':'')}">
                         <a href="${pageContext.request.contextPath}/cars.do">View Cars</a>
                     </li>
                     <li class="">

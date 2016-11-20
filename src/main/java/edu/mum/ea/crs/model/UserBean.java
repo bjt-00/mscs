@@ -3,13 +3,13 @@ package edu.mum.ea.crs.model;
 
 import org.springframework.beans.factory.annotation.Value;
 
-public class CustomerBean extends GenericBean {
+public class UserBean extends GenericBean {
 
 	
 	@Value("Abdul Kareem")
 	private String name="Default";
 	
-	public CustomerBean(){
+	public UserBean(){
 		this.name="Sohail";
 		System.out.println("-------> TestBean initiated-------"+name);
 	}

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import edu.mum.ea.crs.model.CustomerBean;
+import edu.mum.ea.crs.model.UserBean;
 
 @Controller
 public class ReservationController {
@@ -14,7 +14,7 @@ public class ReservationController {
 	 @RequestMapping(value = "/reservationsList", method = RequestMethod.GET)
 	   public ModelAndView getReservationsList(ModelMap model) {
 		 model.addAttribute("view","car/reservationsList");
-		 CustomerBean bean = new CustomerBean();
+		 UserBean bean = new UserBean();
 		bean.setView("car/reservationsList");
 	      return new ModelAndView("dashboard", "command", bean);
 	  }

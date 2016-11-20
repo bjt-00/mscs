@@ -18,10 +18,10 @@
 <div class="collapse navbar-collapse Menu" id="bs-example-navbar-collapse-1">
 				<!-- left menu -->
                 <ul class="nav navbar-nav">
-                     <li class="">
+                     <li class="${(not empty view and view eq 'user/customersList'?'active':'')}">
                         <a href="customersList.do">Customers List</a>
                     </li>
-                     <li class="">
+                     <li class="${(not empty view and view eq 'car/paymentForm'?'active':'')}">
                         <a href="paymentForm.do">Payment Form</a>
                     </li>
                 
@@ -54,9 +54,4 @@
   </div>
         <!-- /.container -->
 </nav><!-- Half Page Image Background Carousel Header -->
-         <p>
-         <br>
-         <br>
-         <br>
-         <br>
-         <br>
+<br><br><br><br><br><br>

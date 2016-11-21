@@ -29,6 +29,9 @@ public class UserService {
 	public List<User> findAll(){
 		return dao.findAll();
 	}
+	public List<User> findAllCustomers(){
+		return dao.findAllCustomers();
+	}
 	public void delete(int id){
 		dao.delete(id);
 	}

@@ -30,6 +30,13 @@ public class UserController extends GenericController {
 		 super.model=model;
 	      return getView("user/usersList");
 	   }
+	 @RequestMapping(value = "/customersList", method = RequestMethod.GET)
+	   public String getCustomersList(ModelMap model) {
+		 
+		 model.addAttribute("customersList",userService.findAllCustomers());
+		 super.model=model;
+	      return getView("user/customersList");
+	   }
 
 	 @RequestMapping(value = "/edit", method = RequestMethod.GET)
 	   public ModelAndView edit(@RequestParam int id,ModelMap model) {

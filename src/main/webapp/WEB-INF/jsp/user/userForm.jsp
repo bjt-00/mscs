@@ -8,9 +8,9 @@
 	<span class="PageTitle"> User Form</span>
 	
 	<form action="${pageContext.request.contextPath}/user/update" method="post">
-		<input name="id" type="text" value="${user.id}">
-		<input name="loginId" type="text" value="${user.loginId}">
-		<input name="password" type="text" value="${user.password}">
+		<input name="id" type="hidden" value="${user.id}">
+		<input name="loginId" type="hidden" value="${user.loginId}">
+		<input name="password" type="hidden" value="${user.password}">
 		
 		 <div class="row">
 			<div class="col-lg-6">

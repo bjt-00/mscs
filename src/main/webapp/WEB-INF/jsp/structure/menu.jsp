@@ -20,7 +20,10 @@
 				<!-- left menu -->
                 <ul class="nav navbar-nav">
                      <li class="${(not empty view and fn:containsIgnoreCase(view, 'user/') ?'active':'')}">
-                        <a href="${pageContext.request.contextPath}/user/list.do">Users List</a>
+                        <a href="${pageContext.request.contextPath}/user/list.do">Users</a>
+                    </li>
+                     <li class="${(not empty view and fn:containsIgnoreCase(view, '/customers') ?'active':'')}">
+                        <a href="${pageContext.request.contextPath}/user/customersList.do">Customers</a>
                     </li>
                      <li class="${(not empty view and view eq 'car/paymentForm'?'active':'')}">
                         <a href="${pageContext.request.contextPath}/paymentForm.do">Payment Form</a>

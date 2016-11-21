@@ -13,6 +13,9 @@
 <body>
 	<h3>Reservation</h3>
 	<div id="panelReservation">
+		<c:if test="${not empty msg}">
+			<p>${msg}</p>
+		</c:if>
 		<form action="${pageContext.request.contextPath}/reservations/add"
 			method="post">
 			<table>
@@ -53,13 +56,13 @@
 					<td>Reservation Start Date:</td>
 					<td><input type="text" pattern="\d{1,2}/\d{1,2}/\d{4}"
 						class="datepicker" id="startDate" name="startDate"
-						value="${reservation.startDate}" /></td>
+						value="${reservation.displayStartDate}" /></td>
 				</tr>
 				<tr>
 					<td>Reservation End Date:</td>
 					<td><input type="text" pattern="\d{1,2}/\d{1,2}/\d{4}"
 						class="datepicker" id="endDate" name="endDate"
-						value="${reservation.endDate}" /></td>
+						value="${reservation.displayEndDate}" /></td>
 				</tr>
 				<tr>
 					<td>Status:</td>
@@ -78,10 +81,10 @@
 					</select></td>
 				</tr>
 			</table>
-			<input type="submit" value="Save" /> <input type="button"
-				class="linkToUrl"
-				data-url="${pageContext.request.contextPath}/reservationsList"
-				value="Cancel" />
+			<input type="submit" value="Save" />
+			<input type="button" class="linkToUrl"
+				data-url="${pageContext.request.contextPath}/reservationsList" value="Cancel" />
+			<input type="hidden" name="id" value="${reservation.id}"/>	
 		</form>
 	</div>
 </body>

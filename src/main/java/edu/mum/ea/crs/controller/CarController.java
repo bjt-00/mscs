@@ -2,8 +2,8 @@ package edu.mum.ea.crs.controller;
 
 import java.util.Arrays;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +18,7 @@ import edu.mum.ea.crs.service.CarService;
 
 @Controller
 public class CarController extends GenericController {
-	private static final Logger logger = LoggerFactory.getLogger(CarController.class);
+	private static Logger logger = LogManager.getLogger();
 
 	private static final String MODEL_ATTRIBUTE = "car";
 	private static final String VIEW_DETAIL = "car/carDetail";
@@ -30,6 +30,7 @@ public class CarController extends GenericController {
 
 	@RequestMapping(value = "/cars", method = RequestMethod.GET)
 	public String getAll(Model model, @ModelAttribute("project") Car c) {
+		logger.info("CarController getAll ");
 		Car car = new Car();
 		car.setCarModel("Honda");
 		car.setManufacturer("M001" + count++);
@@ -59,6 +60,7 @@ public class CarController extends GenericController {
 			} else {
 				// existing , call update
 				model.addAttribute("msg", "Update Successfully");
+				logger.info("CarController (addOrUpdate): update car record");
 			}
 			this.carService.save(c);
 		} catch (Exception e) {
@@ -77,6 +79,7 @@ public class CarController extends GenericController {
 
 	@RequestMapping(value = "/cars/u/{id}", method = RequestMethod.GET)
 	public String get(@PathVariable Long id, Model model) {
+		logger.info("CarController get");
 		model.addAttribute(MODEL_ATTRIBUTE, carService.findByID(id));
 		addStatus(model);
 		return getView(VIEW_DETAIL, model);

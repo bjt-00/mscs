@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+import edu.mum.ea.crs.util.CustomDateFormatter;
 
 @Entity
 public class Reservation implements java.io.Serializable {
@@ -23,6 +26,10 @@ public class Reservation implements java.io.Serializable {
 	private Date startDate;
 	private Date endDate;
 	private String status;
+	@Transient
+	private String displayStartDate;
+	@Transient
+	private String displayEndDate;
 	
 	@Id
 	@GeneratedValue
@@ -76,5 +83,21 @@ public class Reservation implements java.io.Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getDisplayStartDate() {
+		return CustomDateFormatter.displayDateFormat(this.startDate);
+	}
+
+	public void setDisplayStartDate(String displayStartDate) {
+		this.displayStartDate = displayStartDate;
+	}
+
+	public String getDisplayEndDate() {
+		return CustomDateFormatter.displayDateFormat(this.endDate);
+	}
+
+	public void setDisplayEndDate(String displayEndDate) {
+		this.displayEndDate = displayEndDate;
 	}
 }

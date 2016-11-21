@@ -11,51 +11,52 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import edu.mum.ea.crs.data.domain.Customer;
 import edu.mum.ea.crs.data.domain.User;
 import edu.mum.ea.crs.model.UserBean;
-import edu.mum.ea.crs.service.UserService;
+import edu.mum.ea.crs.service.CustomerService;
 
 @Controller
-@RequestMapping(value="user")
-public class UserController extends GenericController {
+@RequestMapping(value="customer")
+public class CustomerController extends GenericController {
 	
 	@Autowired
-	UserService userService;
+	CustomerService service;
 	
 	 @RequestMapping(value = "/list", method = RequestMethod.GET)
 	   public String getList(ModelMap model) {
 		 
-		 userService.save();
-		 model.addAttribute("usersList",userService.findAll());
+		 service.save();
+		 model.addAttribute("customersList",service.findAll());
 		 super.model=model;
-	      return getView("user/usersList");
+	      return getView("customer/customersList");
 	   }
 
 	 @RequestMapping(value = "/edit", method = RequestMethod.GET)
 	   public ModelAndView edit(@RequestParam int id,ModelMap model) {
 	       super.model=model;
-	       User user = userService.getUserById(id);
-	       model.addAttribute("user",user);
-	       return new ModelAndView(getView("user/userForm"), "command", new UserBean());
+	       Customer customer = service.getCustomerById(id);
+	       model.addAttribute("customer",customer);
+	       return new ModelAndView(getView("customer/customerForm"), "command", new UserBean());
 	   }
 	 @RequestMapping(value = "/update", method = RequestMethod.POST)
-	   public ModelAndView update(@Valid @ModelAttribute("user")User user,ModelMap model) {
+	   public ModelAndView update(@Valid @ModelAttribute("customer")Customer customer,ModelMap model) {
 	       super.model=model;
-	       userService.update(user);
-	       model.addAttribute("user",user);
-	       setMessage("User updated successfully");
-	       return new ModelAndView(getView("user/userForm"), "command", new UserBean());
+	       service.update(customer);
+	       model.addAttribute("customer",customer);
+	       setMessage("Customer updated successfully");
+	       return new ModelAndView(getView("customer/customerForm"), "command", new UserBean());
 	   }
 
 	 @RequestMapping(value = "/delete", method = RequestMethod.GET)
 	   public ModelAndView delete(@RequestParam int id,ModelMap model) {
 		 super.model=model;
-		 setMessage("Selected User deleted successfully");
+		 setMessage("Selected Customer deleted successfully");
 		 
-		 userService.delete(id);
+		 service.delete(id);
 		 
 		 model.addAttribute("id",id);
-		 model.addAttribute("usersList",userService.findAll());
-	       return new ModelAndView(getView("user/usersList"), "command", new UserBean());
+		 model.addAttribute("customersList",service.findAll());
+	       return new ModelAndView(getView("customer/customersList"), "command", new UserBean());
 	   }
 }

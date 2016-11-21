@@ -19,11 +19,11 @@
 <div class="collapse navbar-collapse Menu" id="bs-example-navbar-collapse-1">
 				<!-- left menu -->
                 <ul class="nav navbar-nav">
-                     <li class="${(not empty view and fn:containsIgnoreCase(view, 'user/') ?'active':'')}">
+                     <li class="${(not empty view and fn:containsIgnoreCase(view, '/user') ?'active':'')}">
                         <a href="${pageContext.request.contextPath}/user/list.do">Users</a>
                     </li>
-                     <li class="${(not empty view and fn:containsIgnoreCase(view, '/customers') ?'active':'')}">
-                        <a href="${pageContext.request.contextPath}/user/customersList.do">Customers</a>
+                     <li class="${(not empty view and fn:containsIgnoreCase(view, '/customer') ?'active':'')}">
+                        <a href="${pageContext.request.contextPath}/customer/list.do">Customers</a>
                     </li>
                      <li class="${(not empty view and view eq 'car/paymentForm'?'active':'')}">
                         <a href="${pageContext.request.contextPath}/payment/paymentForm.do">Payment Form</a>

@@ -21,18 +21,18 @@
 		<th>Status</th>
 		<th>Operations</th>
 	</tr>	
-	<c:forEach var="user" items="${customersList}">
+	<c:forEach var="customer" items="${customersList}">
 		<tr>
-			<td>${user.firstName}</td>
-			<td>${user.lastName}</td>
-			<td>${user.phone}</td>
-			<td>${user.email}</td>
-			<td>${user.loginId}</td>
-			<td>${user.role}</td>
-			<td>${user.active}</td>
+			<td>${customer.firstName}</td>
+			<td>${customer.lastName}</td>
+			<td>${customer.phone}</td>
+			<td>${customer.email}</td>
+			<td>${customer.loginId}</td>
+			<td>${customer.role}</td>
+			<td>${customer.active}</td>
 			<td>
-			<a href="${pageContext.request.contextPath}/user/edit?id=${user.id}">edit</a>
-			<a href="${pageContext.request.contextPath}/user/delete?id=${user.id}">x</a>
+			<a href="${pageContext.request.contextPath}/customer/edit?id=${customer.id}">edit</a>
+			<a href="${pageContext.request.contextPath}/customer/delete?id=${customer.id}">x</a>
 			</td>
 		</tr>
 	</c:forEach>	

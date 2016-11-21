@@ -6,13 +6,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Car Detail Page</title>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/scripts.js"></script>
 </head>
 <body>
+	<div> <br/>
+	<h3>Car Details</h3>
+	</div>
+	<div id = "panelCarDetail">
 	<c:if test="${not empty msg}">
-		<p><c:out value="${mgs}"/> Test Result </p>
+		<p>${msg}</p>
 	</c:if>
 	
-	<form action="${pageContext.request.contextPath}/cars/add" method="post">
+	<form action="${pageContext.request.contextPath}/cars/save" method="post" id="frmCarDetail">
 	<table border="1">
 		<tr>
 			<td>Make:</td>
@@ -39,19 +44,36 @@
 			<td><input type="text" name="plateNo" value="${car.plateNo}" /> </td>
 		</tr>
 		<tr>
-			<td>Status:</td>
-			<td>
-				<select name="status">
-					<option value="0">--Select--</option>
-					<option value="1">Available</option>
-					<option value="2">Not Available</option>
-				</select>
-			</td>
+		<td>Status:</td>
+		<td>
+			<select name="status">
+				<option value="0">--Select--</option>
+				
+				<c:choose>
+				<c:when test="${c.status == 1}">
+					<option value="1" selected="selected">AVAILABLE</option>
+					<option value="2">NOT_AVAILABLE</option>					
+				</c:when>
+				<c:when test="${c.status == 2}">
+					<option value="1">AVAILABLE</option>
+					<option value="2" selected="selected">NOT_AVAILABLE</option>
+				</c:when>	
+				<c:otherwise>
+					<option value="1">AVAILABLE</option>
+					<option value="2">NOT_AVAILABLE</option>
+				</c:otherwise>		
+				</c:choose>		
+			</select>
+		</td>
 		</tr>
 	</table>
-	<input type="submit" value="Save"/>
-	<input id="btnCarDelete" data-url="${pageContext.request.contextPath}/cars/remove?carId=${car.id}" type="button" value="Delete">
+	<!-- <input type="submit" value="Save"/> -->
+	<input type="button" id="btnCarSave" value="Save"/>
+	<input id="btnCarDelete" data-reurl="${pageContext.request.contextPath}/cars"
+		data-url="${pageContext.request.contextPath}/cars/remove?id=${car.id}" 
+		type="button" value="Delete">
 	<input type="hidden" name="id" value="${car.id}">
-	</form>	
+	</form>
+	</div>	
 </body>
 </html>

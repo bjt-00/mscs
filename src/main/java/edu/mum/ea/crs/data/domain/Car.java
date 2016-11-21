@@ -1,13 +1,9 @@
 package edu.mum.ea.crs.data.domain;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-import edu.mum.ea.crs.enumeration.CarStatus;
+import javax.persistence.Transient;
 
 @Entity
 public class Car {
@@ -17,14 +13,12 @@ public class Car {
 	private int year;
 	private String color;
 	private int speed;
-	private String plateNo;
-	@Enumerated(EnumType.ORDINAL)
-	@Column(name = "status")
-	private CarStatus status;
+	private String plateNo;	
+	private short status;
+	private String displayStatus;
 
 	@Id
-	@GeneratedValue
-	
+	@GeneratedValue	
 	public Long getId() {
 		return id;
 	}
@@ -41,7 +35,6 @@ public class Car {
 		this.manufacturer = manufacturer;
 	}
 
-	//@Column(name="car_model")
 	public String getCarModel() {
 		return carModel;
 	}
@@ -82,12 +75,24 @@ public class Car {
 		return manufacturer;
 	}
 
-	public CarStatus getStatus() {
+	public short getStatus() {
 		return status;
 	}
 
-	public void setStatus(CarStatus status) {
+	public void setStatus(short status) {
 		this.status = status;
 	}
+	
+	@Transient
+	public String getDisplayStatus() {
+		if (this.getStatus() == (short) 1) {
+			return "AVAILABLE";
+		}
+		return "NOT_AVAILABLE";
 
+	}
+
+	public void setDisplayStatus(String displayStatus) {
+		this.displayStatus = displayStatus;
+	}
 }

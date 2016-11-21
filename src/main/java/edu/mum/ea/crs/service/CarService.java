@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import edu.mum.ea.crs.data.dao.CarDao;
 import edu.mum.ea.crs.data.domain.Car;
-import edu.mum.ea.crs.enumeration.CarStatus;
 
 @Service
 @Transactional
@@ -37,7 +36,7 @@ public class CarService {
 		return carDao.findOne(id);
 	}
 	
-	public List<Car> getCarsByStatus(String query, CarStatus status) {
+	public List<Car> getCarsByStatus(String query, short status) {
 		return carDao.getCarsByStatus(query, status);
 	}
 	

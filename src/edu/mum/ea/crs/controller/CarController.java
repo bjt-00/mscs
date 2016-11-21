@@ -24,7 +24,7 @@ public class CarController {
 //	private CarDao carDao;
 
 	@RequestMapping(value = "/cars", method = RequestMethod.GET)
-	public String getAll(Model model, @ModelAttribute("project") Car c) {
+	public String getAll(Model model, @ModelAttribute(MODEL_ATTRIBUTE) Car c) {
 //		model.addAttribute("cars", carDao.findAll());
 		if (c.getId() == null) {
 			c = new Car();

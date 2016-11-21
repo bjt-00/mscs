@@ -27,7 +27,7 @@
 				<select name="cars">
 				<option value="-1">--Select--</option>
 					<c:forEach var="c" items="${cars}">					
-						<option value="${c.id}">${c.model} ${car.year} ${car.plateNo}</option>						
+						<option value="${c.id}">${c.carModel} ${car.year} ${car.plateNo}</option>						
 					</c:forEach>
 				</select>
 			</td>

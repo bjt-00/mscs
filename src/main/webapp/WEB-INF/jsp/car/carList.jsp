@@ -6,14 +6,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Car list Page</title>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/scripts.js"></script>
 </head>
 <body>
 	<h2>List of Car</h2>
-	<form action="${pageContext.request.contextPath}/cars/search">
-		<input id="txtCarSearch" type="text" value=""/><span><button id="btnCarSearch" type="button"> Search</button> </span>		
-	</form>
-	<span><button class ="linkToUrl" data-url="${pageContext.request.contextPath}/cars/add" id="btnAddCar" type="button"> Add</button> </span>
-	<table>
+	
+	<input id="txtCarSearch" type="text" value=""/><span>
+	<button id="btnCarSearch" data-url="${pageContext.request.contextPath}/cars/search" type="button"> Search</button> </span>		
+	
+	<span><button class ="linkToUrl" data-url="${pageContext.request.contextPath}/cars/add" id="btnAddCar" type="button"> Add </button> </span>
+	<table id="tblCarList">
 	<tr>		
 		<th>Manufacturer</th>
 		<th>Model</th>
@@ -30,8 +32,8 @@
 			<td>${car.year}</td>
 			<td>${car.color}</td>
 			<td>${car.speed}</td>
-			<td>${car.plateNo}</td>
-			<td>${car.status}</td>
+			<td>${car.plateNo}</td>			
+			<td>${car.displayStatus}</td>
 		</tr>
 	</c:forEach>	
 	</table>	

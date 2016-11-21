@@ -1,5 +1,4 @@
-$(function() {
-	console.log("call linkToUrl");
+$(function() {	
 	var $node = $(".linkToUrl");	
 	if($node.length) {
 		$node.click(function(e){
@@ -10,21 +9,59 @@ $(function() {
 	}
 	
 	$("#btnCarSearch").on("click",function() {		
-		searchCar();
+		searchCar(this);
+	});
+	
+	$("#btnCarSave").on("click",function() {		
+		saveCar(this);
+	});
+	
+	$("#btnCarDelete").on("click",function() {		
+		removeCar(this);
 	});
 });
 
-function searchCar(){
+function searchCar(data){
 	var txtquery = $("input#txtCarSearch").val();
+	var _url = $(data).data('url') + '?query=' + txtquery
 	$.ajax({
 		type:"GET",
-		url: "/ea-fp/cars/search?query=" + txtquery ,
-		cache: false,
-		 contentType: "application/json; charset=utf-8",
-		//crossDomain: true,
-		dataType: 'jsonp',
+		url: _url ,
+		//cache: false,
+		dataType: 'html',
 		success: function(result) {
-			console.log("Success");
+			var $tblCar = $("table#tblCarList");
+			$tblCar.html($($.parseHTML(result)).find("table#tblCarList").html());			
+		},
+		error: function(xhr, textStatus, errorThrown){
+		alert("Unexpected error "+errorThrown+" textStatus "+textStatus);
+		}  
+	});	
+}
+
+function saveCar(data) {
+	var $form = $("form#frmCarDetail");
+	var actionUrl = $form.attr('action');	
+	$.ajax({
+		type:"POST",
+		url: actionUrl,
+	    data: $form.serialize(),
+	    dataType: 'html',
+	    success: function (data) {
+	    	$("div#panelCarDetail").html($($.parseHTML(data)).find("div#panelCarDetail").html());
+	    }
+	});
+}
+
+function removeCar(data){	
+	var _url = $(data).data('url');
+	$.ajax({
+		type:"GET",
+		url: _url ,
+		cache: false,
+		success: function(result) {			
+			window.onbeforeunload = null;
+			window.location.href = $(data).data("reurl");
 		},
 		error: function(xhr, textStatus, errorThrown){
 		alert("Unexpected error "+errorThrown+" textStatus "+textStatus);

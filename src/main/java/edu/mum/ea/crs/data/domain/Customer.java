@@ -24,33 +24,19 @@ public class Customer {
     //@Size(min = 10, max = 14)
 	private String phone;
 	private String address;
-	private String role;
-	@NotNull
-	@NotEmpty(message = "Login Id  cannot be empty")
-	private String loginId;
-	private String password;
-	private boolean active;
-	private boolean loggedIn;
-	
 	private String fullName;
 	
  
 	public Customer(){
 		
 	}
-	public Customer(int id,String firstName,String lastName,String email,String phone,String address,
-			String role,String loginId,String password,boolean active,boolean loggedIn){
+	public Customer(int id,String firstName,String lastName,String email,String phone,String address){
 		this.id = id;
 		this.firstName=firstName;
 		this.lastName=lastName;
 		this.email=email;
 		this.phone=phone;
 		this.address=address;
-		this.role=role;
-		this.loginId=loginId;
-		this.password=password;
-		this.active=active;
-		this.loggedIn=loggedIn;
 	}
 	@Id
 	@GeneratedValue
@@ -90,36 +76,6 @@ public class Customer {
 	}
 	public void setAddress(String address) {
 		this.address = address;
-	}
-	public String getRole() {
-		return role;
-	}
-	public void setRole(String role) {
-		this.role = role;
-	}
-	public String getLoginId() {
-		return loginId;
-	}
-	public void setLoginId(String loginId) {
-		this.loginId = loginId;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public boolean isActive() {
-		return active;
-	}
-	public void setActive(boolean active) {
-		this.active = active;
-	}
-	public boolean isLoggedIn() {
-		return loggedIn;
-	}	
-	public void setLoggedIn(boolean loggedIn) {
-		this.loggedIn = loggedIn;
 	}
 
 	@Transient

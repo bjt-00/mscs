@@ -9,8 +9,6 @@
 	
 	<form action="${pageContext.request.contextPath}/customer/update" method="post">
 		<input name="id" type="hidden" value="${customer.id}">
-		<input name="loginId" type="hidden" value="${customer.loginId}">
-		<input name="password" type="hidden" value="${customer.password}">
 		
 		 <div class="row">
 			<div class="col-lg-6">
@@ -40,26 +38,6 @@
 				</div>
 			</div>	
 			</div>
-		 <div class="row">
-			<div class="col-lg-6">
-				<div class="form-group">
-					<label for="role">Role</label>
-					<select name="role"  class="form-control" >
-						<option value="Admin" ${(user.role eq 'Admin' ?'selected':'')} >Admin</option>
-						<option value="Customer" ${(user.role eq 'Customer' ?'selected':'')}>Customer</option>
-					</select>
-				</div>
-			</div>
-			<div class="col-lg-6">
-				<div class="form-group">
-					<label for="status">Status</label>
-					<select name="status"  class="form-control" >
-						<option value="1" ${(user.active?'selected':'')} >Active</option>
-						<option value="0" ${(not user.active?'selected':'')}>In Active</option>
-					</select>
-				</div>
-			</div>	
-		</div>
 		 <div class="row">
 			<div class="col-lg-12">
 				<div class="form-group">

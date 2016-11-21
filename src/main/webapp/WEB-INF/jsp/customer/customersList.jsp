@@ -16,9 +16,7 @@
 		<th>Last Name</th>
 		<th>Phone</th>
 		<th>Email</th>
-		<th>login Id</th>
-		<th>Role</th>
-		<th>Status</th>
+		<th>Address</th>
 		<th>Operations</th>
 	</tr>	
 	<c:forEach var="customer" items="${customersList}">
@@ -27,9 +25,7 @@
 			<td>${customer.lastName}</td>
 			<td>${customer.phone}</td>
 			<td>${customer.email}</td>
-			<td>${customer.loginId}</td>
-			<td>${customer.role}</td>
-			<td>${customer.active}</td>
+			<td>${customer.address}</td>
 			<td>
 			<a href="${pageContext.request.contextPath}/customer/edit?id=${customer.id}">edit</a>
 			<a href="${pageContext.request.contextPath}/customer/delete?id=${customer.id}">x</a>

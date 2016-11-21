@@ -3,21 +3,37 @@ package edu.mum.ea.crs.data.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class User {
 	private int id;
+    @Pattern(regexp = "[A-Za-z ]*", message = "must contain only letters and spaces")
 	private String firstName;
+    @Pattern(regexp = "[A-Za-z ]*", message = "must contain only letters and spaces")
 	private String lastName;
+    @Email(message = "Invalid email address, e.g. valid email address: example@gmail.com")
 	private String email;
+    //@Digits(fraction = 0, integer = 12, message = "Incorrect Format, valid e.g. 121212121212")
+    //@Pattern(regexp = "^[1-9]\\d{3}-\\d{3}-\\d{4}$", message = "must contain only Numbers and spaces")
+    //@Size(min = 10, max = 14)
 	private String phone;
 	private String address;
 	private String role;
+	@NotNull
+	@NotEmpty(message = "Login Id  cannot be empty")
 	private String loginId;
 	private String password;
 	private boolean active;
 	private boolean loggedIn;
-
+	
+ 
 	public User(){
 		
 	}

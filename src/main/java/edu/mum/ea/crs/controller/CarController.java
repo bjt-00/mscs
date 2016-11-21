@@ -106,4 +106,9 @@ public class CarController extends GenericController {
 		String[] status = {Car.STATUS_AVAILABLE, Car.STATUS_NOT_AVAILABLE};
 		model.addAttribute("carStatus", Arrays.asList(status));
 	}
+	
+	private void reserve(Model model) {
+		String[] status = {Car.STATUS_AVAILABLE, Car.STATUS_NOT_AVAILABLE};
+		model.addAttribute("carStatus", Arrays.asList(status));
+	}
 }

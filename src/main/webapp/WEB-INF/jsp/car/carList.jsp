@@ -34,6 +34,7 @@
 			<td>${car.speed}</td>
 			<td>${car.plateNo}</td>			
 			<td>${car.status}</td>
+			<td><a href="${pageContext.request.contextPath}/cars/reservation/${car.id}" >Reserve</a></td>
 		</tr>
 	</c:forEach>	
 	</table>	

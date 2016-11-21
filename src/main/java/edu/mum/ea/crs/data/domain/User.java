@@ -3,6 +3,7 @@ package edu.mum.ea.crs.data.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -30,6 +31,8 @@ public class User {
 	private String password;
 	private boolean active;
 	private boolean loggedIn;
+	
+	private String fullName;
 	
  
 	public User(){
@@ -119,4 +122,13 @@ public class User {
 		this.loggedIn = loggedIn;
 	}
 
+	@Transient
+	public String getFullName() {
+		this.setFullName(this.getFirstName() + " " + this.getLastName());
+		return this.fullName;
+	}
+	
+	public void setFullName(String fullName) {
+		this.firstName = fullName;
+	}
 }

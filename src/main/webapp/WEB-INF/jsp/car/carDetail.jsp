@@ -76,6 +76,7 @@
 	<input id="btnCarDelete" data-reurl="${pageContext.request.contextPath}/cars"
 		data-url="${pageContext.request.contextPath}/cars/remove?id=${car.id}" 
 		type="button" value="Delete">
+	<input type="button" class ="linkToUrl" data-url="${pageContext.request.contextPath}/cars" value="Cancel"/>
 	<input type="hidden" name="id" value="${car.id}">
 	</form>
 	</div>	

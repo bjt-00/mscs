@@ -39,7 +39,7 @@ public class ReservationService {
 		return reservationDao.findOne(id);
 	}
 
-	public List<Reservation> getByStatus(short status) {
+	public List<Reservation> getByStatus(String status) {
 		return reservationDao.getReservationsByStatus(status);
 	}
 

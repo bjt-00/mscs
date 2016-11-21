@@ -10,14 +10,19 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Reservation {
-
+public class Reservation implements java.io.Serializable {
+	private static final long serialVersionUID = -7024749134017144341L;
+	public static final String STATUS_CANCELLED = "Cancelled";
+	public static final String STATUS_PENDING = "Pending";
+	public static final String STATUS_COMPLETED = "Completed";
+	public static final String STATUS_EXTENDED = "Extended";
+	
 	private Long id;
 	private Car car;
 	private User user;
 	private Date startDate;
 	private Date endDate;
-	private short status;
+	private String status;
 	
 	@Id
 	@GeneratedValue
@@ -65,11 +70,11 @@ public class Reservation {
 		this.endDate = endDate;
 	}
 
-	public short getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(short status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 }

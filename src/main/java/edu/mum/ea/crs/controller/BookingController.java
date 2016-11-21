@@ -1,19 +1,27 @@
 package edu.mum.ea.crs.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import edu.mum.ea.crs.data.domain.Reservation;
+import edu.mum.ea.crs.service.CarService;
 import edu.mum.ea.crs.service.ReservationService;
+import edu.mum.ea.crs.service.UserService;
 
 @Controller
-public class BookingController {
+@RequestMapping(value="reservations")
+public class BookingController extends GenericController {
 	private static final Logger logger = LoggerFactory.getLogger(BookingController.class);
 	
 	private static final String MODEL_ATTRIBUTE = "reservation";
@@ -22,26 +30,27 @@ public class BookingController {
 	
 	@Autowired
 	private ReservationService reservationService;
+	@Autowired
+	private CarService carService;
+	@Autowired
+	private UserService userService;
 	
-	@RequestMapping(value = "/reservations", method = RequestMethod.GET)
-	public String getAll(Model model, @ModelAttribute("project") Reservation res) {		
-		reservationService.save(res);
-
-		model.addAttribute("reservations", reservationService.findAll());
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String getAll(Model model, @ModelAttribute(MODEL_ATTRIBUTE) Reservation res) {		
+		populateAttribute(model);		
 		if (res.getId() == null) {
 			res = new Reservation();
-		}
-		model.addAttribute("view", VIEW_LIST);
+		}		
 		model.addAttribute(MODEL_ATTRIBUTE, res);		
-		return "dashboard";
+		return getView(VIEW_LIST, model);
 	}
 	
-	@RequestMapping(value = "/reservations/add", method = RequestMethod.POST)
-	public String addOrUpdate(@ModelAttribute(MODEL_ATTRIBUTE) Reservation res, Model model) {
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public String addOrUpdate(@ModelAttribute(MODEL_ATTRIBUTE) Reservation res, Model model) {		
 		try {
 			if (res.getId() == null) {
 				model.addAttribute("msg", "Save Successfully");
-				logger.info("CarController (addOrUpdate): save new car record");
+				logger.info("CarController (addOrUpdate): save new record");
 			} else {
 				model.addAttribute("msg", "Update Successfully");
 			}
@@ -49,13 +58,41 @@ public class BookingController {
 		} catch (Exception e) {
 			logger.error("BookingController (addOrUpdate): " + e.getMessage());		
 		}
-		return "redirect:/booking/u/" + res.getId();
+		model.addAttribute(MODEL_ATTRIBUTE, res);
+		populateAttribute(model);
+		return getView(VIEW_DETAIL, model);
 
 	}
 
-	@RequestMapping(value = "/reservations/add", method = RequestMethod.GET)
-	public String detailPage(@ModelAttribute(MODEL_ATTRIBUTE) Reservation res) {
-		return VIEW_DETAIL;
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	public String detailPage(@ModelAttribute(MODEL_ATTRIBUTE) Reservation res, Model model) {
+		logger.info("Booking controller detailPage() ");
+		populateAttribute(model);		
+		return getView(VIEW_DETAIL, model);
 	}
+	
+	@RequestMapping(value = "/remove", method = RequestMethod.GET)
+	public String remove(Long id, Model model) {
+		logger.info("Booking controller remove() ");
+		reservationService.remove(id);
+		return getView(VIEW_LIST, model);
+	}
+	
+	@RequestMapping(value = "/u/{id}", method = RequestMethod.GET)
+	public String get(@PathVariable Long id, Model model) {
+		logger.info("Booking controller get() ");
+		model.addAttribute(MODEL_ATTRIBUTE, reservationService.findByID(id));
+		populateAttribute(model);
+		return getView(VIEW_DETAIL, model);
+	}
+	
+	private void populateAttribute(Model model) {		
+		model.addAttribute("cars", carService.findAll());
+		model.addAttribute("customers", userService.findAllCustomers());
+		String[] status = {Reservation.STATUS_CANCELLED, Reservation.STATUS_COMPLETED, Reservation.STATUS_EXTENDED, Reservation.STATUS_PENDING};		
+		model.addAttribute("statusList", Arrays.asList(status));
+	}
+	
+	
 
 }

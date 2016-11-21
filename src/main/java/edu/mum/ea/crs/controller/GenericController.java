@@ -1,5 +1,6 @@
 package edu.mum.ea.crs.controller;
 
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 
 public class GenericController {
@@ -14,5 +15,9 @@ public class GenericController {
 	}
 	public void setMessage(String message){
 		model.addAttribute(VIEW_ATTRIBUTE_MSG,message);
+	}
+	public String getView(String view, Model model){
+		 model.addAttribute(VIEW_ATTRIBUTE_NAME,view);
+		return VIEW_DASHBOARD;
 	}
 }

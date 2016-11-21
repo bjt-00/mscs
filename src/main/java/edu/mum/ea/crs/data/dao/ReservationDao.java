@@ -12,7 +12,7 @@ import edu.mum.ea.crs.data.domain.User;
 
 public interface ReservationDao extends JpaRepository<Reservation, Long> {
 	
-	List<Reservation> getReservationsByStatus(short status);
+	List<Reservation> getReservationsByStatus(String status);
 	List<Reservation> getReservationsByUser(User user);
 	List<Reservation> getReservationsByCar(Car car);
 	List<Reservation> getReservationsByStartDate(Date startDate);

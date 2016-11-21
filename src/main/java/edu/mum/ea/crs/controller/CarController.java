@@ -70,8 +70,7 @@ public class CarController extends GenericController {
 
 	@RequestMapping(value = "/cars/add", method = RequestMethod.GET)
 	public String detailPage(@ModelAttribute(MODEL_ATTRIBUTE) Car c, Model model) {
-		model.addAttribute("view", VIEW_DETAIL);
-		System.out.println("detailPage() ");
+		model.addAttribute("view", VIEW_DETAIL);		
 		return "dashboard";
 	}
 

@@ -16,6 +16,7 @@ public class Car {
 	private String plateNo;	
 	private short status;
 	private String displayStatus;
+	private String shortDescription;
 
 	@Id
 	@GeneratedValue	
@@ -95,5 +96,14 @@ public class Car {
 
 	public void setDisplayStatus(String displayStatus) {
 		this.displayStatus = displayStatus;
+	}
+
+	@Transient
+	public String getShortDescription() {
+		return this.getManufacturer() + " " + this.getCarModel() + " " + this.getYear() + this.getColor();
+	}
+
+	public void setShortDescription(String shortDescription) {
+		this.shortDescription = shortDescription;
 	}
 }

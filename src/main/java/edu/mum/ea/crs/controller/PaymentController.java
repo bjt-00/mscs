@@ -25,6 +25,9 @@ public class PaymentController extends GenericController {
 	private static final String PAYMENT_BY_CASH="Cash";
 	private static final String PAYMENT_BY_BANK="Bank";
 	private static final String PAYMENT_BY_PAYPAL="PayPal";
+	private static final String PAYMENT_STATUS_PAID="Paid";
+	private static final String PAYMENT_STATUS_INPROGRESS="Inprogress";
+	
 
 	@Resource
 	PaymentService service;
@@ -45,6 +48,7 @@ public class PaymentController extends GenericController {
 	   public ModelAndView byCash(@Valid @ModelAttribute("payment")Payment payment,ModelMap model) {
 	       super.model=model;
 	       payment.setPaymentMode(PAYMENT_BY_CASH);
+	       payment.setPaymentStatus(PAYMENT_STATUS_PAID);
 	       service.update(payment);
 	       model.addAttribute("payment",payment);
 	       setMessage("Payment By Cash is made successfully");
@@ -53,7 +57,8 @@ public class PaymentController extends GenericController {
 	 @RequestMapping(value = "/byBank", method = RequestMethod.POST)
 	   public ModelAndView byBank(@Valid @ModelAttribute("payment")Payment payment,ModelMap model) {
 	       super.model=model;
-	       payment.setPaymentMode(PAYMENT_BY_CASH);
+	       payment.setPaymentMode(PAYMENT_BY_BANK);
+	       payment.setPaymentStatus(PAYMENT_STATUS_PAID);
 	       service.update(payment);
 	       model.addAttribute("payment",payment);
 	       setMessage("Payment By Bank is made successfully");

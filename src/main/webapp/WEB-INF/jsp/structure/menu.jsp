@@ -26,7 +26,7 @@
                         <a href="${pageContext.request.contextPath}/user/customersList.do">Customers</a>
                     </li>
                      <li class="${(not empty view and view eq 'car/paymentForm'?'active':'')}">
-                        <a href="${pageContext.request.contextPath}/paymentForm.do">Payment Form</a>
+                        <a href="${pageContext.request.contextPath}/payment/paymentForm.do">Payment Form</a>
                     </li>
                 
                     <li class="${(not empty view and fn:containsIgnoreCase(view, 'car/') ?'active':'')}">
@@ -35,16 +35,7 @@
                     <li class="">
                        <a  href="${pageContext.request.contextPath}/reservationsList.do">My Reservations</a>
                     </li>
-                    <!-- >li class="">
-                       <a  href="rest/tr/test">Rest Test </a>
-                    </li>
-                    <li class="">
-                    	<a  href="input.do">Input Test</a>
-                    </li>
-                    <li class="">
-                    	<a  href="welcome.do">Controller Test</a>
-                    </li-->
-                  </ul>
+                   </ul>
       <!-- right menu  -->     
       <ul class="nav navbar-nav navbar-right">
       

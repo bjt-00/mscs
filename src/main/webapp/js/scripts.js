@@ -1,4 +1,15 @@
 $(function() {	
+	/*if(("input[id*=Date], .datepicker").length > 0) {
+		$.fn.datepicker.defaults.format = 'M dd, yyyy';
+		
+		$("input[id*=Date], .datepicker").datepicker({
+			//datesDisabled: ['06/05/2015', '06/07/2015'],
+		 	daysOfWeekDisabled: [0,6],
+			changeMonth: true,
+			changeYear: true
+//			dateFormat: 'M dd, yy'
+		});
+	}*/
 	var $node = $(".linkToUrl");	
 	if($node.length) {
 		$("body").on("click", ".linkToUrl" ,function(e) {

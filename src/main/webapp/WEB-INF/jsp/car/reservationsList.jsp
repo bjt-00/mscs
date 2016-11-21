@@ -25,7 +25,7 @@
 		<th>Status</th>
 	</tr>	
 	<c:forEach var="reservation" items="${reservations}">
-		<tr class="linkToUrl" data-url="${pageContext.request.contextPath}/reservation/u/${reservation.id}">
+		<tr class="linkToUrl" data-url="${pageContext.request.contextPath}/reservations/u/${reservation.id}">
 			<td>${reservation.user.fullName}</td>
 			<td>${reservation.car.shortDescription}</td>
 			<td>${reservation.startDate}</td>

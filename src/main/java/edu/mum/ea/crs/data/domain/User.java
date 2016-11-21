@@ -117,15 +117,14 @@ public class User {
 	}
 	public boolean isLoggedIn() {
 		return loggedIn;
-	}
+	}	
 	public void setLoggedIn(boolean loggedIn) {
 		this.loggedIn = loggedIn;
 	}
 
 	@Transient
-	public String getFullName() {
-		this.setFullName(this.getFirstName() + " " + this.getLastName());
-		return this.fullName;
+	public String getFullName() {	
+		return this.getFirstName() + " " + this.getLastName();
 	}
 	
 	public void setFullName(String fullName) {

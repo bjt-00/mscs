@@ -1,10 +1,10 @@
 <html>
 <head>
-<title>Car Reservation System ::: CRS</title>
+<title>CRS ::: Car Reservation System</title>
 <jsp:include page="imports.jsp"/>
 </head>
 <body>
-H E A D E R
 <jsp:include page="menu.jsp"/>
+<jsp:include page="alert.jsp"/>
 </body>
 </html>

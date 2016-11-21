@@ -6,7 +6,11 @@ import javax.persistence.Id;
 import javax.persistence.Transient;
 
 @Entity
-public class Car {
+public class Car implements java.io.Serializable {	
+	private static final long serialVersionUID = -1650132258026653292L;
+	public static final String STATUS_AVAILABLE = "AVAILABLE";
+	public static final String STATUS_NOT_AVAILABLE = "NOT AVAILABLE";
+	
 	private Long id;
 	private String manufacturer;
 	private String carModel;
@@ -14,8 +18,7 @@ public class Car {
 	private String color;
 	private int speed;
 	private String plateNo;	
-	private short status;
-	private String displayStatus;
+	private String status;
 	private String shortDescription;
 
 	@Id
@@ -77,25 +80,12 @@ public class Car {
 	}
 
 	
-	public short getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(short status) {
+	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	@Transient
-	public String getDisplayStatus() {
-		if (this.getStatus() == (short) 1) {
-			return "AVAILABLE";
-		}
-		return "NOT_AVAILABLE";
-
-	}
-
-	public void setDisplayStatus(String displayStatus) {
-		this.displayStatus = displayStatus;
 	}
 
 	@Transient

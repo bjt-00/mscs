@@ -33,7 +33,7 @@
 			<td>${car.color}</td>
 			<td>${car.speed}</td>
 			<td>${car.plateNo}</td>			
-			<td>${car.displayStatus}</td>
+			<td>${car.status}</td>
 		</tr>
 	</c:forEach>	
 	</table>	

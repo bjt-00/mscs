@@ -1,5 +1,7 @@
 package edu.mum.ea.crs.controller;
 
+import java.util.Arrays;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import edu.mum.ea.crs.data.domain.Car;
-import edu.mum.ea.crs.enumeration.CarStatus;
 import edu.mum.ea.crs.service.CarService;
 
 @Controller
@@ -36,16 +37,16 @@ public class CarController extends GenericController {
 		car.setYear(2011);
 		car.setPlateNo("000000002");
 		car.setSpeed(200);
-		car.setStatus((short) 1);
+		car.setStatus(Car.STATUS_AVAILABLE);
 		carService.save(car);
 
 		model.addAttribute("cars", carService.findAll());
 		if (c.getId() == null) {
 			c = new Car();
-		}
-		model.addAttribute("view", VIEW_LIST);
-		model.addAttribute(MODEL_ATTRIBUTE, c);		
-		return "dashboard";
+		}	
+		model.addAttribute(MODEL_ATTRIBUTE, c);	
+		addStatus(model);
+		return getView(VIEW_LIST, model);
 	}
 
 	@RequestMapping(value = "/cars/save", method = RequestMethod.POST)
@@ -63,29 +64,29 @@ public class CarController extends GenericController {
 		} catch (Exception e) {
 			logger.error("CarController (addOrUpdate): " + e.getMessage());
 		}
-		model.addAttribute(MODEL_ATTRIBUTE, c);
-		model.addAttribute("view", VIEW_DETAIL);
-		return "dashboard";
+		model.addAttribute(MODEL_ATTRIBUTE, c);		
+		addStatus(model);
+		return getView(VIEW_DETAIL, model);
 	}
 
 	@RequestMapping(value = "/cars/add", method = RequestMethod.GET)
-	public String detailPage(@ModelAttribute(MODEL_ATTRIBUTE) Car c, Model model) {
-		model.addAttribute("view", VIEW_DETAIL);		
-		return "dashboard";
+	public String detailPage(@ModelAttribute(MODEL_ATTRIBUTE) Car c, Model model) {		
+		addStatus(model);
+		return getView(VIEW_DETAIL, model);
 	}
 
 	@RequestMapping(value = "/cars/u/{id}", method = RequestMethod.GET)
 	public String get(@PathVariable Long id, Model model) {
 		model.addAttribute(MODEL_ATTRIBUTE, carService.findByID(id));
-		model.addAttribute("view", VIEW_DETAIL);
-		return "dashboard";
+		addStatus(model);
+		return getView(VIEW_DETAIL, model);
 	}
 
 	@RequestMapping(value = "/cars/remove", method = RequestMethod.GET)
 	public String remove(Long id, Model model) {
 		carService.remove(id);
 		model.addAttribute("view", VIEW_LIST);
-		return "dashboard";
+		return getView(VIEW_LIST, model);		
 	}
 
 	@RequestMapping(value = "/cars/search", method = RequestMethod.GET)
@@ -94,8 +95,12 @@ public class CarController extends GenericController {
 			model.addAttribute("cars", carService.getCarsByStatus(query, (short) 1));
 		} else {
 			model.addAttribute("cars", carService.findAll());
-		}
-		model.addAttribute("view", VIEW_LIST);
-		return "dashboard";
+		}		
+		return getView(VIEW_LIST, model);
+	}
+	
+	private void addStatus(Model model) {
+		String[] status = {Car.STATUS_AVAILABLE, Car.STATUS_NOT_AVAILABLE};
+		model.addAttribute("carStatus", Arrays.asList(status));
 	}
 }

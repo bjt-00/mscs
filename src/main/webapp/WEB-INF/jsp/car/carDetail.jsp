@@ -46,27 +46,17 @@
 		<tr>
 		<td>Status:</td>
 		<td>
-			<select name="status" value="${c.status}">
-				<option value="0">--Select--</option>
-				
-				<c:choose>
-				<c:when test="${c.status == 1}">
-					<option value="1" selected="selected">AVAILABLE</option>
-					<option value="2">NOT_AVAILABLE</option>					
-				</c:when>
-				<c:otherwise>
+			<select name="status">				
+				<c:forEach var="s" items="${carStatus}">
 					<c:choose>
-						<c:when test="${c.status == 2}">
-							<option value="1">AVAILABLE</option>
-							<option value="2" selected="selected">NOT_AVAILABLE</option>
-						</c:when>	
+						<c:when test="${s eq car.status }">
+							<option value="${s}" selected="selected">${s}</option>
+						</c:when>
 						<c:otherwise>
-							<option value="1">AVAILABLE</option>
-							<option value="2">NOT_AVAILABLE</option>
+							<option value="${s}">${s}</option>
 						</c:otherwise>
 					</c:choose>
-				</c:otherwise>		
-				</c:choose>		
+				</c:forEach>
 			</select>
 		</td>
 		</tr>

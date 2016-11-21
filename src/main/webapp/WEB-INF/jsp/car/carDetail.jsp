@@ -46,7 +46,7 @@
 		<tr>
 		<td>Status:</td>
 		<td>
-			<select name="status">
+			<select name="status" value="${c.status}">
 				<option value="0">--Select--</option>
 				
 				<c:choose>
@@ -54,13 +54,17 @@
 					<option value="1" selected="selected">AVAILABLE</option>
 					<option value="2">NOT_AVAILABLE</option>					
 				</c:when>
-				<c:when test="${c.status == 2}">
-					<option value="1">AVAILABLE</option>
-					<option value="2" selected="selected">NOT_AVAILABLE</option>
-				</c:when>	
 				<c:otherwise>
-					<option value="1">AVAILABLE</option>
-					<option value="2">NOT_AVAILABLE</option>
+					<c:choose>
+						<c:when test="${c.status == 2}">
+							<option value="1">AVAILABLE</option>
+							<option value="2" selected="selected">NOT_AVAILABLE</option>
+						</c:when>	
+						<c:otherwise>
+							<option value="1">AVAILABLE</option>
+							<option value="2">NOT_AVAILABLE</option>
+						</c:otherwise>
+					</c:choose>
 				</c:otherwise>		
 				</c:choose>		
 			</select>

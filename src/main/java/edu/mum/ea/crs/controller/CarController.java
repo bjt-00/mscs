@@ -45,7 +45,6 @@ public class CarController extends GenericController {
 		}
 		model.addAttribute("view", VIEW_LIST);
 		model.addAttribute(MODEL_ATTRIBUTE, c);		
-		model.addAttribute("statusList", CarStatus.values());
 		return "dashboard";
 	}
 

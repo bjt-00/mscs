@@ -1,7 +1,7 @@
 $(function() {	
 	var $node = $(".linkToUrl");	
 	if($node.length) {
-		$node.click(function(e){
+		$("body").on("click", ".linkToUrl" ,function(e) {
 			e.preventDefault();	
 			window.onbeforeunload = null;
 			window.location.href = $(this).data("url");

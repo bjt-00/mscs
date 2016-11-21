@@ -17,8 +17,8 @@ public class Reservation {
 	private User user;
 	private Date startDate;
 	private Date endDate;
-
-	// private BookingStatus status;
+	private short status;
+	
 	@Id
 	@GeneratedValue
 	public Long getId() {
@@ -63,5 +63,13 @@ public class Reservation {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	public short getStatus() {
+		return status;
+	}
+
+	public void setStatus(short status) {
+		this.status = status;
 	}
 }

@@ -75,6 +75,7 @@ public class Car {
 		return manufacturer;
 	}
 
+	
 	public short getStatus() {
 		return status;
 	}
@@ -82,7 +83,7 @@ public class Car {
 	public void setStatus(short status) {
 		this.status = status;
 	}
-	
+
 	@Transient
 	public String getDisplayStatus() {
 		if (this.getStatus() == (short) 1) {

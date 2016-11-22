@@ -26,9 +26,9 @@
 			<td>${customer.phone}</td>
 			<td>${customer.email}</td>
 			<td>${customer.address}</td>
-			<td>
-			<a href="${pageContext.request.contextPath}/customer/edit?id=${customer.id}">edit</a>
-			<a href="${pageContext.request.contextPath}/customer/delete?id=${customer.id}">x</a>
+			<td> 
+			<a href="${pageContext.request.contextPath}/customer/edit?id=${customer.id}"> <span   class="glyphicon glyphicon-pencil"></span></a>
+			<a href="${pageContext.request.contextPath}/customer/delete?id=${customer.id}"> <span class="glyphicon glyphicon-remove"></span></a>
 			</td>
 		</tr>
 	</c:forEach>	

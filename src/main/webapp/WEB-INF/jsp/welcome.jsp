@@ -1,25 +1,43 @@
-<html>
-<head>
-<title>Spring MVC Tutorial by Crunchify - Hello World Spring MVC
-	Example</title>
-<style type="text/css">
-body {
-	background-image: url('http://bitguiders.com/themes/default/images/contents.png');
-}
-</style>
-</head>
-<body>${message}
- 
-	<br>
-	<br>
-	<div style="font-family: verdana; padding: 10px; border-radius: 10px; font-size: 12px; text-align:center;">
- 
-		Spring MCV Tutorial by <a href="http://bitguiders.com">bitguiders</a>.
-		Click <a
-			href="http://crunchify.com/category/java-web-development-tutorial/"
-			target="_blank">here</a> for all Java and <a
-			href='http://crunchify.com/category/spring-mvc/' target='_blank'>here</a>
-		for all Spring MVC, Web Development examples.<br>
-	</div>
-</body>
-</html>
+
+<div class="container">
+<span class="pageTitle">Application Features</span>
+  <p>Following features are presentation purpose only, default landing page will be Cars</p>  
+  <div class="col-lg-8">          
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Sr.No</th>
+        <th>Feature</th>
+        <th>Description</th>
+        <th>Source</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td><span class="glyphicon glyphicon-ok"> Spring MVC</span></td>
+        <td>used Spring Boot</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td><span class="glyphicon glyphicon-ok"> JPA Transaction</span></td>
+        <td>used Spring Boot Configured</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td><span class="glyphicon glyphicon-ok"> Spring AOP</span></td>
+        <td>used Spring Boot Configured</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td><span class="glyphicon glyphicon-ok"> Mobile/PC Friendly</span></td>
+        <td>used HTML5 Responsive layout & Boot Strap</td>
+        <td></td>
+      </tr>
+     </tbody>
+  </table>
+  </div>
+</div>

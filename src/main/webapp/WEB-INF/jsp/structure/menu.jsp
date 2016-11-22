@@ -25,12 +25,9 @@
                      <li class="${(not empty view and fn:containsIgnoreCase(view, '/customer') ?'active':'')}">
                         <a href="${pageContext.request.contextPath}/customer/list.do">Customers</a>
                     </li>
-                     <li class="${(not empty view and view eq 'car/paymentForm'?'active':'')}">
-                        <a href="${pageContext.request.contextPath}/payment/paymentForm.do">Payment Form</a>
-                    </li>
                 
                     <li class="${(not empty view and fn:containsIgnoreCase(view, 'car/') ?'active':'')}">
-                        <a href="${pageContext.request.contextPath}/cars.do">View Cars</a>
+                        <a href="${pageContext.request.contextPath}/cars.do">Cars</a>
                     </li>
                     <li class="">
                        <a  href="${pageContext.request.contextPath}/reservationsList.do">My Reservations</a>

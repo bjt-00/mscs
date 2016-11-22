@@ -1,8 +1,10 @@
-<link rel="stylesheet" type="text/css" href="http://bitguiders.com/themes/default/default.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://bitguiders.com/themes/default/default.css">
     <!-- Bootstrap Core CSS -->
     <link href="http://bitguiders.com/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
     <!-- Custom CSS -->
 <!-- data table style and scripts -->
   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/dataTable/pagination.css" />

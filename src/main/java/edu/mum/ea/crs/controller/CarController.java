@@ -22,7 +22,7 @@ import edu.mum.ea.crs.service.CarService;
 @RequestMapping("/cars")
 public class CarController extends GenericController {
 	private static Logger logger = LogManager.getLogger();
-
+	
 	private static final String MODEL_ATTRIBUTE = "car";
 	private static final String VIEW_DETAIL = "car/carDetail";
 	private static final String VIEW_LIST = "car/carList";

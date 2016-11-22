@@ -2,8 +2,8 @@ package edu.mum.ea.crs.controller;
 
 import java.util.Arrays;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import edu.mum.ea.crs.data.domain.Customer;
 import edu.mum.ea.crs.data.domain.Reservation;
 import edu.mum.ea.crs.data.domain.User;
 import edu.mum.ea.crs.service.CarService;
@@ -23,7 +22,8 @@ import edu.mum.ea.crs.service.UserService;
 @Controller
 @RequestMapping(value = "reservations")
 public class BookingController extends GenericController {
-	private static final Logger logger = LoggerFactory.getLogger(BookingController.class);
+	//private static final Logger logger = LoggerFactory.getLogger(BookingController.class);
+	private static Logger logger = LogManager.getLogger();
 
 	private static final String MODEL_ATTRIBUTE = "reservation";
 	private static final String VIEW_DETAIL = "car/carReservation";
@@ -56,6 +56,7 @@ public class BookingController extends GenericController {
 				logger.info("BookingController (addOrUpdate): save new record");
 			} else {
 				model.addAttribute("msg", "Update Successfully");
+				logger.info("BookingController (addOrUpdate): update record");
 			}
 			reservationService.save(res);
 			//TODO redirect to PaymentForm and parse reservation ID

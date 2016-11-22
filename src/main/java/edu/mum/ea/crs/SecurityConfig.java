@@ -1,4 +1,4 @@
-/*package edu.mum.ea.crs;
+package edu.mum.ea.crs;
 
 import javax.sql.DataSource;
 
@@ -23,32 +23,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	protected void configure(HttpSecurity http) throws Exception {
 		http 
+			.csrf().disable()
 			.authorizeRequests()
 			.antMatchers("/css/**", "/js/**").permitAll() 
 			.antMatchers("/signUp**").permitAll() 
 			.antMatchers("/**").hasRole("ADMIN")
-			.antMatchers("/customer/**").hasRole("ADMIN")
+			/*.antMatchers("/customer/**").hasRole("ADMIN")*/
 			.anyRequest().authenticated()
 			.and()
 			.formLogin()
 			.loginPage("/login")
 			.successForwardUrl("/loginSucess")
-			.permitAll();
+			.permitAll()
 			.and().logout().permitAll().and().sessionManagement().invalidSessionUrl("/logout");
 			}
 	
 	@Autowired
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
       
-		auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder( new BCryptPasswordEncoder())
+		/*auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder( new BCryptPasswordEncoder())
 		.usersByUsernameQuery(
 				"select username, password, active from account where username=?")
 		.authoritiesByUsernameQuery(
 				"select username, role from account where username=? ");
-		
+		*/
 		auth.inMemoryAuthentication()
-		.withUser("user1")
-		.password("user1")
+		.withUser("admin")
+		.password("admin")
 		.roles("ADMIN");
     }
     	
@@ -57,4 +58,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		web.ignoring().antMatchers("/resource/**");
 	}
 
-}*/
+}

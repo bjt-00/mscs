@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import edu.mum.ea.crs.data.domain.Customer;
 import edu.mum.ea.crs.data.domain.Reservation;
 import edu.mum.ea.crs.data.domain.User;
 import edu.mum.ea.crs.service.CarService;
+import edu.mum.ea.crs.service.CustomerService;
 import edu.mum.ea.crs.service.ReservationService;
 import edu.mum.ea.crs.service.UserService;
 
@@ -33,6 +35,8 @@ public class BookingController extends GenericController {
 	private CarService carService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private CustomerService customerService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String getAll(Model model, @ModelAttribute(MODEL_ATTRIBUTE) Reservation res) {
@@ -70,7 +74,7 @@ public class BookingController extends GenericController {
 		Long carId = (Long) model.asMap().get("carId");
 		if (carId != null) {
 			//TODO need to get Current user
-			User user = userService.findAllCustomers().get(0);
+			User user = userService.findAll().get(0);
 			if (res == null) res = new Reservation();
 			res.setStatus(Reservation.STATUS_PENDING);
 			res.setCar(carService.findByID(carId));
@@ -97,7 +101,7 @@ public class BookingController extends GenericController {
 
 	private void populateAttribute(Model model) {
 		model.addAttribute("cars", carService.findAll());
-		model.addAttribute("customers", userService.findAllCustomers());
+		model.addAttribute("customers", customerService.findAll());
 		String[] status = { Reservation.STATUS_CANCELLED, Reservation.STATUS_COMPLETED, Reservation.STATUS_EXTENDED, Reservation.STATUS_PENDING };
 		model.addAttribute("statusList", Arrays.asList(status));
 	}

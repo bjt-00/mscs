@@ -1,40 +1,40 @@
 package edu.mum.ea.crs.data.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.persistence.OneToOne; 
 
 @Entity
 public class User {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-    @Pattern(regexp = "[A-Za-z ]*", message = "must contain only letters and spaces")
 	private String firstName;
-    @Pattern(regexp = "[A-Za-z ]*", message = "must contain only letters and spaces")
 	private String lastName;
-    @Email(message = "Invalid email address, e.g. valid email address: example@gmail.com")
 	private String email;
-    //@Digits(fraction = 0, integer = 12, message = "Incorrect Format, valid e.g. 121212121212")
-    //@Pattern(regexp = "^[1-9]\\d{3}-\\d{3}-\\d{4}$", message = "must contain only Numbers and spaces")
-    //@Size(min = 10, max = 14)
 	private String phone;
-	private String address;
-	private String role;
-	@NotNull
-	@NotEmpty(message = "Login Id  cannot be empty")
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private Account account;
+	
+	@OneToOne
+	private Address address;
+
+	
+	/*private String role;
 	private String loginId;
 	private String password;
-	private boolean active;
-	private boolean loggedIn;
-	
-	private String fullName;
-	
- 
+	private boolean loggedIn;*/
+
+	public Account getAccount() {
+		return account;
+	}
+	public void setAccount(Account account) {
+		this.account = account;
+	}
 	public User(){
 		
 	}
@@ -45,15 +45,13 @@ public class User {
 		this.lastName=lastName;
 		this.email=email;
 		this.phone=phone;
-		this.address=address;
+		/*this.address=address;
 		this.role=role;
 		this.loginId=loginId;
 		this.password=password;
 		this.active=active;
-		this.loggedIn=loggedIn;
-	}
-	@Id
-	@GeneratedValue
+		this.loggedIn=loggedIn;*/
+	} 
 	public int getId() {
 		return id;
 	}
@@ -85,49 +83,8 @@ public class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	public String getRole() {
-		return role;
-	}
-	public void setRole(String role) {
-		this.role = role;
-	}
-	public String getLoginId() {
-		return loginId;
-	}
-	public void setLoginId(String loginId) {
-		this.loginId = loginId;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public boolean isActive() {
-		return active;
-	}
-	public void setActive(boolean active) {
-		this.active = active;
-	}
-	public boolean isLoggedIn() {
-		return loggedIn;
-	}	
-	public void setLoggedIn(boolean loggedIn) {
-		this.loggedIn = loggedIn;
-	}
-
-	@Transient
-	public String getFullName() {	
-		return this.getFirstName() + " " + this.getLastName();
-	}
 	
-	public void setFullName(String fullName) {
-		this.firstName = fullName;
-	}
+	
+	
+
 }

@@ -25,7 +25,7 @@ public class UserController extends GenericController {
 	 @RequestMapping(value = "/list", method = RequestMethod.GET)
 	   public String getList(ModelMap model) {
 		 
-		 userService.save();
+		// userService.save();
 		 model.addAttribute("usersList",userService.findAll());
 		 super.model=model;
 	      return getView("user/usersList");

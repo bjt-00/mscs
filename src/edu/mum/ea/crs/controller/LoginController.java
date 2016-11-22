@@ -28,7 +28,7 @@ public class LoginController {
 	@RequestMapping(value="/loginSuccess",method=RequestMethod.GET)
 	public String loginSucess(){
 		System.out.println("User Login Success called");
-		return "welcome";
+		return "dashboard";
 		
 	}
 	

@@ -5,7 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne; 
+import javax.persistence.OneToOne;
+import javax.persistence.Transient; 
 
 @Entity
 public class User {
@@ -34,6 +35,12 @@ public class User {
 	}
 	public void setAccount(Account account) {
 		this.account = account;
+	}
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 	public User(){
 		
@@ -83,8 +90,14 @@ public class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
+	@Transient
+	public String getFullName() {	
+		return this.getFirstName() + " " + this.getLastName();
+	}
 	
-	
-	
+	public void setFullName(String fullName) {
+		this.firstName = fullName;
+	}
 
 }

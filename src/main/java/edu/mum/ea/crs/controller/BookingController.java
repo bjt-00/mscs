@@ -102,7 +102,7 @@ public class BookingController extends GenericController {
 
 	private void populateAttribute(Model model) {
 		model.addAttribute("cars", carService.findAll());
-		model.addAttribute("customers", customerService.findAll());
+		model.addAttribute("customers", customerService.findAllCustomers());
 		String[] status = { Reservation.STATUS_CANCELLED, Reservation.STATUS_COMPLETED, Reservation.STATUS_EXTENDED, Reservation.STATUS_PENDING };
 		model.addAttribute("statusList", Arrays.asList(status));
 	}

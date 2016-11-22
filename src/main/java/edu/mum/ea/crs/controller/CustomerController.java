@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import edu.mum.ea.crs.data.domain.Customer;
 import edu.mum.ea.crs.data.domain.User;
 import edu.mum.ea.crs.model.UserBean;
 import edu.mum.ea.crs.service.CustomerService;
@@ -26,8 +25,7 @@ public class CustomerController extends GenericController {
 	 @RequestMapping(value = "/list", method = RequestMethod.GET)
 	   public String getList(ModelMap model) {
 		 
-		 service.save();
-		 model.addAttribute("customersList",service.findAll());
+		 model.addAttribute("customersList",service.findAllCustomers());
 		 super.model=model;
 	      return getView("customer/customersList");
 	   }
@@ -35,15 +33,15 @@ public class CustomerController extends GenericController {
 	 @RequestMapping(value = "/edit", method = RequestMethod.GET)
 	   public ModelAndView edit(@RequestParam int id,ModelMap model) {
 	       super.model=model;
-	       Customer customer = service.getCustomerById(id);
-	       model.addAttribute("customer",customer);
+	       User user = service.getCustomerById(id);
+	       model.addAttribute("customer",user);
 	       return new ModelAndView(getView("customer/customerForm"), "command", new UserBean());
 	   }
 	 @RequestMapping(value = "/update", method = RequestMethod.POST)
-	   public ModelAndView update(@Valid @ModelAttribute("customer")Customer customer,ModelMap model) {
+	   public ModelAndView update(@Valid @ModelAttribute("customer")User user,ModelMap model) {
 	       super.model=model;
-	       service.update(customer);
-	       model.addAttribute("customer",customer);
+	       service.update(user);
+	       model.addAttribute("customer",user);
 	       setMessage("Customer updated successfully");
 	       return new ModelAndView(getView("customer/customerForm"), "command", new UserBean());
 	   }
@@ -56,7 +54,7 @@ public class CustomerController extends GenericController {
 		 service.delete(id);
 		 
 		 model.addAttribute("id",id);
-		 model.addAttribute("customersList",service.findAll());
+		 model.addAttribute("customersList",service.findAllCustomers());
 	       return new ModelAndView(getView("customer/customersList"), "command", new UserBean());
 	   }
 }

@@ -1,4 +1,4 @@
-package edu.mum.ea.crs.data.domain;
+/*package edu.mum.ea.crs.data.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -87,3 +87,4 @@ public class Customer {
 		this.firstName = fullName;
 	}
 }
+*/

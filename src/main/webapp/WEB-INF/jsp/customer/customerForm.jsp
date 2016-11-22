@@ -9,7 +9,6 @@
 	
 	<form action="${pageContext.request.contextPath}/customer/update" method="post">
 		<input name="id" type="hidden" value="${customer.id}">
-		
 		 <div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
@@ -42,7 +41,7 @@
 			<div class="col-lg-12">
 				<div class="form-group">
 					<label for="address">Address</label>
-					<textarea name="address"  class="form-control" rows="3"  placeholder="Address">${customer.address}</textarea>
+					<textarea name="address"  class="form-control" rows="3"  placeholder="Address">${customer.address.address}</textarea>
 				</div>
 			</div>
 		</div>

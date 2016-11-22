@@ -38,9 +38,10 @@
                    </ul>
       <!-- right menu  -->     
       <ul class="nav navbar-nav navbar-right">
-      
+      ${username} --- ${pageContext.request.remoteUser } 
 					        <!-- a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li-->
-        <li><a href="orderstatus.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
 		      </ul>
                 
                 

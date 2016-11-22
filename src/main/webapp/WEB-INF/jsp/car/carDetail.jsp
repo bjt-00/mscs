@@ -6,7 +6,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Car Detail Page</title>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/scripts.js"></script>
 </head>
 <body>
 	<div> <br/>
@@ -42,6 +41,10 @@
 		<tr>
 			<td>Plate No:</td>
 			<td><input type="text" name="plateNo" value="${car.plateNo}" /> </td>
+		</tr>
+		<tr>
+		<td>Rent Per Hour:</td>
+		<td><input type="text" name="rentPerHour" value="${car.rentPerHour}"> </td>
 		</tr>
 		<tr>
 		<td>Status:</td>

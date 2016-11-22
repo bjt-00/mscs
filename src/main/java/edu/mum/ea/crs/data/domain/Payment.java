@@ -11,9 +11,9 @@ public class Payment {
 	@Id
 	@GeneratedValue
 	private int id;
-	private int userId;
-	private int reservationId;
-	private int amountPayable;
+	private Long userId;
+	private Long reservationId;
+	private double amountPayable;
 	private int amountPaid;
 	private String bankPaymentNo;
 	private String paymentMode;
@@ -26,22 +26,22 @@ public class Payment {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
-	public void setUserId(int userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
-	public int getReservationId() {
+	public Long getReservationId() {
 		return reservationId;
 	}
-	public void setReservationId(int reservationId) {
+	public void setReservationId(Long reservationId) {
 		this.reservationId = reservationId;
 	}
-	public int getAmountPayable() {
+	public double getAmountPayable() {
 		return amountPayable;
 	}
-	public void setAmountPayable(int amountPayable) {
+	public void setAmountPayable(double amountPayable) {
 		this.amountPayable = amountPayable;
 	}
 	public int getAmountPaid() {

@@ -12,11 +12,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.mum.ea.crs.data.domain.Car;
+import edu.mum.ea.crs.data.domain.User;
 import edu.mum.ea.crs.service.CarService;
+import edu.mum.ea.crs.service.UserService;
 
 @Controller
+@RequestMapping("/cars")
 public class CarController extends GenericController {
 	private static Logger logger = LogManager.getLogger();
 
@@ -25,10 +30,12 @@ public class CarController extends GenericController {
 	private static final String VIEW_LIST = "car/carList";
 
 	@Autowired
-	private CarService carService;	
+	private CarService carService;
+	@Autowired
+	private UserService userService;
 	private int count;
 
-	@RequestMapping(value = "/cars", method = RequestMethod.GET)
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String getAll(Model model, @ModelAttribute("project") Car c) {
 		logger.info("CarController getAll ");
 		Car car = new Car();
@@ -39,6 +46,7 @@ public class CarController extends GenericController {
 		car.setPlateNo("000000002");
 		car.setSpeed(200);
 		car.setStatus(Car.STATUS_AVAILABLE);
+		car.setRentPerHour(2.0);
 		carService.save(car);
 
 		model.addAttribute("cars", carService.findAll());
@@ -50,7 +58,7 @@ public class CarController extends GenericController {
 		return getView(VIEW_LIST, model);
 	}
 
-	@RequestMapping(value = "/cars/save", method = RequestMethod.POST)
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String addOrUpdate(@ModelAttribute(MODEL_ATTRIBUTE) Car c, Model model) {
 		try {
 			if (c.getId() == null) {
@@ -71,13 +79,13 @@ public class CarController extends GenericController {
 		return getView(VIEW_DETAIL, model);
 	}
 
-	@RequestMapping(value = "/cars/add", method = RequestMethod.GET)
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String detailPage(@ModelAttribute(MODEL_ATTRIBUTE) Car c, Model model) {		
 		addStatus(model);
 		return getView(VIEW_DETAIL, model);
 	}
 
-	@RequestMapping(value = "/cars/u/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/u/{id}", method = RequestMethod.GET)
 	public String get(@PathVariable Long id, Model model) {
 		logger.info("CarController get");
 		model.addAttribute(MODEL_ATTRIBUTE, carService.findByID(id));
@@ -85,14 +93,14 @@ public class CarController extends GenericController {
 		return getView(VIEW_DETAIL, model);
 	}
 
-	@RequestMapping(value = "/cars/remove", method = RequestMethod.GET)
+	@RequestMapping(value = "/remove", method = RequestMethod.GET)
 	public String remove(Long id, Model model) {
 		carService.remove(id);
 		model.addAttribute("view", VIEW_LIST);
 		return getView(VIEW_LIST, model);		
 	}
 
-	@RequestMapping(value = "/cars/search", method = RequestMethod.GET)
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String searchCar(@RequestParam("query") String query, Model model) {
 		if (query.length() > 0) {
 			model.addAttribute("cars", carService.getCarsByStatus(query, (short) 1));
@@ -107,8 +115,23 @@ public class CarController extends GenericController {
 		model.addAttribute("carStatus", Arrays.asList(status));
 	}
 	
-	private void reserve(Model model) {
-		String[] status = {Car.STATUS_AVAILABLE, Car.STATUS_NOT_AVAILABLE};
-		model.addAttribute("carStatus", Arrays.asList(status));
+	@RequestMapping(value = "/reservation/{cid}", method = RequestMethod.GET)
+	public String reserve(@PathVariable Long cid, Model model, 
+			final RedirectAttributes redirectAttributes) {
+		try {
+//		    User user = userService.findAllCustomers().get(0);
+//			redirectAttributes.addFlashAttribute("user", user);
+			redirectAttributes.addFlashAttribute("carId", cid);
+			logger.info(getClass().getSimpleName()+ "=== reserve() get called " ); 
+		} catch (Exception e) {			
+			logger.error(getClass().getSimpleName()+ "===" + e.getMessage()); 
+		}
+		return "redirect:/reservations/add";
 	}
+	
+	@RequestMapping(value ="/rate", method=RequestMethod.GET)
+	public @ResponseBody double getRentalRate(Long id) {		
+		return carService.findByID(id).getRentPerHour();
+	} 
+	
 }

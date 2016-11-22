@@ -19,6 +19,7 @@ public class Car implements java.io.Serializable {
 	private int speed;
 	private String plateNo;	
 	private String status;
+	private double rentPerHour; //rental rate per hour
 	private String shortDescription;
 
 	@Id
@@ -86,6 +87,14 @@ public class Car implements java.io.Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public double getRentPerHour() {
+		return rentPerHour;
+	}
+
+	public void setRentPerHour(double rentPerHour) {
+		this.rentPerHour = rentPerHour;
 	}
 
 	@Transient

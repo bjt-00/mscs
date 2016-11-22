@@ -30,6 +30,15 @@ $(function() {
 	$("#btnCarDelete").on("click",function() {		
 		removeCar(this);
 	});
+	$("select#selectResCar").on("change",function(e) {		
+		populateCarRatePerHour(this);
+	});	
+	
+	$("tr.tdClickUrl td:not(.excLink)").on("click",function(e) {
+		e.preventDefault();	
+		window.onbeforeunload = null;
+		window.location.href = $(this).parent().data("url");
+	});	
 });
 
 function searchCar(data){
@@ -78,4 +87,24 @@ function removeCar(data){
 		alert("Unexpected error "+errorThrown+" textStatus "+textStatus);
 		}  
 	});	
+}
+
+function populateCarRatePerHour(data) {
+	var $el = $(data);
+	var id = $el.val();
+	if (id >= 0) {
+		var actionUrl = $el.data('url');	
+		$.ajax({
+			type:"get",
+			url: actionUrl,
+		    data:{
+		    	id: id
+		    	},
+		    success: function (data) {	    	
+		    	$("input[name='rentPerHour'").val(data);
+		    }
+		});
+	} else {
+		$("input[name='rentPerHour'").val('');
+	}
 }

@@ -7,7 +7,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Car Reservation List</title>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/scripts.js"></script>
 </head>
 <body>
 	<h2>Reservation List</h2>
@@ -29,8 +28,8 @@
 		<tr class="linkToUrl" data-url="${pageContext.request.contextPath}/reservations/u/${reservation.id}">
 			<td>${reservation.user.fullName}</td>
 			<td>${reservation.car.shortDescription}</td>
-			<td><fmt:formatDate pattern="MM/dd/yyyy" value="${reservation.startDate}" /></td>
-			<td><fmt:formatDate pattern="MM/dd/yyyy" value="${reservation.endDate}" /></td>				
+			<td><fmt:formatDate pattern="MM/dd/yyyy HH:mm:ss" value="${reservation.startDate}" /></td>
+			<td><fmt:formatDate pattern="MM/dd/yyyy HH:mm:ss" value="${reservation.endDate}" /></td>				
 			<td>${reservation.status}</td>
 		</tr>
 	</c:forEach>	

@@ -10,11 +10,18 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.joda.time.DateTime;
+import org.joda.time.Period;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import edu.mum.ea.crs.controller.BookingController;
 import edu.mum.ea.crs.util.CustomDateFormatter;
 
 @Entity
 public class Reservation implements java.io.Serializable {
 	private static final long serialVersionUID = -7024749134017144341L;
+	private static final Logger logger = LoggerFactory.getLogger(BookingController.class);
 	public static final String STATUS_CANCELLED = "Cancelled";
 	public static final String STATUS_PENDING = "Pending";
 	public static final String STATUS_COMPLETED = "Completed";
@@ -23,7 +30,7 @@ public class Reservation implements java.io.Serializable {
 	private Long id;
 	private Car car;
 	private User user;
-	private Date startDate;
+	private Date startDate; //pattern="\d{1,2}/\d{1,2}/\d{4}"
 	private Date endDate;
 	private String status;
 	@Transient
@@ -86,7 +93,7 @@ public class Reservation implements java.io.Serializable {
 	}
 
 	public String getDisplayStartDate() {
-		return CustomDateFormatter.displayDateFormat(this.startDate);
+		return CustomDateFormatter.displayDateTimeFormat(this.startDate);
 	}
 
 	public void setDisplayStartDate(String displayStartDate) {
@@ -94,10 +101,21 @@ public class Reservation implements java.io.Serializable {
 	}
 
 	public String getDisplayEndDate() {
-		return CustomDateFormatter.displayDateFormat(this.endDate);
+		return CustomDateFormatter.displayDateTimeFormat(this.endDate);
 	}
 
 	public void setDisplayEndDate(String displayEndDate) {
 		this.displayEndDate = displayEndDate;
+	}
+	
+	public double calAmount() {
+		double amount = 0.0;
+		if (this.startDate != null && this.endDate != null && this.endDate.after(startDate)) {			
+			Period p = new Period(new DateTime(this.startDate), new DateTime(this.endDate));
+			int hours = p.getHours();
+			logger.debug("reservation total hours " + hours);
+			return this.car.getRentPerHour() * (double) hours;			
+		}
+		return amount;
 	}
 }

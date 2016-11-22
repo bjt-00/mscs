@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import edu.mum.ea.crs.data.domain.Reservation;
+import edu.mum.ea.crs.data.domain.User;
 import edu.mum.ea.crs.service.CarService;
 import edu.mum.ea.crs.service.ReservationService;
 import edu.mum.ea.crs.service.UserService;
@@ -48,11 +49,12 @@ public class BookingController extends GenericController {
 		try {
 			if (res.getId() == null) {
 				model.addAttribute("msg", "Save Successfully");
-				logger.info("CarController (addOrUpdate): save new record");
+				logger.info("BookingController (addOrUpdate): save new record");
 			} else {
 				model.addAttribute("msg", "Update Successfully");
 			}
 			reservationService.save(res);
+			//TODO redirect to PaymentForm and parse reservation ID
 		} catch (Exception e) {
 			logger.error("BookingController (addOrUpdate): " + e.getMessage());
 		}
@@ -65,6 +67,15 @@ public class BookingController extends GenericController {
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String detailPage(@ModelAttribute(MODEL_ATTRIBUTE) Reservation res, Model model) {
 		logger.info("Booking controller detailPage() ");
+		Long carId = (Long) model.asMap().get("carId");
+		if (carId != null) {
+			//TODO need to get Current user
+			User user = userService.findAllCustomers().get(0);
+			if (res == null) res = new Reservation();
+			res.setStatus(Reservation.STATUS_PENDING);
+			res.setCar(carService.findByID(carId));
+			res.setUser(user);
+		}
 		populateAttribute(model);
 		return getView(VIEW_DETAIL, model);
 	}

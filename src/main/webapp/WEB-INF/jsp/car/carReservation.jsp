@@ -38,7 +38,7 @@
 				</tr>
 				<tr>
 					<td>Car list:</td>
-					<td><select name="car">
+					<td><select name="car" id="selectResCar" data-url="${pageContext.request.contextPath}/cars/rate">
 							<option value="-1">--Select--</option>
 							<c:forEach var="c" items="${cars}">
 								<c:choose>
@@ -53,15 +53,17 @@
 					</select></td>
 				</tr>
 				<tr>
+					<td>Rent Per Hour:</td>
+					<td><input type="text" name="rentPerHour" value="${reservation.car.rentPerHour}" disabled="disabled"> </td>
+				</tr>		
+				<tr>
 					<td>Reservation Start Date:</td>
-					<td><input type="text" pattern="\d{1,2}/\d{1,2}/\d{4}"
-						class="datepicker" id="startDate" name="startDate"
+					<td><input type="text" class="datepicker" id="startDate" name="startDate"
 						value="${reservation.displayStartDate}" /></td>
 				</tr>
 				<tr>
 					<td>Reservation End Date:</td>
-					<td><input type="text" pattern="\d{1,2}/\d{1,2}/\d{4}"
-						class="datepicker" id="endDate" name="endDate"
+					<td><input type="text" class="datepicker" id="endDate" name="endDate"
 						value="${reservation.displayEndDate}" /></td>
 				</tr>
 				<tr>
@@ -84,7 +86,11 @@
 			<input type="submit" value="Save" />
 			<input type="button" class="linkToUrl"
 				data-url="${pageContext.request.contextPath}/reservationsList" value="Cancel" />
-			<input type="hidden" name="id" value="${reservation.id}"/>	
+			<input type="hidden" name="id" value="${reservation.id}"/>
+			<c:if test="${not empty reservation.id}">
+				<input type="button" data-url="${pageContext.request.contextPath}/payment/paymentForm?rid=${reservation.id}"
+				 value="Pay Now" class="linkToUrl" />
+			</c:if>	
 		</form>
 	</div>
 </body>

@@ -6,7 +6,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Car list Page</title>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/scripts.js"></script>
 </head>
 <body>
 	<h2>List of Car</h2>
@@ -22,20 +21,24 @@
 		<th>Year</th>
 		<th>Color</th>
 		<th>Speed</th>		
-		<th>Plate No.</th>		
+		<th>Plate No.</th>	
+		<th>Rent <br/>Per hour</th>	
 		<th>Status</th>
 	</tr>	
 	<c:forEach var="car" items="${cars}">
-		<tr class="linkToUrl" data-url="${pageContext.request.contextPath}/cars/u/${car.id}">
+		<tr class="tdClickUrl" data-url="${pageContext.request.contextPath}/cars/u/${car.id}">
 			<td>${car.manufacturer}</td>
 			<td>${car.carModel}</td>
 			<td>${car.year}</td>
 			<td>${car.color}</td>
 			<td>${car.speed}</td>
-			<td>${car.plateNo}</td>			
+			<td>${car.plateNo}</td>
+			<td>${car.rentPerHour}</td>			
 			<td>${car.status}</td>
-			<td><a href="${pageContext.request.contextPath}/cars/reservation/${car.id}" >Reserve</a></td>
-		</tr>
+			<td class="excLink"><a href="${pageContext.request.contextPath}/cars/reservation/${car.id}" >Reserve</a></td>
+			<%-- <td> <input type="button" class="linkToUrl" data-url="${pageContext.request.contextPath}/reservations/add?cid=${car.id}"
+			 id="btnCarReserve" value="Reserve"/></td> reservation--%>  			
+		</tr>		 
 	</c:forEach>	
 	</table>	
 </body>

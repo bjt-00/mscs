@@ -26,12 +26,11 @@
    </bean>
    
 	<context:component-scan base-package="edu.mum.ea.crs.model" />
+	<context:component-scan base-package="edu.mum.ea.crs.etl" />
 
 	<bean id="testBean" class="edu.mum.ea.crs.model.TestBean" scope="request"  >
 		<property name="name" value="Waqas" />
 	</bean>
-	<bean id="userBean" class="edu.mum.ea.crs.model.UserBean" scope="request"  >
-		<property name="name" value="Waqas" />
-	</bean>
+	<bean id="carReservationScanner" class="edu.mum.ea.crs.etl.CarReservationScanner" />
 
 </beans>

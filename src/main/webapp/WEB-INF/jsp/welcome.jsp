@@ -33,6 +33,12 @@
       </tr>
       <tr>
         <td>1</td>
+        <td><span class="glyphicon glyphicon-ok"> Spring Quartz</span></td>
+        <td>Calculate Reserve hours / Send Reserve Email Alerts</td>
+        <td></td>
+      </tr>
+     <tr>
+        <td>1</td>
         <td><span class="glyphicon glyphicon-ok"> Mobile/PC Friendly</span></td>
         <td>used HTML5 Responsive layout & Boot Strap</td>
         <td></td>

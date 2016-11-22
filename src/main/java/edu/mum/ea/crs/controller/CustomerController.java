@@ -2,6 +2,8 @@ package edu.mum.ea.crs.controller;
 
 import javax.validation.Valid;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,6 +20,7 @@ import edu.mum.ea.crs.service.CustomerService;
 @Controller
 @RequestMapping(value="customer")
 public class CustomerController extends GenericController {
+	private static Logger logger = LogManager.getLogger();
 	
 	@Autowired
 	CustomerService service;

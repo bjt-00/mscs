@@ -3,6 +3,7 @@ package edu.mum.ea.crs.service;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import edu.mum.ea.crs.data.dao.UserDAO;
 import edu.mum.ea.crs.data.domain.User;
 
 @Service
+@Transactional
 public class UserService {
 
 	@Resource
@@ -41,4 +43,13 @@ public class UserService {
 		return dao.findByName(userName).get(0);
 	}
 
+	public void removeUser(int id) {
+		User user = dao.findOne(id);
+		user.setDeleted(true);
+		dao.save(user);
+	}
+	
+	public List<User> getAllUsers () {
+		return dao.getAllUsers();
+	}
 }

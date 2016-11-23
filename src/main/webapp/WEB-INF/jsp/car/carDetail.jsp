@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="/WEB-INF/CrsCustomTags" prefix="crs"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -17,41 +19,54 @@
 	<c:if test="${not empty msg}">
 		<p>${msg}</p>
 	</c:if>
-	
+	<sec:authorize access="hasAuthority('USER')" var="isCustomer" />
 	<form action="${pageContext.request.contextPath}/cars/save" method="post" id="frmCarDetail">
 	<table border="1">
 		<tr>
 			<td>Make:</td>
-			<td><input type="text" name="manufacturer" value="${car.manufacturer}" /> </td>
+			<td><crs:input type="text" name="manufacturer" value="${car.manufacturer}" disabled="${isCustomer}" /> </td>
 		</tr>
 		<tr>
 			<td>Model:</td>
-			<td><input type="text" name="carModel" value="${car.carModel}" /> </td>
+			<td><crs:input type="text" name="carModel" value="${car.carModel}" disabled="${isCustomer}" /> </td>
 		</tr>
 		<tr>
 			<td>Year:</td>
-			<td><input type="text" name="year" value="${car.year}" /> </td>
+			<td><crs:input type="text" name="year" value="${car.year}" disabled="${isCustomer}" /> </td>
 		</tr>
 		<tr>
 			<td>Color:</td>
-			<td><input type="text" name="color" value="${car.color}" /> </td>
+			<td><crs:input type="text" name="color" value="${car.color}" disabled="${isCustomer}" /> </td>
 		</tr>
 		<tr>
 			<td>Speed:</td>
-			<td><input type="text" name="speed" value="${car.speed}" /> </td>
+			<td><crs:input type="text" name="speed" value="${car.speed}" disabled="${isCustomer}" /> </td>
 		</tr>
 		<tr>
 			<td>Plate No:</td>
-			<td><input type="text" name="plateNo" value="${car.plateNo}" /> </td>
+			<td><crs:input type="text" name="plateNo" value="${car.plateNo}" disabled="${isCustomer}" /> </td>
 		</tr>
 		<tr>
 		<td>Rent Per Hour:</td>
-		<td><input type="text" name="rentPerHour" value="${car.rentPerHour}"> </td>
+		<td><crs:input type="text" name="rentPerHour" value="${car.rentPerHour}" disabled="${isCustomer}" /> </td>
 		</tr>
 		<tr>
 		<td>Status:</td>
 		<td>
-			<select name="status">				
+			<c:choose >
+			<c:when test="${not empty car.id}">
+				<input type="text" disabled="disabled" value="${car.status}">
+			</c:when>
+			<c:otherwise>
+				<select name="status">
+					<c:forEach var="s" items="${carStatus}">
+						<option value="${s}">${s}</option>
+					</c:forEach>
+				</select>
+			</c:otherwise>
+			</c:choose>
+			<%-- 
+			<select name="status" disabled="disabled">				
 				<c:forEach var="s" items="${carStatus}">
 					<c:choose>
 						<c:when test="${s eq car.status }">
@@ -62,7 +77,7 @@
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
-			</select>
+			</select> --%>
 		</td>
 		</tr>
 	</table>

@@ -20,4 +20,6 @@ public interface CarDao extends JpaRepository<Car, Long> {
 	
 	@Query("select distinct c from Car c where c.year= :param or c.speed= :param and c.status= :status")
 	List<Car> getCars(@Param("param") int param, @Param("status") String status);
+	
+	List<Car> findByStatus(String status);
 }

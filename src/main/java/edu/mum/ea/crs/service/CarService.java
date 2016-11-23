@@ -47,4 +47,8 @@ public class CarService {
 	public List<Car> getCarsByStatus(int query, String status) {
 		return carDao.getCars(query, status);
 	}
+	
+	public List<Car> getCars(String status) {
+		return carDao.findByStatus(status);
+	}
 }

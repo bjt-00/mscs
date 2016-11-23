@@ -17,7 +17,7 @@
 		<c:if test="${not empty msg}">
 			<p>${msg}</p>
 		</c:if>
-		<sec:authorize access="hasRole('ADMIN')" var="isAdmin" />
+		<sec:authorize access="hasAuthority('ADMIN')" var="isAdmin" />
 
 		<form action="${pageContext.request.contextPath}/reservations/add"
 			method="post">
@@ -82,7 +82,7 @@
 				</tr>
 				<tr>
 					<td>Status:</td>
-					<td><select name="status">
+					<td><select name="status" disabled="disabled">
 							<option value="">--Select--</option>
 							<c:forEach var="s" items="${statusList}">
 								<c:choose>

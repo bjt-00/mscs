@@ -2,6 +2,7 @@ package edu.mum.ea.crs.data.domain;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -48,7 +49,7 @@ public class Reservation implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.MERGE)
 	public Car getCar() {
 		return car;
 	}

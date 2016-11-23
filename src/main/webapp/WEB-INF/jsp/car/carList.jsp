@@ -31,7 +31,9 @@
 				<span class="btn" style="color:orange;font-size: 25px"> $ ${car.rentPerHour} </span>/Hour
 				<br>
 				<span class="btn">${car.status}</span> | 
+				<c:if test="${car.status != 'NOT AVAILABLE'}">
 				<a class="btn btn-default" href="${pageContext.request.contextPath}/cars/reservation/${car.id}" > Reserve </a>
+				</c:if>
 				</div>
 				
 				<div class="col-lg-4">

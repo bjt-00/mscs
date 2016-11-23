@@ -74,5 +74,16 @@ public class PaymentController extends GenericController {
 	       setMessage("Payment By Bank is made successfully");
 	       return new ModelAndView(getView("car/paymentForm"), "command", new UserBean());
 	   }
-
+	 
+	 @RequestMapping(value = "/byPaypal", method = RequestMethod.POST)
+	 public ModelAndView byPaypal(@Valid @ModelAttribute("payment")Payment payment, ModelMap model) {
+		 super.model=model;
+		 if (payment == null) payment = new Payment();
+	     payment.setPaymentMode(PAYMENT_BY_PAYPAL);
+	     payment.setPaymentStatus(PAYMENT_STATUS_INPROGRESS);
+	     service.update(payment);
+	     model.addAttribute("payment",payment);
+	     //setMessage("Payment By Paypal is made successfully");
+	     return new ModelAndView(getView("car/paymentForm"), "command", new UserBean());
+	 }
 }

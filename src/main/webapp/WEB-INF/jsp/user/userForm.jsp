@@ -13,7 +13,7 @@
 	<h1>Sign Up</h1>
 	<form:form modelAttribute="user" action="/signUp"
 		method="post">
-		
+	<input name="id" type="hidden" value="${user.id}">	
 	<form:errors path="firstName" cssStyle="color:red" /><br>
 <spring:message code="message.firstName" text="Default Text" />
  <form:input path="firstName" type="text" />

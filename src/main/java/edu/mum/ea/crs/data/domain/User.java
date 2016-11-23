@@ -6,33 +6,39 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.Transient;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-import edu.mum.ea.crs.enumeration.Role; 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty; 
 
 @Entity
 public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-	private String firstName;
-	private String lastName;
-	private String email;
-	private String phone;
-	@Transient
-	private boolean admin; 
 	
+    
+	@NotEmpty(message="Enter your first name")
+	private String firstName;
+	
+	@NotEmpty(message="Enter your last name")
+	private String lastName;
+	@NotEmpty(message="Enter  Email id")
+    @Email(message="Enter valid Email id")
+	private String email;
+	@Size(min=10, max=15)
+	private String phone;
+	
+	@Valid
 	@OneToOne(cascade = CascadeType.ALL)
 	private Account account;
 	
-	@OneToOne
+	@Valid
+	@OneToOne(cascade = CascadeType.ALL)
 	private Address address;
 
-	
-	/*private String role;
-	private String loginId;
-	private String password;
-	private boolean loggedIn;*/
 
 	public Account getAccount() {
 		return account;
@@ -40,29 +46,10 @@ public class User {
 	public void setAccount(Account account) {
 		this.account = account;
 	}
-	public Address getAddress() {
-		return address;
-	}
-	public void setAddress(Address address) {
-		this.address = address;
-	}
 	public User(){
 		
 	}
-	public User(int id,String firstName,String lastName,String email,String phone,String address,
-			String role,String loginId,String password,boolean active,boolean loggedIn){
-		this.id = id;
-		this.firstName=firstName;
-		this.lastName=lastName;
-		this.email=email;
-		this.phone=phone;
-		/*this.address=address;
-		this.role=role;
-		this.loginId=loginId;
-		this.password=password;
-		this.active=active;
-		this.loggedIn=loggedIn;*/
-	} 
+	
 	public int getId() {
 		return id;
 	}
@@ -94,20 +81,14 @@ public class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
-	@Transient
-	public String getFullName() {	
-		return this.getFirstName() + " " + this.getLastName();
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 	
-	public void setFullName(String fullName) {
-		this.firstName = fullName;
-	}
-	public boolean isAdmin() {
-		return this.account != null && this.account.getRole() != null && this.account.getRole().name().equals(Role.ADMIN);
-	}
-	public void setAdmin(boolean admin) {
-		this.admin = admin;
-	}
+	
+	
 
 }

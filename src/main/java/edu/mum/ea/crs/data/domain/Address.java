@@ -8,22 +8,25 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 public class Address {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	//@Size(min=2, max=50)
+	@NotEmpty(message="Enter your city")
 	private String city;
-	//@Size(min=2, max=50)
+	@Size(min=2, max=50)
 	private String state;
-	//@Min(10000)
-	//@Max(99999)
+	@Min(10000)
+	@Max(99999)
 	private int zip;
-	//@Size(min=2, max=30)
+	@NotEmpty(message="Enter your street")
 	private String address;
 
  
+public Address(){}
 
 	public int getId() {
 		return id;

@@ -27,30 +27,35 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.authorizeRequests()
 			.antMatchers("/css/**", "/js/**").permitAll() 
 			.antMatchers("/signUp**").permitAll() 
-			.antMatchers("/**").hasRole("ADMIN")
-			/*.antMatchers("/customer/**").hasRole("ADMIN")*/
+			/*.antMatchers("/cars.do").permitAll()  */
+			/*.antMatchers("/**").hasAuthority("ADMIN")
+			.antMatchers("/**").hasAuthority("USER")*/
+			/*.antMatchers("/user/list.do","/customer/list.do").hasAuthority("ADMIN")
+			.antMatchers("/reservations.add").hasAnyAuthority ("ADMIN","USER")*/
 			.anyRequest().authenticated()
 			.and()
 			.formLogin()
 			.loginPage("/login")
 			.successForwardUrl("/loginSucess")
-			.permitAll()
-			.and().logout().permitAll().and().sessionManagement().invalidSessionUrl("/logout");
+			.permitAll();
+			/*.and().logout().permitAll().and().sessionManagement().invalidSessionUrl("/");*/
 			}
 	
 	@Autowired
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
       
-		/*auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder( new BCryptPasswordEncoder())
+		auth.jdbcAuthentication().dataSource(dataSource)
+		.passwordEncoder( new BCryptPasswordEncoder())
 		.usersByUsernameQuery(
 				"select username, password, active from account where username=?")
 		.authoritiesByUsernameQuery(
 				"select username, role from account where username=? ");
-		*/
-		auth.inMemoryAuthentication()
+		
+		/*auth.inMemoryAuthentication()
 		.withUser("admin")
 		.password("admin")
-		.roles("ADMIN");
+		.roles("ADMIN");*/
+		
     }
     	
 	@Override

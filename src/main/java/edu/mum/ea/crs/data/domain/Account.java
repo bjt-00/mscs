@@ -8,6 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
+import com.mysql.jdbc.Blob;
 
 import edu.mum.ea.crs.enumeration.Role;
 
@@ -17,10 +23,10 @@ public class Account {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	/*
-	@OneToOne
-	private User user;*/
+	
+	@NotEmpty(message="Enter your UserName")
 	private String username;
+	@NotEmpty(message="Password field is compulsory")
 	private String password;
 	private Boolean active;
 	@Enumerated(EnumType.STRING)

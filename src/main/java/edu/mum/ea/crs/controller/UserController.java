@@ -1,11 +1,17 @@
 package edu.mum.ea.crs.controller;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,8 +37,8 @@ public class UserController extends GenericController {
 	      return getView("user/usersList");
 	   }
 
-	 @RequestMapping(value = "/edit", method = RequestMethod.GET)
-	   public ModelAndView edit(@RequestParam int id,ModelMap model) {
+	 @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+	   public ModelAndView edit(@PathVariable("id") int id,ModelMap model) {
 	       super.model=model;
 	       User user = userService.getUserById(id);
 	       model.addAttribute("user",user);
@@ -58,4 +64,19 @@ public class UserController extends GenericController {
 		 model.addAttribute("usersList",userService.findAll());
 	       return new ModelAndView(getView("user/usersList"), "command", new UserBean());
 	   }
+	 
+	 @RequestMapping(value = "/userProfile", method = RequestMethod.GET)
+	    public String userInfo(Model model, Principal principal) {
+		 	
+		 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	        // After user login successfully.
+	        String userName = principal.getName();
+	        User u=userService.findByUserName(userName);
+	       model.addAttribute("user",u);
+	       System.out.println("User Name: "+ u.getFirstName());
+	        model.addAttribute("view","user/userProfile");
+			return "dashboard";
+	        
+	        
+	    }
 }

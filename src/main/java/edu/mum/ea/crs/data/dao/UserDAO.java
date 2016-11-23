@@ -9,5 +9,5 @@ import edu.mum.ea.crs.data.domain.User;
 
 public interface UserDAO extends JpaRepository<User, Integer> {
 	@Query("select distinct u from User u join u.account a where a.username= :username")
-	User findByUsername(@Param("username") String username);
+	public User findByUserName(@Param("username") String username);
 }

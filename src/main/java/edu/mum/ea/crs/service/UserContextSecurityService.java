@@ -18,7 +18,7 @@ public class UserContextSecurityService {
 	public User getCurrentUser() {
 		try {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			User user = userService.getByUsername(authentication.getName());
+			User user = userService.findByUserName(authentication.getName());
 			logger.info("getCurrentUser() user " + user);
 			return user;
 		} catch (Exception e) {

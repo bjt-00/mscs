@@ -46,11 +46,10 @@ public class BookingController extends GenericController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String getAll(Model model, @ModelAttribute(MODEL_ATTRIBUTE) Reservation res) {
-		populateAttribute(model);
 		if (res.getId() == null) {
 			res = new Reservation();
 			res.setStatus(Reservation.STATUS_PENDING);
-		}
+		}		
 		model.addAttribute(MODEL_ATTRIBUTE, res);
 		return getView(VIEW_LIST, model);
 	}
@@ -95,7 +94,8 @@ public class BookingController extends GenericController {
 			if (res == null) res = new Reservation();
 			res.setStatus(Reservation.STATUS_PENDING);
 			res.setCar(carService.findByID(carId));
-			if(user.getAccount().getRole().equals(Role.USER)) res.setUser(user);
+			if(user.getAccount() != null && user.getAccount().getRole() != null
+					&& user.getAccount().getRole().equals(Role.USER)) res.setUser(user);
 		}
 		populateAttribute(model);
 		return getView(VIEW_DETAIL, model);

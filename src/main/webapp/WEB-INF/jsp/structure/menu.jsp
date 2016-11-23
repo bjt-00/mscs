@@ -6,7 +6,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 
-<img id="Logo" src="${pageContext.request.contextPath}/themes/default/images/crs.png" alt="CRS ::: Car Reservtion System" title="CRS ::: Car Reservtion System" />
+<img id="Logo" class="linkToUrl" data-url="${pageContext.request.contextPath}/showwelcome" src="${pageContext.request.contextPath}/themes/default/images/crs.png" alt="CRS ::: Car Reservtion System" title="CRS ::: Car Reservtion System" />
    
 <div class="Menu">        
         <!-- Brand and toggle get grouped for better mobile display -->

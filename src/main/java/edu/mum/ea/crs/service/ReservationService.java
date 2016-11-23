@@ -1,5 +1,6 @@
 package edu.mum.ea.crs.service;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import edu.mum.ea.crs.data.dao.ReservationDao;
 import edu.mum.ea.crs.data.domain.Car;
 import edu.mum.ea.crs.data.domain.Reservation;
 import edu.mum.ea.crs.data.domain.User;
+import edu.mum.ea.crs.util.CustomDateFormatter;
 
 @Service
 @Transactional
@@ -61,5 +63,24 @@ public class ReservationService {
 
 	public List<Reservation> findByDatesBetween(Date startDate, Date endDate) {
 		return reservationDao.findByDatesBetween(startDate, endDate);
+	}
+	
+	public List<Reservation> getAllByStartDate(Date startDate) {
+		return reservationDao.getAllByStartDate(startDate);
+	}
+	
+	public List<Reservation> getTomrrowReservatioin() {
+		Calendar c = Calendar.getInstance();		 
+		c.add(Calendar.DATE, 1);
+		c.set(Calendar.HOUR, 1);
+		c.set(Calendar.MINUTE, 1);
+		Date startDate = c.getTime();
+		Calendar cc = Calendar.getInstance();
+		cc.add(Calendar.DATE, 1);
+		cc.set(Calendar.HOUR, 23);
+		cc.set(Calendar.MINUTE, 59);
+		Date endDate = cc.getTime();
+		System.out.println(CustomDateFormatter.displayDateTimeFormat(startDate) + "=======" + CustomDateFormatter.displayDateTimeFormat(endDate));
+		return reservationDao.getAllForTomorrow(startDate, endDate);
 	}
 }

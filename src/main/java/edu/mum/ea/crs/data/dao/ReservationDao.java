@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import edu.mum.ea.crs.data.domain.Car;
 import edu.mum.ea.crs.data.domain.Reservation;
@@ -19,4 +20,10 @@ public interface ReservationDao extends JpaRepository<Reservation, Long> {
 	List<Reservation> getReservationsByEndDate(Date endDate);
 	@Query("select r from Reservation r where r.startDate between ?1 and ?2 and r.endDate between ?1 and ?2")
 	List<Reservation> findByDatesBetween(Date startDate, Date endDate);
+	@Query("select r from Reservation r where r.startDate= :startDate")
+	List<Reservation> getAllByStartDate(@Param("startDate") Date startDate);
+	
+	@Query("select r from Reservation r where r.startDate between :startDate and :endDate")
+	List<Reservation> getAllForTomorrow(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
+	
 }

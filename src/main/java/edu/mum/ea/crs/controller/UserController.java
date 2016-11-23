@@ -30,15 +30,13 @@ public class UserController extends GenericController {
 	
 	 @RequestMapping(value = "/list", method = RequestMethod.GET)
 	   public String getList(ModelMap model) {
-		 
-		// userService.save();
 		 model.addAttribute("usersList",userService.findAll());
 		 super.model=model;
 	      return getView("user/usersList");
 	   }
 
-	 @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-	   public ModelAndView edit(@PathVariable("id") int id,ModelMap model) {
+	 @RequestMapping(value = "/edit", method = RequestMethod.GET)
+	   public ModelAndView edit(@RequestParam int id,ModelMap model) {
 	       super.model=model;
 	       User user = userService.getUserById(id);
 	       model.addAttribute("user",user);
@@ -50,16 +48,14 @@ public class UserController extends GenericController {
 	       userService.update(user);
 	       model.addAttribute("user",user);
 	       setMessage("User updated successfully");
-	       return new ModelAndView(getView("user/userForm"), "command", new UserBean());
+	       return new ModelAndView(getView("user/usersList"), "command", new UserBean());
 	   }
 
 	 @RequestMapping(value = "/delete", method = RequestMethod.GET)
 	   public ModelAndView delete(@RequestParam int id,ModelMap model) {
 		 super.model=model;
 		 setMessage("Selected User deleted successfully");
-		 
 		 userService.delete(id);
-		 
 		 model.addAttribute("id",id);
 		 model.addAttribute("usersList",userService.findAll());
 	       return new ModelAndView(getView("user/usersList"), "command", new UserBean());

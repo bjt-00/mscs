@@ -34,11 +34,21 @@ $(function() {
 		populateCarRatePerHour(this);
 	});	
 	
-	$("tr.tdClickUrl td:not(.excLink)").on("click",function(e) {
+	$("tr.tdClickUrl td div span").on("click",function(e) {
 		e.preventDefault();	
 		window.onbeforeunload = null;
-		window.location.href = $(this).parent().data("url");
+		window.location.href = $(this).parents("tr").data("url");
 	});	
+	//Paypal link
+	$(".clsPaynow").on("click",function() {
+		var $pid = $("#paymentid");
+	
+		if($pid.length && $pid.val().length > 0) {
+			removeCar(this);
+		} else {
+			doPaypayCall(this);
+		}
+	});
 });
 
 function searchCar(data){
@@ -107,4 +117,20 @@ function populateCarRatePerHour(data) {
 	} else {
 		$("input[name='rentPerHour'").val('');
 	}
+}
+
+function doPaypayCall(data) {	
+	var $form = $("form#frmPayment");
+	var actionUrl = $(data).data('murl');
+	console.log(actionUrl);
+	$.ajax({
+		type:"POST",
+		url: actionUrl,
+	    data: $form.serialize(),
+	    dataType: 'html',
+	    success: function (data) {
+	    	//payment current in pending
+	    	$("div#collapse3").html($($.parseHTML(data)).find("div#collapse3").html());
+	    }
+	});
 }

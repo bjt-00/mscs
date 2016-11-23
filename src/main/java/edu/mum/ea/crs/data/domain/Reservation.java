@@ -22,10 +22,11 @@ import edu.mum.ea.crs.util.CustomDateFormatter;
 @Entity
 public class Reservation implements java.io.Serializable {
 	private static final long serialVersionUID = -7024749134017144341L;
-	private static final Logger logger = LoggerFactory.getLogger(BookingController.class);
+	private static final Logger logger = LoggerFactory.getLogger(Reservation.class);
 	public static final String STATUS_CANCELLED = "Cancelled";
 	public static final String STATUS_PENDING = "Pending";
 	public static final String STATUS_COMPLETED = "Completed";
+	public static final String STATUS_CONFIRM = "Confirmed";
 	public static final String STATUS_EXTENDED = "Extended";
 	
 	private Long id;

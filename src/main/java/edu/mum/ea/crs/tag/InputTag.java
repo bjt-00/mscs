@@ -25,8 +25,7 @@ public class InputTag extends SimpleTagSupport {
 		if (clsName != null) sb.append(" class=\"").append(clsName).append("\"");
 		if (disabled) sb.append(" disabled=\"disabled\"");
 		if (value != null) sb.append(" value=\"").append(value).append("\"");
-		sb.append(" />");
-		System.out.println(sb.toString());
+		sb.append(" />");		
 	    out.println(sb.toString());
 	}		
 	

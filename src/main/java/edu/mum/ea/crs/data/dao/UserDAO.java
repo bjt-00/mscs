@@ -15,4 +15,8 @@ public interface UserDAO extends JpaRepository<User, Integer> {
 	
 	@Query("select distinct u from User u join u.account a where a.username= :username")
 	public List<User> findByName(@Param("username") String username);
+	
+	//available users
+	@Query("select distinct u from User u where u.deleted=0")
+	public List<User> getAllUsers();
 }

@@ -16,9 +16,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import edu.mum.ea.crs.data.domain.Account;
 import edu.mum.ea.crs.data.domain.User;
 import edu.mum.ea.crs.enumeration.Role;
 import edu.mum.ea.crs.service.UserService;
@@ -60,7 +57,7 @@ public class LoginController extends GenericController {
 			return getView("user/signUpForm");
         }
 		else{
-		user.getAccount().setRole(Role.USER);
+		user.getAccount().setRole(Role.ADMIN);
 		user.getAccount().setActive(true);
 		userService.save(user);
 		setMessage("Account created successfully, You can login with new account");

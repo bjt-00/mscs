@@ -44,5 +44,9 @@ public class UserService {
 		dao.save(user);
 		
 	}
+	
+	public User getByUsername(String username) {
+		return dao.findByUsername(username);
+	}
 
 }

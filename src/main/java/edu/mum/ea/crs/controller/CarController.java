@@ -87,7 +87,14 @@ public class CarController extends GenericController {
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String searchCar(@RequestParam("query") String query, Model model) {
 		if (query.length() > 0) {
-			model.addAttribute("cars", carService.getCarsByStatus(query, (short) 1));
+			logger.info("searchCar query " + query);
+			if (query.matches("\\d+")) {
+				logger.info("number search");
+				int num = Integer.parseInt(query);
+				model.addAttribute("cars", carService.getCarsByStatus( num, Car.STATUS_AVAILABLE));
+			} else {			
+				model.addAttribute("cars", carService.getCarsByStatus(query, Car.STATUS_AVAILABLE));
+			}
 		} else {
 			model.addAttribute("cars", carService.findAll());
 		}		

@@ -5,6 +5,8 @@ import java.util.Arrays;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,6 +19,7 @@ import edu.mum.ea.crs.data.domain.User;
 import edu.mum.ea.crs.service.CarService;
 import edu.mum.ea.crs.service.CustomerService;
 import edu.mum.ea.crs.service.ReservationService;
+import edu.mum.ea.crs.service.UserContextSecurityService;
 import edu.mum.ea.crs.service.UserService;
 
 @Controller
@@ -37,6 +40,8 @@ public class BookingController extends GenericController {
 	private UserService userService;
 	@Autowired
 	private CustomerService customerService;
+	@Autowired
+	private UserContextSecurityService userContextService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String getAll(Model model, @ModelAttribute(MODEL_ATTRIBUTE) Reservation res) {
@@ -51,15 +56,23 @@ public class BookingController extends GenericController {
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String addOrUpdate(@ModelAttribute(MODEL_ATTRIBUTE) Reservation res, Model model) {
 		try {
+			if (res.getStartDate().compareTo(res.getEndDate()) == 0 
+					|| res.getStartDate().after(res.getEndDate())) {
+						model.addAttribute(MODEL_ATTRIBUTE, res);
+						populateAttribute(model);
+						model.addAttribute("msg", "End date must be after start date");
+						return getView(VIEW_DETAIL, model);
+						
+					}
 			if (res.getId() == null) {
 				model.addAttribute("msg", "Save Successfully");
 				logger.info("BookingController (addOrUpdate): save new record");
 			} else {
 				model.addAttribute("msg", "Update Successfully");
 				logger.info("BookingController (addOrUpdate): update record");
-			}
+			}			
 			reservationService.save(res);
-			//TODO redirect to PaymentForm and parse reservation ID
+			//
 		} catch (Exception e) {
 			logger.error("BookingController (addOrUpdate): " + e.getMessage());
 		}
@@ -74,8 +87,8 @@ public class BookingController extends GenericController {
 		logger.info("Booking controller detailPage() ");
 		Long carId = (Long) model.asMap().get("carId");
 		if (carId != null) {
-			//TODO need to get Current user
-			User user = userService.findAll().get(0);
+			//get Current user		
+			User user = userContextService.getCurrentUser();			
 			if (res == null) res = new Reservation();
 			res.setStatus(Reservation.STATUS_PENDING);
 			res.setCar(carService.findByID(carId));

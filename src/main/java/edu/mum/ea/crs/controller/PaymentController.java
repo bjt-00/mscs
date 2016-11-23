@@ -40,21 +40,17 @@ public class PaymentController extends GenericController {
 	 @RequestMapping(value = "/paymentForm", method = RequestMethod.GET)
 	   public ModelAndView edit(ModelMap model, HttpServletRequest req) {
 	       super.model=model;
-	       //TODO get reservation ID 
+	       //get reservation ID 
 	       Payment payment = new Payment();//service.getPaymentById(id);
-	       //Currently the redirect to other controller doesn't work
 	       String resId = req.getParameter("rid");
 			if (resId != null && resId.matches("^[0-9]")) {
-				//TODO get Current user
-				//User user = userService.findAll().get(0);
 				Reservation reservation = reservationService.findByID(Long.parseLong(resId));
+				logger.info("Payment edit() resvation id " + resId); 
 				payment.setReservationId(reservation.getId());
-			    payment.setUserId(reservation.getCar().getId());
+			    payment.setUserId(reservation.getUser().getId());
 			    payment.setAmountPayable(reservation.calAmount());
+			    logger.info("Payment amountpayable" + reservation.calAmount()); 
 			}
-//	       payment.setReservationId(1L);
-//	       payment.setUserId(1L);
-//	       payment.setAmountPayable(576);
 	       model.addAttribute("payment",payment);
 	       return new ModelAndView(getView("car/paymentForm"), "command", new UserBean());
 	   }

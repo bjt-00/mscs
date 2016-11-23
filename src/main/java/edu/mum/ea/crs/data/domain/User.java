@@ -6,7 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.Transient; 
+import javax.persistence.Transient;
+
+import edu.mum.ea.crs.enumeration.Role; 
 
 @Entity
 public class User {
@@ -17,6 +19,8 @@ public class User {
 	private String lastName;
 	private String email;
 	private String phone;
+	@Transient
+	private boolean admin; 
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Account account;
@@ -98,6 +102,12 @@ public class User {
 	
 	public void setFullName(String fullName) {
 		this.firstName = fullName;
+	}
+	public boolean isAdmin() {
+		return this.account != null && this.account.getRole() != null && this.account.getRole().name().equals(Role.ADMIN);
+	}
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 
 }

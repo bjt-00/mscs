@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,25 +17,38 @@
 		<c:if test="${not empty msg}">
 			<p>${msg}</p>
 		</c:if>
+		<sec:authorize access="hasRole('ADMIN')" var="isAdmin" />
+
 		<form action="${pageContext.request.contextPath}/reservations/add"
 			method="post">
 			<table>
 				<tr>
 					<td>Customer :</td>
-					<td><select name="user">
-							<option value="-1">--Select--</option>
-							<c:forEach var="cus" items="${customers}">
-								<c:choose>
-									<c:when test="${cus.id eq reservation.user.id}">
-										<option value="${cus.id}" selected="selected">${cus.fullName}</option>
-									</c:when>
-									<c:otherwise>
-										<option value="${cus.id}">${cus.fullName}</option>
-									</c:otherwise>
-
-								</c:choose>
-							</c:forEach>
-					</select></td>
+					<td>
+					<c:choose>
+					   <c:when test="${isAdmin}">
+						<select name="user">
+								<option value="-1">--Select--</option>
+								<c:forEach var="cus" items="${customers}">
+									<c:choose>
+										<c:when test="${cus.id eq reservation.user.id}">
+											<option value="${cus.id}" selected="selected">${cus.fullName}</option>
+										</c:when>
+										<c:otherwise>
+											<option value="${cus.id}">${cus.fullName}</option>
+										</c:otherwise>
+	
+									</c:choose>
+								</c:forEach>
+						</select>
+						</c:when>
+					 	<c:otherwise>
+					 			<select name="user" disabled="disabled">
+									<option value="${reservation.user.id}">${reservation.user.fullName}</option>
+								</select>
+					 	</c:otherwise>
+					</c:choose>
+					</td>
 				</tr>
 				<tr>
 					<td>Car list:</td>

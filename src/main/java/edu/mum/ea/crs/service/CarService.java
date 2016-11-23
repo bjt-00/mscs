@@ -36,7 +36,7 @@ public class CarService {
 		return carDao.findOne(id);
 	}
 	
-	public List<Car> getCarsByStatus(String query, short status) {
+	public List<Car> getCarsByStatus(String query, String status) {
 		return carDao.getCarsByStatus(query, status);
 	}
 	
@@ -44,4 +44,7 @@ public class CarService {
 		return carDao.getCars(query);
 	}
 	
+	public List<Car> getCarsByStatus(int query, String status) {
+		return carDao.getCars(query, status);
+	}
 }

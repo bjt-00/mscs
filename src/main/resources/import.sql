@@ -11,3 +11,6 @@ insert into eafp_db.user (id,address_id, account_id, phone, last_name, first_nam
 insert into eafp_db.account (id,username, password, role, active) values(0,'santosh', 'santosh', 'USER',1); 
 insert into eafp_db.address (id,city, state, zip, address) values(0, 'Fairfield', 'Iowa', '52557', '1000 N 4th Street'); 
 insert into eafp_db.user (id,address_id, account_id, phone, last_name, first_name, email) values(0,3, 3, '872 000', 'Karki', 'Santosh', 'santosh@gmail.com'); 
+insert into eafp_db.account (id,username, password, role, active) values(0,'admin', 'admin', 'ADMIN',1); 
+insert into eafp_db.address (id,city, state, zip, address) values(0, 'Fairfield', 'Iowa', '52557', '1000 N 4th Street'); 
+insert into eafp_db.user (id,address_id, account_id, phone, last_name, first_name, email) values(0,4, 4, '872 000', 'Tester', 'Admin', 'admin@gmail.com'); 

@@ -11,7 +11,7 @@ public class Payment {
 	@Id
 	@GeneratedValue
 	private int id;
-	private Long userId;
+	private int userId;
 	private Long reservationId;
 	private double amountPayable;
 	private int amountPaid;
@@ -26,10 +26,10 @@ public class Payment {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Long getUserId() {
+	public int getUserId() {
 		return userId;
 	}
-	public void setUserId(Long userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 	public Long getReservationId() {

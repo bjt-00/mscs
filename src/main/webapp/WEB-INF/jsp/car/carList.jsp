@@ -8,38 +8,64 @@
 <title>Car list Page</title>
 </head>
 <body>
-	<h2>List of Car</h2>
+<br>
+<span class="PageTitle">&nbsp; Find a Car to Reserve</span>
+<br>
 	
-	<input id="txtCarSearch" type="text" value=""/><span>
-	<button id="btnCarSearch" data-url="${pageContext.request.contextPath}/cars/search" type="button"> Search</button> </span>		
 	
-	<span><button class ="linkToUrl" data-url="${pageContext.request.contextPath}/cars/add" id="btnAddCar" type="button"> Add </button> </span>
-	<table id="tblCarList">
+		<div class="col-lg-12" style="text-align:right">
+	<button class ="btn btn-default linkToUrl" data-url="${pageContext.request.contextPath}/cars/add" id="btnAddCar" type="button" style="background-color: orange; color:#ffffff"> Add New Car</button>
+	 </div>
+<div class="listing Box">
+	<table class="sortable" id='tblList' width="100%">
 	<tr>		
-		<th>Manufacturer</th>
-		<th>Model</th>
-		<th>Year</th>
-		<th>Color</th>
-		<th>Speed</th>		
-		<th>Plate No.</th>	
-		<th>Rent <br/>Per hour</th>	
-		<th>Status</th>
+	    <th></th>
 	</tr>	
 	<c:forEach var="car" items="${cars}">
 		<tr class="tdClickUrl" data-url="${pageContext.request.contextPath}/cars/u/${car.id}">
-			<td>${car.manufacturer}</td>
-			<td>${car.carModel}</td>
-			<td>${car.year}</td>
-			<td>${car.color}</td>
-			<td>${car.speed}</td>
-			<td>${car.plateNo}</td>
-			<td>${car.rentPerHour}</td>			
-			<td>${car.status}</td>
-			<td class="excLink"><a href="${pageContext.request.contextPath}/cars/reservation/${car.id}" >Reserve</a></td>
+			<td>
+				<div class="col-lg-4">
+				<img alt="" src="${pageContext.request.contextPath}/cars/${car.id}.jpg" width="150" height="100" />
+				</div>
+				<div class="col-lg-4">
+				<span class="btn" style="color:orange;font-size: 25px"> $ ${car.rentPerHour} </span>/Hour
+				<br>
+				<span class="btn">${car.status}</span> | 
+				<a class="btn btn-default" href="${pageContext.request.contextPath}/cars/reservation/${car.id}" > Reserve </a>
+				</div>
+				
+				<div class="col-lg-4">
+					<ul>
+						<li>Manufacturer : ${car.manufacturer}</li>
+						<li>Model : ${car.carModel}</li>
+						<li>Year : ${car.year}</li>
+						<li>Speed : ${car.speed}</li>
+					</ul>
+				</div>
+			</td>
 			<%-- <td> <input type="button" class="linkToUrl" data-url="${pageContext.request.contextPath}/reservations/add?cid=${car.id}"
 			 id="btnCarReserve" value="Reserve"/></td> reservation--%>  			
 		</tr>		 
 	</c:forEach>	
 	</table>	
+				<div id="Pagination" class="pagination"></div>
+			<input value="Prev" name="prev_text" id="prev_text" type="hidden"><input value="Next" name="next_text" id="next_text" type="hidden"><input value="10" name="items_per_page" id="items_per_page" class="numeric" type="hidden"><input value="10" name="num_display_entries" id="num_display_entries" class="numeric" type="hidden"><input value="2" name="num_edge_entries" id="num_edge_entries" class="numeric" type="hidden">
+	
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/dataTable/filterTable.js"></script>
+
+<script type="text/javascript">
+//this script is important So, don't remove it
+         var table=document.getElementById('tblList');
+         if(table!=null)
+         {/*
+	        var pager = new Pager('tblList', 10); 
+	        pager.init(); 
+	        pager.showPageNav('pager', 'pageNavPosition'); 
+	        pager.showPage(1);
+ 	        */
+         }
+    </script>
+    </div>
+	
 </body>
 </html>

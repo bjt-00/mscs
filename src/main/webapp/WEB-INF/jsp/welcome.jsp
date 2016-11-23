@@ -29,6 +29,9 @@
         <td><span class="glyphicon glyphicon-ok"> JAX-RS</span></td>
       </tr>
      <tr>
+        <td><span class="glyphicon glyphicon-ok"> Internationalization</span></td>
+      </tr>
+     <tr>
         <td><span class="glyphicon glyphicon-ok"> Mobile/PC Friendly</span></td>
       </tr>
      </tbody>

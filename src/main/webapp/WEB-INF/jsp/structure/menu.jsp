@@ -3,7 +3,6 @@
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
 	
-
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 
@@ -32,14 +31,11 @@
 						<a href="${pageContext.request.contextPath}/customer/list.do">Customers</a>
 					</li>				
 				</sec:authorize>
-				<li class="${(not empty view and fn:containsIgnoreCase(view, 'car/') ?'active':'')}">
-                        <a href="${pageContext.request.contextPath}/cars.do">View Cars</a>
+				<li class="${(not empty view and fn:containsIgnoreCase(view, '/carList') ?'active':'')}">
+                        <a href="${pageContext.request.contextPath}/cars.do"> View Cars</a>
                 </li>
 				<sec:authorize access="hasAuthority('ADMIN') or hasAuthority('USER')">
-					<li class="${(not empty view and view eq 'car/paymentForm'?'active':'')}">
-                        <a href="${pageContext.request.contextPath}/payment/paymentForm.do">Payment Form</a>
-                    </li>
-                    <li class="">
+                    <li class="${(not empty view and fn:containsIgnoreCase(view, 'Reservation') ?'active':'')}">
                        <a  href="${pageContext.request.contextPath}/reservationsList.do">My Reservations</a>
                     </li>
                 </sec:authorize>
@@ -51,7 +47,7 @@
         </sec:authorize>
         <sec:authorize access="isAuthenticated()">
         <sec:authentication var="principal" property="principal" />
-        	<li><a href="${pageContext.request.contextPath}/user/userProfile">${principal.username}</a></li>	
+        	<li><a href="${pageContext.request.contextPath}/user/"><span class="glyphicon glyphicon-user"></span> ${principal.username}</a></li>	
         	<li><a href="${pageContext.request.contextPath}/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
         </sec:authorize>
 	</ul>
@@ -62,4 +58,8 @@
   </div>
         <!-- /.container -->
 </nav><!-- Half Page Image Background Carousel Header -->
+<div style="float:right;padding: 4px 0;z-index:1000;width:200px;margin-top:80px;position:box">
+ Language : <a href="?lang=en">English</a>|<a href="?lang=np">Nepali</a><br />
+</div>
+
 <br><br><br><br>

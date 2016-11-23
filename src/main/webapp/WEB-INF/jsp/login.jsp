@@ -12,36 +12,32 @@
 <body>
 	<div style="margin: 0 auto; width: 300px">
 		<br /> <br />
-		<h2>Login</h2>
+<br>
+<span class="PageTitle">&nbsp; Login</span>
 		<br /> <br />
 		<form action="/login" method="post">
-			<div style="float: left; padding: 8px 0px">
-				<label for="userName">UserName</label> <input type="text"
+			<div>
+				<label for="userName">UserName</label> <input class="form-control" type="text"
 					name="username" id="username" required autofocus>
 			</div>
 			<br />
-			<div style="float: left; padding: 8px 0px">
-				<label for="password">Password</label> <input type="password"
+			<div>
+				<label for="password">Password</label> <input class="form-control" type="password"
 					name="password" id="password" required>
 			</div>
 			<br />
 			<input type="hidden"       
 		name="${_csrf.parameterName}"
 		value="${_csrf.token}"/>
-			<div style="float: left; padding: 8px 0px">
-				<button style="margin-left: 74px" type="submit">Sign in</button></br></br>
+			<div class="row">
+				<button class="btn btn-default" style="margin-left: 74px" type="submit">Sign in</button>
+				| 
+				 <a class="btn btn-default" href="/signUp" style="background-color: orange; color:#ffffff">New User.? SignUp</a>
+				
 			</div>
 		</form>
 		
 		</div>
-		<a style="float: right; padding: 8px 0px"  href="/signUp">SignUp</a>
-		<div style="float: right; padding: 8px 0px">
-		New User?
-				
-		
-		
-	</div>
-	<br />
 
 </body>
 </html>

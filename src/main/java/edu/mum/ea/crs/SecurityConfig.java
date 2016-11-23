@@ -32,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/**").hasAuthority("USER")*/
 			/*.antMatchers("/user/list.do","/customer/list.do").hasAuthority("ADMIN")
 			.antMatchers("/reservations.add").hasAnyAuthority ("ADMIN","USER")*/
+			.antMatchers("/**").hasAnyAuthority("ADMIN","USER")
 			.anyRequest().authenticated()
 			.and()
 			.formLogin()
@@ -50,12 +51,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				"select username, password, active from account where username=?")
 		.authoritiesByUsernameQuery(
 				"select username, role from account where username=? ");
-		
-		/*auth.inMemoryAuthentication()
+		/*
+		auth.inMemoryAuthentication()
 		.withUser("admin")
 		.password("admin")
-		.roles("ADMIN");*/
-		
+		.roles("ADMIN");
+		*/
     }
     	
 	@Override

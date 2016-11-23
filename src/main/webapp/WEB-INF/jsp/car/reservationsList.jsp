@@ -9,14 +9,15 @@
 <title>Car Reservation List</title>
 </head>
 <body>
-	<h2>Reservation List</h2>
-	
-	<input id="txtBookingSearch" type="text" value=""/><span>
-	<button id="btnBookingSearch" data-url="${pageContext.request.contextPath}/reservations/search" type="button"> Search</button> </span>		
-	
-	<span><button class ="linkToUrl" data-url="${pageContext.request.contextPath}/reservations/add" 
-		id="btnAddBooking" type="button"> Add </button> </span>
-	<table id="tblBookingList">
+<br>
+<span class="PageTitle">&nbsp; Car Reservations List</span>
+<br>
+	<div class="col-lg-12" style="text-align:right">
+	<button class ="linkToUrl btn btn-default" data-url="${pageContext.request.contextPath}/reservations/add" 
+		id="btnAddBooking" type="button" style="background-color: orange; color:#ffffff"> Reserve Another Car</button> 
+	</div>
+<div class="listing Box">
+	<table class="sortable" id='tblList'>
 	<tr>		
 		<th>Customer</th>
 		<th>Car Description</th>
@@ -34,5 +35,26 @@
 		</tr>
 	</c:forEach>	
 	</table>	
+				<div id="Pagination" class="pagination"></div>
+			<input value="Prev" name="prev_text" id="prev_text" type="hidden"><input value="Next" name="next_text" id="next_text" type="hidden"><input value="10" name="items_per_page" id="items_per_page" class="numeric" type="hidden"><input value="10" name="num_display_entries" id="num_display_entries" class="numeric" type="hidden"><input value="2" name="num_edge_entries" id="num_edge_entries" class="numeric" type="hidden">
+	
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/dataTable/filterTable.js"></script>
+
+<script type="text/javascript">
+//this script is important So, don't remove it
+         var table=document.getElementById('tblList');
+         if(table!=null)
+         {/*
+	        var pager = new Pager('tblList', 10); 
+	        pager.init(); 
+	        pager.showPageNav('pager', 'pageNavPosition'); 
+	        pager.showPage(1);
+ 	        */
+         }
+    </script>
+    </div>
+	<div class="col-lg-12" style="text-align:right">
+	&nbsp;
+	</div>	
 </body>
 </html>

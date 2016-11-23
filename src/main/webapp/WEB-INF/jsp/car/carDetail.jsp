@@ -8,8 +8,10 @@
 <title>Car Detail Page</title>
 </head>
 <body>
+<br>
+<span class="PageTitle">&nbsp; Cars Details</span>
+
 	<div> <br/>
-	<h3>Car Details</h3>
 	</div>
 	<div id = "panelCarDetail">
 	<c:if test="${not empty msg}">

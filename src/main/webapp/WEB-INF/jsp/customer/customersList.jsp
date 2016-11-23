@@ -9,6 +9,9 @@
 <br>
 <span class="PageTitle">&nbsp; Customers List</span>
 <br>
+	<div class="col-lg-12" style="text-align:right">
+	&nbsp;
+	</div>
 <div class="listing Box">
 	<table class="sortable" id='tblList'>
 	<tr>		
@@ -17,7 +20,7 @@
 		<th>Phone</th>
 		<th>Email</th>
 		<th>Address</th>
-		<th>Operations</th>
+		<th></th>
 	</tr>	
 	<c:forEach var="customer" items="${customersList}">
 		<tr>
@@ -26,7 +29,7 @@
 			<td>${customer.phone}</td>
 			<td>${customer.email}</td>
 			<td>${customer.address.address}</td>
-			<td> 
+			<td> &nbsp;
 			<a href="${pageContext.request.contextPath}/customer/edit?id=${customer.id}"> <span   class="glyphicon glyphicon-pencil"></span></a>
 			<a href="${pageContext.request.contextPath}/customer/delete?id=${customer.id}"> <span class="glyphicon glyphicon-remove"></span></a>
 			</td>
@@ -51,6 +54,10 @@
  	        */
          }
     </script>
-    </div>
+   
+    	<div class="col-lg-12" style="text-align:right">
+	&nbsp;
+	</div>	
+     </div>
 </body>
 </html>

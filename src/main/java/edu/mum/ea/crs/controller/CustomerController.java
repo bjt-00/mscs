@@ -37,14 +37,15 @@ public class CustomerController extends GenericController {
 	   public ModelAndView edit(@RequestParam int id,ModelMap model) {
 	       super.model=model;
 	       User user = service.getCustomerById(id);
-	       model.addAttribute("customer",user);
+	       model.addAttribute("user",user);
 	       return new ModelAndView(getView("customer/customerForm"), "command", new UserBean());
 	   }
 	 @RequestMapping(value = "/update", method = RequestMethod.POST)
 	   public ModelAndView update(@Valid @ModelAttribute("customer")User user,ModelMap model) {
+		logger.info("---Customer Controller called for update");
 	       super.model=model;
 	       service.update(user);
-	       model.addAttribute("customer",user);
+	       model.addAttribute("user",user);
 	       setMessage("Customer updated successfully");
 	       return new ModelAndView(getView("customer/customerForm"), "command", new UserBean());
 	   }

@@ -47,39 +47,36 @@ public class LoginController extends GenericController {
 	
 	@RequestMapping(value="/signUp",method=RequestMethod.GET)
 	public String signUp(@ModelAttribute("user")User user, ModelMap model){
-		System.out.println("Get signUp Form");
-		model.addAttribute("view","user/userForm");
-		return "dashboard";
+		super.model = model;
+		return getView("user/signUpForm");
 	}
 	
 		
 	@RequestMapping(value="/signUp",method=RequestMethod.POST)
 	public String afterSignUp(@Valid @ModelAttribute("user")  User user,BindingResult bindingResult,ModelMap model ){
-		
+		super.model = model;
 		if (bindingResult.hasErrors()) {
-			System.out.println("Error in the form");
-			model.addAttribute("view","user/userForm");
-			return "dashboard";
+			setMessage("Error in Form");
+			return getView("user/signUpForm");
         }
 		else{
 		user.getAccount().setRole(Role.USER);
 		user.getAccount().setActive(true);
 		userService.save(user);
-		System.out.println("User Saved");
-		model.addAttribute("view","login");
-		return "dashboard";
+		setMessage("Account created successfully, You can login with new account");
+		return getView("login");
 		}
 	}
 	
 	 @RequestMapping(value = "/logout", method = RequestMethod.GET)
 		public String logoutPage(ModelMap model,HttpServletRequest request, HttpServletResponse response) {
+		 super.model = model;
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			if (auth != null) {
 				new SecurityContextLogoutHandler().logout(request, response, auth);
 			}
-			System.out.println("LoggingOut");
-			model.addAttribute("view","login");
-			return "dashboard";
+			setMessage("Logged out successfully");
+			 return getView("login");
 	 }
 	
 }

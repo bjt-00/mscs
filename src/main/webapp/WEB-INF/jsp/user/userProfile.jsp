@@ -29,6 +29,6 @@
 					</tr> 
 				</table>
 			</fieldset>
-			<a href="/user/edit/${user.id}">Edit Profile</a>
+			<a href="/user/edit?id=${user.id}">Edit Profile</a>
 </body>
 </html>

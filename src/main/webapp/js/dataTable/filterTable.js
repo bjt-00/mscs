@@ -168,13 +168,14 @@ for (var t = 0; t < tables.length; t++) {
 			form.setAttribute("className",'SearchForm');
 			input.setAttribute("class",'Search');
 			form.setAttribute("class",'SearchForm');
-			input.setAttribute("style",'padding-left:25px;height:14px;width:400px;color:#ffffff;font-size:11px;');
+			input.setAttribute("style",'padding-left:25px;height:14px;width:400px;color:#orange;font-size:11px;');
 		input.onkeydown = function() {
 			if (event.keyCode == 13){return false;} 
 		}
 		}else{
 			input.setAttribute("onkeydown","if (event.keyCode == 13){return false;}");
-			input.setAttribute("class",'Search');
+			input.setAttribute("class",'form-control');
+			input.setAttribute("placeholder",'Search');
 			form.setAttribute("class",'SearchForm');
 		}
 		form.appendChild(div);

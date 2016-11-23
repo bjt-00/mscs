@@ -9,6 +9,10 @@
 <br>
 <span class="PageTitle">&nbsp; Users List</span>
 <br>
+	<div class="col-lg-12" style="text-align:right">
+	&nbsp;
+	</div>
+
 <div class="listing Box">
 	<table class="sortable" id='tblList'>
 	<tr>		
@@ -30,9 +34,9 @@
 			<%-- <td>${user.loginId}</td>
 			<td>${user.role}</td>
 			<td>${user.active}</td> --%>
-			<td>
-			<a href="${pageContext.request.contextPath}/user/edit?id=${user.id}">edit</a>
-			<a href="${pageContext.request.contextPath}/user/delete?id=${user.id}">x</a>
+			<td>&nbsp;
+			<a href="${pageContext.request.contextPath}/user/edit?id=${user.id}"><span   class="glyphicon glyphicon-pencil"></span></a>
+			<a href="${pageContext.request.contextPath}/user/delete?id=${user.id}"><span   class="glyphicon glyphicon-remove"></span></a>
 			</td>
 		</tr>
 	</c:forEach>	

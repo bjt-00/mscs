@@ -20,12 +20,12 @@ public class User {
 	private int id;
 	
     
-	@NotEmpty(message="Enter your first name")
+	//@NotEmpty(message="Enter your first name")
 	private String firstName;
 	
-	@NotEmpty(message="Enter your last name")
+	//@NotEmpty(message="Enter your last name")
 	private String lastName;
-	@NotEmpty(message="Enter  Email id")
+	//@NotEmpty(message="Enter  Email id")
     @Email(message="Enter valid Email id")
 	private String email;
 	@Size(min=10, max=15)

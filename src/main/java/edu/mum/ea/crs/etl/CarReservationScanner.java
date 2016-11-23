@@ -14,12 +14,12 @@ public class CarReservationScanner{
 	public CarReservationScanner(){
 		logger.info("--- Reservation Scanner Initiated ");
 	}
-	@Scheduled(cron="0/5 * * * * *")
+	@Scheduled(cron="0 0/10 * * * *")
 	public void scanReservations(){
 		logger.info("--- Reservation Scanner Job Initiated ");
 	}
 
-	@Scheduled(cron="0/5 * * * * *")
+	@Scheduled(cron="0 0/10 * * * *")
 	public void calculateReserveHours(){
 		//TODO calculateReserveHours for each car
 		logger.info("--- Reservation Scanner Job Initiated ");

@@ -16,7 +16,7 @@
 		<br /> <br />
 		<form action="/login" method="post">
 			<div style="float: left; padding: 8px 0px">
-				<label for="userName">User Name</label> <input type="text"
+				<label for="userName">UserName</label> <input type="text"
 					name="username" id="username" required autofocus>
 			</div>
 			<br />
@@ -29,9 +29,17 @@
 		name="${_csrf.parameterName}"
 		value="${_csrf.token}"/>
 			<div style="float: left; padding: 8px 0px">
-				<button style="margin-left: 74px" type="submit">Sign in</button>
+				<button style="margin-left: 74px" type="submit">Sign in</button></br></br>
 			</div>
 		</form>
+		
+		</div>
+		<a style="float: right; padding: 8px 0px"  href="/signUp">SignUp</a>
+		<div style="float: right; padding: 8px 0px">
+		New User?
+				
+		
+		
 	</div>
 	<br />
 

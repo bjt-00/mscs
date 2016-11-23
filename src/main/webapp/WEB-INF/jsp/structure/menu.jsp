@@ -1,4 +1,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="security"%>
+	
 
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -19,15 +23,25 @@
 <div class="collapse navbar-collapse Menu" id="bs-example-navbar-collapse-1">
 				<!-- left menu -->
                 <ul class="nav navbar-nav">
+                <security:authorize access="hasRole('ROLE_ADMIN')">
                      <li class="${(not empty view and fn:containsIgnoreCase(view, '/user') ?'active':'')}">
                         <a href="${pageContext.request.contextPath}/user/list.do">Users</a>
                     </li>
-                     <li class="${(not empty view and fn:containsIgnoreCase(view, '/customer') ?'active':'')}">
-                        <a href="${pageContext.request.contextPath}/customer/list.do">Customers</a>
+				</security:authorize>
+				
+				<security:authorize access="hasRole('ROLE_ADMIN')">
+					<li
+						class="${(not empty view and fn:containsIgnoreCase(view, '/customer') ?'active':'')}">
+						<a href="${pageContext.request.contextPath}/customer/list.do">Customers</a>
+					</li>
+				</security:authorize>
+				
+				<li class="${(not empty view and view eq 'car/paymentForm'?'active':'')}">
+                        <a href="${pageContext.request.contextPath}/payment/paymentForm.do">Payment Form</a>
                     </li>
                 
                     <li class="${(not empty view and fn:containsIgnoreCase(view, 'car/') ?'active':'')}">
-                        <a href="${pageContext.request.contextPath}/cars.do">Cars</a>
+                        <a href="${pageContext.request.contextPath}/cars.do">View Cars</a>
                     </li>
                     <li class="">
                        <a  href="${pageContext.request.contextPath}/reservationsList.do">My Reservations</a>
@@ -35,7 +49,7 @@
                    </ul>
       <!-- right menu  -->     
       <ul class="nav navbar-nav navbar-right">
-      ${username} --- ${pageContext.request.remoteUser } 
+<%--       ${username} --- ${pageContext.request.remoteUser }  --%>
 					        <!-- a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li-->
         <li><a href="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         <li><a href="logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>

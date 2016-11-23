@@ -2,16 +2,11 @@ package edu.mum.ea.crs.controller;
 
 import java.security.Principal;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,7 +25,7 @@ public class UserController extends GenericController {
 	
 	 @RequestMapping(value = "/list", method = RequestMethod.GET)
 	   public String getList(ModelMap model) {
-		 model.addAttribute("usersList",userService.findAll());
+		 model.addAttribute("usersList",userService.getAllUsers());
 		 super.model=model;
 	      return getView("user/usersList");
 	   }
@@ -43,28 +38,32 @@ public class UserController extends GenericController {
 	       return new ModelAndView(getView("user/userForm"), "command", new UserBean());
 	   }
 	 @RequestMapping(value = "/update", method = RequestMethod.POST)
-	   public ModelAndView update(@Valid @ModelAttribute("user")User user,ModelMap model) {
-	       super.model=model;
-	       userService.update(user);
-	       model.addAttribute("user",user);
+	   public String update( @ModelAttribute("user")User u,ModelMap model) {
+	       //super.model=model;
+	       try {
+	    	   userService.update(u);
+	       } catch (Exception e) {
+	    	   System.out.println(e.getMessage());
+	       }
+	       model.addAttribute("user",u);
 	       setMessage("User updated successfully");
-	       return new ModelAndView(getView("user/usersList"), "command", new UserBean());
+	       return "redirect:/user/list";
 	   }
 
 	 @RequestMapping(value = "/delete", method = RequestMethod.GET)
-	   public ModelAndView delete(@RequestParam int id,ModelMap model) {
+	   public String delete(@RequestParam int id,ModelMap model) {
 		 super.model=model;
 		 setMessage("Selected User deleted successfully");
-		 userService.delete(id);
+		 userService.removeUser(id);
 		 model.addAttribute("id",id);
-		 model.addAttribute("usersList",userService.findAll());
-	       return new ModelAndView(getView("user/usersList"), "command", new UserBean());
+		 return "redirect:/user/list";
+	   // return new ModelAndView(getView("user/usersList"), "command", new UserBean());
 	   }
 	 
 	 @RequestMapping(value = "/userProfile", method = RequestMethod.GET)
 	    public String userInfo(Model model, Principal principal) {
 		 	
-		 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		// Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	        // After user login successfully.
 	        String userName = principal.getName();
 	        User u=userService.findByUserName(userName);

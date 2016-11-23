@@ -1,6 +1,7 @@
 package edu.mum.ea.crs.data.domain;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,8 +11,7 @@ import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty; 
+import org.hibernate.validator.constraints.Email; 
 
 @Entity
 public class User {
@@ -26,16 +26,18 @@ public class User {
 	//@NotEmpty(message="Enter your last name")
 	private String lastName;
 	//@NotEmpty(message="Enter  Email id")
-    @Email(message="Enter valid Email id")
+    //@Email(message="Enter valid Email id")
 	private String email;
-	@Size(min=10, max=15)
+	//@Size(min=10, max=15)
 	private String phone;
-	
+	@Column(name="deleted", columnDefinition="tinyint(1) default 0")
+	private boolean deleted;
+
 	@Valid
 	@OneToOne(cascade = CascadeType.ALL)
 	private Account account;
 	
-	@Valid
+	//@Valid
 	@OneToOne(cascade = CascadeType.ALL)
 	private Address address;
 
@@ -86,6 +88,13 @@ public class User {
 	}
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+	
+	public boolean isDeleted() {
+		return deleted;
+	}
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 	
 	@Transient

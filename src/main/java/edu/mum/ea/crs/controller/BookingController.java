@@ -114,14 +114,14 @@ public class BookingController extends GenericController {
 		Reservation res = reservationService.findByID(id);
 		model.addAttribute(MODEL_ATTRIBUTE, res);
 		populateAttribute(model);
-		List<Car> cars = carService.getCars(Car.STATUS_AVAILABLE);
+		List<Car> cars = carService.findAll();
 		cars.add(res.getCar());
 		model.addAttribute("cars", cars);
 		return getView(VIEW_DETAIL, model);
 	}
 
 	private void populateAttribute(Model model) {
-		model.addAttribute("cars", carService.getCars(Car.STATUS_AVAILABLE));
+		model.addAttribute("cars", carService.findAll());
 		model.addAttribute("customers", customerService.findAllCustomers());
 		String[] status = { Reservation.STATUS_CANCELLED, Reservation.STATUS_COMPLETED, Reservation.STATUS_EXTENDED, Reservation.STATUS_PENDING };
 		model.addAttribute("statusList", Arrays.asList(status));

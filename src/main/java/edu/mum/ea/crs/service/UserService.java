@@ -5,11 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.mysql.jdbc.Blob;
 
 import edu.mum.ea.crs.data.dao.UserDAO;
 import edu.mum.ea.crs.data.domain.User;
@@ -42,7 +38,7 @@ public class UserService {
 	}
 
 	public User findByUserName(String userName) {
-		return dao.findByUserName(userName);
+		return dao.findByName(userName).get(0);
 	}
 
 }

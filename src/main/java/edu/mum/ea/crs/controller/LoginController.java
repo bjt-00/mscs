@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,37 +27,22 @@ import edu.mum.ea.crs.service.UserService;
 
 
 @Controller
-public class LoginController {
-	
+public class LoginController extends GenericController {
+	private static Logger logger = LogManager.getLogger();
 	@Autowired
 	UserService userService;
 
 	@RequestMapping(value="/login", method= RequestMethod.GET)
-	public String loginForm(ModelMap model){
-		/*User user = new User();
-		Account account = new Account();
-		account.setPassword("admin");
-		account.setUsername("admin123");
-		account.setRole(Role.ADMIN);
-		account.setActive(true);
-		user.setAccount(account);
-		userService.save(user);*/
-	//	System.out.println("LOgin Form");
-		model.addAttribute("view","login");
-		
-		return "dashboard";
-		
+	public String loginForm(ModelMap model) {
+		model.addAttribute("view","login");		
+		return "dashboard";		
 	}
 	
 	@RequestMapping(value="/loginSucess")
-	public String loginSucess(ModelMap model) { 
-		//model.addAttribute("view","loginSucess");
-		System.out.println("Call login sucess");
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String username = authentication.getName();
-		System.out.println(authentication + "=====" + username);
-		return "dashboard";
- 
+	public String loginSucess(ModelMap model) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();		
+		logger.info(authentication + "=====" + authentication.getName());
+		return "redirect:/cars";
 	}
 	
 	@RequestMapping(value="/signUp",method=RequestMethod.GET)

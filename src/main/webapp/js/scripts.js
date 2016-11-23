@@ -40,15 +40,14 @@ $(function() {
 		window.location.href = $(this).parents("tr").data("url");
 	});	
 	//Paypal link
-	$(".clsPaynow").on("click",function() {
-		var $pid = $("#paymentid");
-	
-		if($pid.length && $pid.val().length > 0) {
-			removeCar(this);
-		} else {
-			doPaypayCall(this);
-		}
-	});
+	var $main = $(".clsPaynow");
+	if ($main.length) {
+		$main.on("click",function() { 
+			var $main = $(".clsPaynow"); 
+			var $pid = $("#paymentid");			
+			doPaypayCall($main);			
+		});
+	}
 });
 
 function searchCar(data){
@@ -131,6 +130,7 @@ function doPaypayCall(data) {
 	    success: function (data) {
 	    	//payment current in pending
 	    	$("div#collapse3").html($($.parseHTML(data)).find("div#collapse3").html());
+	    	console.log('success');
 	    }
 	});
 }

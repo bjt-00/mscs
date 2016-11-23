@@ -78,12 +78,18 @@ public class PaymentController extends GenericController {
 	 @RequestMapping(value = "/byPaypal", method = RequestMethod.POST)
 	 public ModelAndView byPaypal(@Valid @ModelAttribute("payment")Payment payment, ModelMap model) {
 		 super.model=model;
-		 if (payment == null) payment = new Payment();
-	     payment.setPaymentMode(PAYMENT_BY_PAYPAL);
-	     payment.setPaymentStatus(PAYMENT_STATUS_INPROGRESS);
-	     service.update(payment);
-	     model.addAttribute("payment",payment);
-	     //setMessage("Payment By Paypal is made successfully");
+		 logger.info(getClass().getSimpleName() + " byPaypal get called " + payment.getReservationId());
+		 if (payment.getReservationId() != null) {
+		 	Reservation reservation = reservationService.findByID(payment.getReservationId());		 
+			payment.setUserId(reservation.getUser().getId());
+			payment.setAmountPayable(reservation.calAmount());
+		    payment.setPaymentMode(PAYMENT_BY_PAYPAL);
+		    payment.setPaymentStatus(PAYMENT_STATUS_INPROGRESS);
+		    service.update(payment);
+		    model.addAttribute("payment",payment);
+		    //setMessage("Payment By Paypal is made successfully");
+		    logger.info(getClass().getSimpleName() + " byPaypal update payment successfully");
+		 }		 
 	     return new ModelAndView(getView("car/paymentForm"), "command", new UserBean());
 	 }
 }

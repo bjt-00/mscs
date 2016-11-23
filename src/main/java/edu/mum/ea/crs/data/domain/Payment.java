@@ -1,6 +1,6 @@
 package edu.mum.ea.crs.data.domain;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

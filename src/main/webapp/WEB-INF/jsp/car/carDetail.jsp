@@ -19,9 +19,9 @@
 	<c:if test="${not empty msg}">
 		<p>${msg}</p>
 	</c:if>
-	<sec:authorize access="hasAuthority('USER')" var="isCustomer" />
+	<sec:authorize access="hasAuthority('USER') and !hasAuthority('ADMIN') " var="isCustomer" />	
 	<form action="${pageContext.request.contextPath}/cars/save" method="post" id="frmCarDetail">
-	<table border="1">
+	<table border="1" data-test="${isCustomer}">
 		<tr>
 			<td>Make:</td>
 			<td><crs:input type="text" name="manufacturer" value="${car.manufacturer}" disabled="${isCustomer}" /> </td>

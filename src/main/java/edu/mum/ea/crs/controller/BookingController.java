@@ -49,6 +49,7 @@ public class BookingController extends GenericController {
 		populateAttribute(model);
 		if (res.getId() == null) {
 			res = new Reservation();
+			res.setStatus(Reservation.STATUS_PENDING);
 		}
 		model.addAttribute(MODEL_ATTRIBUTE, res);
 		return getView(VIEW_LIST, model);

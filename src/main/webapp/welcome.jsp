@@ -9,7 +9,7 @@
 </head>
 <body>
 <h1>Welcome to Products</h1>
-	<a href="productsList.do"  >Products List</a>
+	<a href="productsList"  >Products List</a>
 
 </body>
 </html>

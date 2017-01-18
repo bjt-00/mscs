@@ -15,11 +15,11 @@
 	<tr>		
 	    <th></th>
 	</tr>	
-		<tr class="tdClickUrl" data-url="${product.productId}/productDetails.do">
+		<tr class="tdClickUrl" data-url="${product.productId}/productDetails">
 			<td>
 			<div class="row">
 				<div class="col-lg-4">
-				<img alt="" src="${pageContext.request.contextPath}/products/${product.productId}.jpg" width="250" height="200" />
+				<img alt="" src="${pageContext.request.contextPath}/resources/products/${product.productId}.jpg" width="250" height="200" />
 				</div>
 				<div class="col-lg-4">
 				<span class="btn" style="color:orange;font-size: 25px"> $ ${product.unitPrice} </span>
@@ -43,7 +43,7 @@
 		</tr>		 
 	</table>	
 <br>
-<a class="btn btn-default" href="${pageContext.request.contextPath}/productsList.do"  > Products List</a>
+<a class="btn btn-default" href="${pageContext.request.contextPath}/productsList"  > Products List</a>
 </div>
 </body>
 </html>

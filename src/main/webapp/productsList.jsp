@@ -24,7 +24,7 @@
     <tbody>
 <c:forEach items="${productsList}" var="product" >
       <tr>
-        <td><a href="${product.productId}/productDetails.do"  >${product.name}</a></td>
+        <td><a href="${product.productId}/productDetails"  >${product.name}</a></td>
         <td>${product.unitPrice}</td>
         <td>${product.category}</td>
         <td>${product.manufacturer}</td>

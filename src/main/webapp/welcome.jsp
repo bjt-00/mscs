@@ -5,8 +5,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Welcome</title>
+<jsp:include page="imports.jsp"/>
 </head>
 <body>
-Welcome ${user.userName}
+<h1>Welcome to Products</h1>
+	<a href="productsList.do"  >Products List</a>
+
 </body>
 </html>

@@ -2,7 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
   <display-name>product</display-name>
   <welcome-file-list>
-    <welcome-file>login.jsp</welcome-file>
+    <welcome-file>/welcome.do</welcome-file>
   </welcome-file-list>
   <servlet>
     <servlet-name>springDispatcherServlet</servlet-name>
@@ -15,6 +15,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>springDispatcherServlet</servlet-name>
-    <url-pattern>/</url-pattern>
+    <url-pattern>*.do</url-pattern>
   </servlet-mapping>
 </web-app>

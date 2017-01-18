@@ -20,7 +20,7 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
 
 	<mvc:annotation-driven />
-	<context:component-scan base-package="mum.cs545.controller" />
+	<context:component-scan base-package="mum.cs545" />
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 	<property name="prefix" value="/"/>
 	<property name="suffix" value=".jsp" />

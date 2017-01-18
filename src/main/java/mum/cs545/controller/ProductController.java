@@ -18,7 +18,7 @@ public class ProductController {
 	@Autowired
 	OrderService service;
 	
-	@RequestMapping(value="/welcome", method=RequestMethod.GET )
+	@RequestMapping(value="/", method=RequestMethod.GET )
 	public String doGet(){
 		return "welcome";
 	}

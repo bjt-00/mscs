@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import mum.cs545.model.User;
 import mum.cs545.service.UserService;
@@ -26,7 +27,9 @@ public class LoginController {
 	UserService service;
 	
 	@RequestMapping(value="/", method=RequestMethod.GET )
-	public String welcome(HttpServletRequest request,@ModelAttribute User user,Model model ){
+	public String welcome(HttpServletRequest request,@ModelAttribute User user,
+			Model model ){
+		
 		Cookie[] cookies = request.getCookies();
 		
 		if(cookies!=null){
@@ -77,9 +80,10 @@ public class LoginController {
 		   return "login";
 		}
 	@RequestMapping(value="/logout",method=RequestMethod.GET)
-	public String logut(SessionStatus status,HttpSession session){
+	public String logut(SessionStatus status,HttpSession session,RedirectAttributes redirectAttributes){
 		status.setComplete();
 		session.invalidate();
+		redirectAttributes.addFlashAttribute("message", "You are logged out successfully.");
 		return "redirect:/";
 	}
 	

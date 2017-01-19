@@ -31,7 +31,7 @@ public class UserRepositoryImpl implements UserRepository {
 	@Override
 	public User getUserById(String id,String password) {
 		User user = getUserById(id);
-			if(user.getPassword().equals(password)){
+			if(user !=null && user.getPassword().equals(password)){
 				return user;
 			}
 		return null;

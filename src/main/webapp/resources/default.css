@@ -1,0 +1,12 @@
+h1{
+	color:orange;
+	border-bottom: 1px dotted;
+	font-size:18px;
+	text-shadow: 1px 2px 0px #e1e1e1;
+}
+body{
+	font-family:verdana;
+	padding:15px;
+	font-size:13px;
+	background-image: url("http://bitguiders.com/themes/default/images/contents.png");
+}

@@ -4,15 +4,13 @@ public class User {
 
 	private String userName;
 	private String password;
-	private String rememberMe;
 
 	public User(){}
 	public User(
 		String userName,
-		String password,String rememberMe){
+		String password){
 		this.userName=userName;
 		this.password=password;
-		this.rememberMe=rememberMe;
 	}
 	public String getUserName() {
 		return userName;
@@ -25,12 +23,6 @@ public class User {
 	}
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	public String getRememberMe() {
-		return rememberMe;
-	}
-	public void setRememberMe(String rememberMe) {
-		this.rememberMe = (rememberMe==null?"":rememberMe);
 	}
 	
 	@Override

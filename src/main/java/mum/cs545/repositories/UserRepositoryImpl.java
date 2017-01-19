@@ -12,8 +12,8 @@ public class UserRepositoryImpl implements UserRepository {
 	List<User> usersList;
 	public UserRepositoryImpl(){
 		usersList = new ArrayList<User>();
-		usersList.add(new User("admin","admin","false"));
-		usersList.add(new User("user","user","false"));
+		usersList.add(new User("admin","admin"));
+		usersList.add(new User("user","user"));
 	}
 	@Override
 	public List<User> getAllUsers() {

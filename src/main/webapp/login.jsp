@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,5 +25,11 @@
   <button type="submit" class="btn btn-default">Submit</button>
 </form>
 <span style="color:red">${message}</span>
+<br>
+<p>Users</p>
+<c:forEach items="${users}" var="user" >
+	${user.userName}/${user.password}<br>
+</c:forEach>
+
 </body>
 </html>

@@ -6,6 +6,7 @@ public class User {
 	private String password;
 	private String rememberMe;
 
+	public User(){}
 	public User(
 		String userName,
 		String password,String rememberMe){

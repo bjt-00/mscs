@@ -1,33 +1,32 @@
 package mum.cs545.controller;
 
+import java.util.List;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.ws.rs.DefaultValue;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import mum.cs545.model.User;
 import mum.cs545.service.UserService;
 
 @Controller
-@SessionAttributes("user")
 public class LoginController {
 	
 	@Autowired
 	UserService service;
 	
 	@RequestMapping(value="/", method=RequestMethod.GET )
-	public String welcome(HttpServletRequest request,Model model ){
-		
+	public String welcome(HttpServletRequest request,@ModelAttribute User user,Model model ){
 		Cookie[] cookies = request.getCookies();
 		
 		if(cookies!=null){
@@ -43,10 +42,11 @@ public class LoginController {
 			//@RequestParam("rememberMe") String rememberMe,
 			HttpServletRequest request,
 			HttpServletResponse response,
+			@ModelAttribute User user,
 			Model model){
 		   String rememberMe = request.getParameter("rememberMe");
 		   
-		   User user = service.getUserById(userName, password);
+		   		user = service.getUserById(userName, password);
 		   
 		   		if(service.isValid(user)){
 				   user.setRememberMe(rememberMe);
@@ -70,7 +70,6 @@ public class LoginController {
 						}}
 			   
 				   	}
-					model.addAttribute("user", user);
 					return "welcome";
 		   		}else{
 		   			model.addAttribute("message", "Invalid user or password");
@@ -82,5 +81,10 @@ public class LoginController {
 		status.setComplete();
 		session.invalidate();
 		return "redirect:/";
+	}
+	
+	@ModelAttribute("users")
+	public List<User> getAllUsers() {
+	return service.getAllUsers();
 	}
 }

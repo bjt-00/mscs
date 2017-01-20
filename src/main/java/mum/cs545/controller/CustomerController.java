@@ -1,7 +1,9 @@
 package mum.cs545.controller;
 
 import java.util.List;
+import java.util.Locale;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import mum.cs545.model.User;
 import mum.cs545.service.UserService;
@@ -42,7 +45,14 @@ public class CustomerController {
 			}
 		   return "customerDetails";
 		}
-	
+	@RequestMapping(value="/customer", method=RequestMethod.GET )
+	public String setLocale(@RequestParam(value="language" ,required=false)String language,@ModelAttribute("user") User user,HttpServletResponse response){
+		
+		if(null!=language){
+			response.setLocale(new Locale(language));
+		}
+		return "customerForm";
+	}
 	@ModelAttribute("users")
 	public List<User> getAllUsers() {
 	return service.getAllUsers();

@@ -11,7 +11,7 @@
 </head>
 <body>
 <h1>${user.userName} <spring:message code="label.customerDetails" /></h1>
-<p>Language : <a href="?language=en">English</a> 
+<p>Language : <a href="?language=en_US">English</a> 
 | <a href="?language=ur_PK"><spring:message code="label.language" /></a>
  | Current Locale : ${pageContext.response.locale}
 </p>

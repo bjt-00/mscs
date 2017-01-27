@@ -1,59 +1,44 @@
 package mum.cs545.model;
 
-import java.util.Locale;
+import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.faces.bean.ManagedBean;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
+public class User implements Serializable {
 
-@ManagedBean(name="user")
-public class User {
-
-
-	private String userName_;
-	private String password_;
-	private String postConstructMessage;
-	private String preDestroyMessage;
-
-	@PostConstruct
-	public void init(){
-		postConstructMessage="Initiated :) ";
-	}
-	@PreDestroy
-	public void clean(){
-		postConstructMessage="Destroyed :( ";
-	}
+	private int id;
+	private String name;
+	private String password;
+	private String role;
 	
 	public User(){}
-	public User(String userName,String password){
-		this.userName_ = userName;
-		this.password_ = password;
+	public User(int id,String name,String password,String role){
+		this.id=id;
+		this.name = name;
+		this.password = password;
+		this.role = role;
 	}
-	public String getUserName() {
-		return userName_;
+	public String getName() {
+		return name;
 	}
-	public void setUserName(String userName) {
-		this.userName_ = userName;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getPassword() {
-		return password_;
+		return password;
 	}
 	public void setPassword(String password) {
-		this.password_ = password;
+		this.password = password;
 	}
 	
-	public String getMessage(){
-		return (null!=userName_ && !"".equals(userName_) ?"Welcome "+userName_:"Please Enter User Name");
-		//UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
-		//viewRoot.setLocale(new Locale("en"));
+	public String getRole() {
+		return role;
 	}
-
-	public String getPostConstructMessage() {
-		return postConstructMessage;
+	public void setRole(String role) {
+		this.role = role;
 	}
-	public String getPreDestroyMessage() {
-		return preDestroyMessage;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 }

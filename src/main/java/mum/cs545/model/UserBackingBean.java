@@ -75,6 +75,7 @@ public class UserBackingBean extends JSFBeanSupport implements JSFBeanInterface<
 			setCurrentAction(WebConstants.ACTION_VIEW);
 			return "usersList";
 		}else if(isCreateAction()){
+			this.user = new User();
 			return "userForm";
 		}else if(isEditAction()){
 			 this.user = user;

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<facelet-taglib>
+<namespace>http://bitguiders.com/jsf/tags</namespace>
+<tag>
+<tag-name>alert</tag-name>
+<source>../view/tags/alert.xhtml</source>
+</tag>
+</facelet-taglib>

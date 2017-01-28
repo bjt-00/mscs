@@ -1,0 +1,37 @@
+<ui:composition  template="/view/templates/defaultTemplate.xhtml" 
+xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:f="http://java.sun.com/jsf/core" 
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	   >
+	<ui:define name="pageTitle">#{userBean.pageTitle} #{userBean.user.name}</ui:define>
+	<ui:define name="contents">
+
+		<div class="form-group">
+			<label for="user">${sid['label.userName']}</label>
+			<input type="text" jsfc="h:inputText" value="#{userBean.user.name}" id="user" p:placeholder="Enter User Name"  required="true" class="form-control" />
+			<h:message for="user"/>
+		</div>
+		<div class="form-group">
+			<label for="user">#{sid['label.password']}</label>
+			<h:inputText value="#{userBean.user.password}"  id="pwd" styleClass="form-control" />
+		</div>
+		<div class="form-group">
+			<label for="role">#{sid['label.role']}</label>
+			<h:selectOneMenu styleClass="form-control" value="#{userBean.user.role}"  >
+				<f:selectItem itemLabel="Admin" itemValue="Admin"  />
+				<f:selectItem itemLabel="User" itemValue="User"  />
+				<f:selectItem itemLabel="Guest" itemValue="Guest"  />
+			</h:selectOneMenu>
+		</div>
+		<div class="form-group">
+			<h:commandLink action="#{userBean.actionListener(action.cancel,null)}" value="#{sid['label.cancel']}"  immediate="true"  styleClass="btn btn-default"/>
+			<h:commandButton action="#{userBean.actionListener(action.save,null)}" value="#{sid['label.submit']}" rendered="#{userBean.saveAction}" styleClass="btn btn-default"/>
+			<h:commandButton action="#{userBean.actionListener(action.update,null)}" value="#{sid['label.update']}" rendered="#{userBean.editAction}" styleClass="btn btn-default"/>
+			<h:commandButton action="#{userBean.actionListener(action.deleteConfirmed,null)}" value="#{sid['label.delete']}" rendered="#{userBean.deleteAction}" styleClass="btn btn-default"/>
+		</div>
+		<div class="form-group">
+		</div>
+</ui:define>
+</ui:composition>

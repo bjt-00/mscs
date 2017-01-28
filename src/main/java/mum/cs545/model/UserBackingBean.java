@@ -21,7 +21,8 @@ public class UserBackingBean extends JSFBeanSupport implements JSFBeanInterface<
 
 	@PostConstruct
 	public void init(){
-		setCurrentAction(WebConstants.ACTION_VIEW);
+		setCurrentAction(WebConstants.DOMAIN_USER,WebConstants.ACTION_VIEW);
+		setView(WebConstants.VIEW_USER_LIST);
 		user = new User();
 		
 		usersList = new ArrayList<User>();
@@ -29,7 +30,7 @@ public class UserBackingBean extends JSFBeanSupport implements JSFBeanInterface<
 		usersList.add(new User(usersList.size()+1,"Rakesh","rakesh","User"));
 		usersList.add(new User(usersList.size()+1,"Waqas","waqas","Guest"));
 		
-		setMessage("Total Users found "+usersList.size());
+		setInfo("Total Users found "+usersList.size());
 	}
 	@PreDestroy
 	public void clean(){
@@ -59,39 +60,40 @@ public class UserBackingBean extends JSFBeanSupport implements JSFBeanInterface<
 			setMessage(user.getName()+" added successfully");
 			return "usersList";
 		}else{
-			setMessage("One of required field is empty");
+			setError("One of required field is empty");
 			return "userForm";
 		}
 	}
 	@Override
 	public String actionListener(String action, User user) {
-		setCurrentAction(action);
+		setCurrentAction(WebConstants.DOMAIN_USER,action);
 		if(isDeleteAction()){
 			this.user=user;
-			setMessage("Do you really want to delete "+user.getName());
-			return "userForm";
+			setWarning("Do you really want to delete "+user.getName());
+			setView(WebConstants.VIEW_USER_FORM);
 		}else if(isDeleteConfirmedAction()){
 			delete();
-			setCurrentAction(WebConstants.ACTION_VIEW);
-			return "usersList";
+			setCurrentAction(getDomain(),WebConstants.ACTION_VIEW);
+			setView(WebConstants.VIEW_USER_LIST);
 		}else if(isCreateAction()){
-			return "userForm";
+			this.user = new User();
+				setView(WebConstants.VIEW_USER_FORM);
 		}else if(isEditAction()){
 			 this.user = user;
-			 return "userForm";
+			 setView(WebConstants.VIEW_USER_FORM);
 		}else if(isUpdateAction()){
 			 update();
-			setCurrentAction(WebConstants.ACTION_VIEW);
-			 return "usersList";
+			setCurrentAction(getDomain(),WebConstants.ACTION_VIEW);
+			setView(WebConstants.VIEW_USER_LIST);
 		}else if(isSaveAction()){
 			 add();
-			setCurrentAction(WebConstants.ACTION_VIEW);
-			 return "usersList";
+			setCurrentAction(getDomain(),WebConstants.ACTION_VIEW);
+			setView(WebConstants.VIEW_USER_LIST);
 		}else if(isCancelAction()){
-			setCurrentAction(WebConstants.ACTION_VIEW);
-			 return "usersList";
+			setCurrentAction(getDomain(),WebConstants.ACTION_VIEW);
+			setView(WebConstants.VIEW_USER_LIST);
 		}
-		return "usersList";
+		return getView();
 	}
 	@Override
 	public List<User> getList() {

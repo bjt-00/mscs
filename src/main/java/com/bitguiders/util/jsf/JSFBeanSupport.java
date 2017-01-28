@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author abdulkareem
  *
  */
-public abstract class JSFBeanSupport {
+public abstract class JSFBeanSupport extends JSFMessageSupport {
 
 	private boolean isCreateAction;
 	private boolean isDeleteAction;
@@ -116,9 +116,10 @@ public abstract class JSFBeanSupport {
 	}
 
 	
-	public void setCurrentAction(String currentAction){
+	public void setCurrentAction(String domain,String currentAction){
 		reset();
 		this.currentAction = currentAction;
+		this.domain = domain;
 		switch(this.currentAction)
 		{
 		case WebConstants.ACTION_CREATE:
@@ -182,6 +183,22 @@ public abstract class JSFBeanSupport {
 		return action;
 	}
 	
+	private String view;
+	private String domain;
+	public void setView(String viewName) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpServletRequest request = (HttpServletRequest) context
+				.getExternalContext().getRequest();
+		request.getSession().setAttribute("viewName", domain+"/"+viewName);
+		
+		this.view = viewName;
+	}
+	public String getView(){
+		return this.view;
+	}
+	public String getDomain(){
+		return this.domain;
+	}
 	public String getSelectedApplication() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpServletRequest request = (HttpServletRequest) context
@@ -271,8 +288,5 @@ public abstract class JSFBeanSupport {
 		this.id=id;
 	}
 	
-	public void setMessage(String message){
-		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("message", message);
-	}
 
 }

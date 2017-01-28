@@ -5,6 +5,13 @@ import javax.faces.bean.ManagedBean;
 @ManagedBean(name="action")
 public class WebConstants {
 
+	//DOMAINS
+	public static final String DOMAIN_USER     ="user";
+	
+	//views 
+	public static final String VIEW_USER_FORM ="userForm"; 
+	public static final String VIEW_USER_LIST ="usersList"; 
+	
 
 	//ACTIONS
 	public static final String ACTION_ADD		= "add";

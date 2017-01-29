@@ -5,15 +5,53 @@ import javax.faces.bean.ManagedBean;
 @ManagedBean(name="action")
 public class WebConstants {
 
+	public enum DOMAIN{
+		USER("user");
+		private String domain;
+		DOMAIN(String domain){
+			this.domain = domain;
+		}
+		public String getDomain(){
+			return this.domain;
+		}
+		public String getFormViewName(){
+			return domain+"Form";
+		}
+		public String getListViewName(){
+			return domain+"List";
+		}
+	}
+	/*
 	//DOMAINS
 	public static final String DOMAIN_USER     ="user";
 	
 	//views 
 	public static final String VIEW_USER_FORM ="userForm"; 
 	public static final String VIEW_USER_LIST ="usersList"; 
-	
+	*/
 
 	//ACTIONS
+	public enum ACTION{
+		CREATE("Create"),
+		VIEW("View"),
+		EDIT("Edit"),
+		UPDATE("Update"),
+		DELETE("Delete"),
+		DELETE_CONFIRMED("Delete Confirmed"),
+		CANCEL("Cancel"),
+		SAVE("Save");
+		private String action;
+		ACTION(String action){
+			this.action = action;
+		}
+		public String getAction(){
+			return this.action;
+		}
+		public String getPageTitle(){
+			return action;
+		}		
+	}
+/*
 	public static final String ACTION_ADD		= "add";
 	public static final String ACTION_CREATE	= "create";
 	public static final String ACTION_VIEW		= "view";
@@ -55,27 +93,27 @@ public class WebConstants {
 	public static final String TAB_DATASOURCES	= "datasources";
 	public static final String MENU_DATASET				="dataSet";
 	public static final String MENU_CONNECTION			="connection";
-
-	public String getCreate(){
-		return ACTION_CREATE;
+*/
+	public WebConstants.ACTION getCreate(){
+		return ACTION.CREATE;
 	}
-	public String getDelete(){
-		return ACTION_DELETE;
+	public WebConstants.ACTION getDelete(){
+		return ACTION.DELETE;
 	}
-	public String getDeleteConfirmed(){
-		return ACTION_DELETE_CONFIRMED;
+	public WebConstants.ACTION getDeleteConfirmed(){
+		return ACTION.DELETE_CONFIRMED;
 	}
-	public String getEdit(){
-		return ACTION_EDIT;
+	public WebConstants.ACTION getEdit(){
+		return ACTION.EDIT;
 	}
-	public String getSave(){
-		return ACTION_SAVE;
+	public WebConstants.ACTION getSave(){
+		return ACTION.SAVE;
 	}
-	public String getCancel(){
-		return ACTION_CANCEL;
+	public WebConstants.ACTION getCancel(){
+		return ACTION.CANCEL;
 	}
-	public String getUpdate(){
-		return ACTION_UPDATE;
+	public WebConstants.ACTION getUpdate(){
+		return ACTION.UPDATE;
 	}
 	
 }

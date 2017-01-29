@@ -4,13 +4,16 @@ package com.bitguiders.util.jsf;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
+import mum.cs545.model.User;
+
 
 /**
  * @author abdulkareem
  *
  */
-public abstract class JSFBeanSupport extends JSFMessageSupport {
+public abstract class JSFBeanSupport<E> extends JSFMessageSupport {
 
+	public E e;
 	private boolean isCreateAction;
 	private boolean isDeleteAction;
 	private boolean isListAction;
@@ -79,6 +82,7 @@ public abstract class JSFBeanSupport extends JSFMessageSupport {
 	public void setDeleteConfirmedAction() {
 		this.isDeleteConfirmedAction = true;
 		this.isCancelAction = true;
+		setViewAction();
 	}
 
 	public String getPageTitle(){
@@ -115,44 +119,79 @@ public abstract class JSFBeanSupport extends JSFMessageSupport {
 		return (currentAction!=null?currentAction:"");
 	}
 
-	
-	public void setCurrentAction(String domain,String currentAction){
+	public String performAction(JSFBeanInterface bean,WebConstants.DOMAIN domain,WebConstants.ACTION action){
+		setCurrentAction(domain,action);
+		switch(action){
+		case DELETE:
+			this.e=(E) bean.getModel();
+			setWarning("Do you really want to delete selected record..?");
+		break;
+		case DELETE_CONFIRMED:
+			bean.delete();
+		break;
+		case CREATE:
+			this.e = (E) bean.getModel();
+		break;
+		case EDIT:
+			this.e = (E) bean.getModel();
+		break;
+		case SAVE:
+			bean.add();
+		break;
+		case UPDATE:
+			bean.update();
+		break;
+		
+		}
+		return getView();
+	}
+	private void setCurrentAction(WebConstants.DOMAIN domain,WebConstants.ACTION currentAction){
 		reset();
-		this.currentAction = currentAction;
+		this.currentAction = currentAction.getAction();
 		this.domain = domain;
-		switch(this.currentAction)
+		switch(currentAction)
 		{
-		case WebConstants.ACTION_CREATE:
-			this.pageTitle ="Create";
+		case CREATE:
+			this.pageTitle = currentAction.getPageTitle();
+			setView(domain.getFormViewName());
 			setCreateAction();
 			break;
-		case WebConstants.ACTION_VIEW:
+		case VIEW:
 			this.pageTitle ="View";
+			setView(domain.getListViewName());
 			setViewAction();
 			break;
-		case WebConstants.ACTION_EDIT:
+		case EDIT:
 			this.pageTitle ="Edit";
+			setView(domain.getFormViewName());
 			setEditAction();
 			break;
-		case WebConstants.ACTION_UPDATE:
+		case UPDATE:
 			this.pageTitle ="Update";
+			setView(domain.getListViewName());
 			setUpdateAction();
 			break;
-		case WebConstants.ACTION_CANCEL:
+		case CANCEL:
 			this.pageTitle ="Cancel";
+			setView(domain.getListViewName());
+			setViewAction();
 			break;
-		case WebConstants.ACTION_DELETE_CONFIRMED:
+		case DELETE_CONFIRMED:
 			this.pageTitle ="Delete Confirmed";
+			setView(domain.getListViewName());
 			setDeleteConfirmedAction();
 			break;
-		case WebConstants.ACTION_SAVE:
+		case SAVE:
 			this.pageTitle ="Save";
+			setView(domain.getListViewName());
 			setSaveAction();
 			break;
-		case WebConstants.ACTION_DELETE:
+		case DELETE:
 			this.pageTitle ="Delete";
+			setView(domain.getFormViewName());
 			setDeleteAction();
 			break;
+		
 		}
 	}
 
@@ -173,7 +212,7 @@ public abstract class JSFBeanSupport extends JSFMessageSupport {
 		  isAddRuleAction = false;
 	}
 
-	
+	/*
 	public String getAction() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpServletRequest request = (HttpServletRequest) context
@@ -182,21 +221,21 @@ public abstract class JSFBeanSupport extends JSFMessageSupport {
 		action = (action != null ? action.trim() : "");
 		return action;
 	}
-	
+	*/
 	private String view;
-	private String domain;
+	private WebConstants.DOMAIN  domain;
 	public void setView(String viewName) {
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpServletRequest request = (HttpServletRequest) context
 				.getExternalContext().getRequest();
-		request.getSession().setAttribute("viewName", domain+"/"+viewName);
+		request.getSession().setAttribute("viewName", domain.getDomain()+"/"+viewName);
 		
 		this.view = viewName;
 	}
 	public String getView(){
 		return this.view;
 	}
-	public String getDomain(){
+	public WebConstants.DOMAIN getDomain(){
 		return this.domain;
 	}
 	public String getSelectedApplication() {
@@ -262,6 +301,7 @@ public abstract class JSFBeanSupport extends JSFMessageSupport {
 	public void setUpdateAction() {
 		this.isCancelAction = true;
 		this.isUpdateAction = true;
+		setViewAction();
 	}
 	public boolean isUpdateAction() {
 		return isUpdateAction;
@@ -274,6 +314,7 @@ public abstract class JSFBeanSupport extends JSFMessageSupport {
 	public void setSaveAction() {
 		this.isSaveAction = true;
 		this.isCancelAction = true;
+		setViewAction();
 	}
 	public boolean isResetAction() {
 		return isResetAction;

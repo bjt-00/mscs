@@ -14,16 +14,17 @@ import com.bitguiders.util.jsf.WebConstants;
 
 @ManagedBean(name="userBean")
 @SessionScoped
-public class UserBackingBean extends JSFBeanSupport implements JSFBeanInterface<User>  {
+public class UserBackingBean extends JSFBeanSupport<User> implements JSFBeanInterface<User>  {
 
-	private User user;
+//@Inject
+//User iUser;
+
 	private List<User> usersList;
-
+	User user;
 	@PostConstruct
 	public void init(){
-		setCurrentAction(WebConstants.DOMAIN_USER,WebConstants.ACTION_VIEW);
-		setView(WebConstants.VIEW_USER_LIST);
-		user = new User();
+		performAction(this,WebConstants.DOMAIN.USER,WebConstants.ACTION.VIEW);
+		user= new User();
 		
 		usersList = new ArrayList<User>();
 		usersList.add(new User(usersList.size()+1,"Abdul","abdul","Admin"));
@@ -38,62 +39,32 @@ public class UserBackingBean extends JSFBeanSupport implements JSFBeanInterface<
 	
 	public UserBackingBean(){}
 	
-	public User getUser() {
-		return user;
+	public User getModel() {
+		return (null==user?new User():user);
 	}
-	public void setUser(User user) {
+	public void setModel(User user) {
 		this.user = user;
 	}
-	private void delete(){
+	public void delete(){
 		usersList.remove(user);
 		setMessage(user.getName()+" "+user.getRole()+" is deleted successfully");
 	}
-	public void update(){
+	 public void update(){
 		usersList.remove(user);
 		usersList.add(user);
 		setMessage(user.getName()+" updated successfully");
 	}
 	
-	public String add(){
-		if(null!=user && user.getName()!=null){
+	public void add(){
 			usersList.add(user);
 			setMessage(user.getName()+" added successfully");
-			return "usersList";
-		}else{
-			setError("One of required field is empty");
-			return "userForm";
-		}
 	}
 	@Override
-	public String actionListener(String action, User user) {
-		setCurrentAction(WebConstants.DOMAIN_USER,action);
-		if(isDeleteAction()){
-			this.user=user;
-			setWarning("Do you really want to delete "+user.getName());
-			setView(WebConstants.VIEW_USER_FORM);
-		}else if(isDeleteConfirmedAction()){
-			delete();
-			setCurrentAction(getDomain(),WebConstants.ACTION_VIEW);
-			setView(WebConstants.VIEW_USER_LIST);
-		}else if(isCreateAction()){
-			this.user = new User();
-				setView(WebConstants.VIEW_USER_FORM);
-		}else if(isEditAction()){
-			 this.user = user;
-			 setView(WebConstants.VIEW_USER_FORM);
-		}else if(isUpdateAction()){
-			 update();
-			setCurrentAction(getDomain(),WebConstants.ACTION_VIEW);
-			setView(WebConstants.VIEW_USER_LIST);
-		}else if(isSaveAction()){
-			 add();
-			setCurrentAction(getDomain(),WebConstants.ACTION_VIEW);
-			setView(WebConstants.VIEW_USER_LIST);
-		}else if(isCancelAction()){
-			setCurrentAction(getDomain(),WebConstants.ACTION_VIEW);
-			setView(WebConstants.VIEW_USER_LIST);
+	public String actionListener(WebConstants.ACTION action, User user) {
+		if(null!=user){
+		setModel(user);
 		}
-		return getView();
+		return performAction(this,WebConstants.DOMAIN.USER,action);
 	}
 	@Override
 	public List<User> getList() {

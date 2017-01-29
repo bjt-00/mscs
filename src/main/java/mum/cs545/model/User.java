@@ -1,12 +1,15 @@
 package mum.cs545.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class User implements Serializable {
 
 	private int id;
 	private String name;
 	private String password;
+	private Date   dateOfBirth;
+	private String SSN;
 	private String role;
 	
 	public User(){}
@@ -40,5 +43,17 @@ public class User implements Serializable {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+	public String getSSN() {
+		return SSN;
+	}
+	public void setSSN(String SSN) {
+		this.SSN = SSN;
 	}
 }

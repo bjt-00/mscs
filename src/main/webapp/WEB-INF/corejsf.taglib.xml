@@ -2,7 +2,45 @@
 <facelet-taglib>
 <namespace>http://bitguiders.com/jsf/tags</namespace>
 <tag>
-<tag-name>alert</tag-name>
-<source>../view/tags/alert.xhtml</source>
+	<tag-name>alert</tag-name>
+	<source>../view/tags/alert.xhtml</source>
+	<attribute>
+		<name>message</name>	
+	</attribute>
+	<attribute>
+		<name>messageType</name>
+	</attribute>
 </tag>
+<tag>
+<tag-name>formButtons</tag-name>
+<source>../view/tags/formButtons.xhtml</source>
+	<attribute>
+		<name>bean</name>
+	</attribute>
+</tag>
+<tag>
+<tag-name>listButtons</tag-name>
+<source>../view/tags/listButtons.xhtml</source>
+	<attribute>
+		<name>bean</name>
+	</attribute>
+</tag>
+<tag>
+<tag-name>listActions</tag-name>
+<source>../view/tags/listActions.xhtml</source>
+	<attribute>
+		<name>bean</name>
+	</attribute>
+	<attribute>
+		<name>model</name>
+	</attribute>
+</tag>
+
+<!-- function>
+        <function-name>formatMessage</function-name>
+        <function-class>net.myproject.view.util.JSFFunctions</function-class>
+        <function-signature>
+            java.lang.String formatMessage(java.lang.String, java.util.Locale, java.lang.String)
+        </function-signature>
+</function-->
 </facelet-taglib>

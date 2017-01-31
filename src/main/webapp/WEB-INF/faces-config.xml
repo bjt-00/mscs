@@ -21,7 +21,7 @@
 	</application>
 
 	<navigation-rule>
-		<from-view-id>/*</from-view-id>
+		<from-view-id>/index.xhtml</from-view-id>
 		<navigation-case>
 		    <from-action>#{userBean.actionListener}</from-action>
 			<from-outcome>userForm</from-outcome>
@@ -29,7 +29,7 @@
 		</navigation-case>
 		<navigation-case>
 		    <from-action>#{userBean.actionListener}</from-action>
-			<from-outcome>usersList</from-outcome>
+			<from-outcome>userList</from-outcome>
 			<to-view-id>index.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>

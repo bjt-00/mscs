@@ -2,5 +2,6 @@
 xmlns="http://www.w3.org/1999/xhtml" 
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
 	   >
-		<ui:include src="view/${(viewName eq null?'user/usersList':viewName)}.xhtml"/>
+	    -- ${viewName}--
+		<ui:include src="view/${(viewName eq null?'user/userList':viewName)}.xhtml"/>
 </ui:composition>

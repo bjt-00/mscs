@@ -10,10 +10,13 @@ import javax.faces.bean.SessionScoped;
 
 import com.bitguiders.util.jsf.JSFBeanInterface;
 import com.bitguiders.util.jsf.JSFBeanSupport;
+import com.bitguiders.util.jsf.Navigate;
+import com.bitguiders.util.jsf.Navigate.DOMAIN;
 import com.bitguiders.util.jsf.WebConstants;
 
 @ManagedBean(name="userBean")
 @SessionScoped
+@Navigate(domain=DOMAIN.USER)
 public class UserBackingBean extends JSFBeanSupport<User> implements JSFBeanInterface<User>  {
 
 //@Inject
@@ -23,8 +26,8 @@ public class UserBackingBean extends JSFBeanSupport<User> implements JSFBeanInte
 	User user;
 	@PostConstruct
 	public void init(){
-		performAction(this,WebConstants.DOMAIN.USER,WebConstants.ACTION.VIEW);
 		user= new User();
+		performAction(this,WebConstants.ACTION.VIEW,user);
 		
 		usersList = new ArrayList<User>();
 		usersList.add(new User(usersList.size()+1,"Abdul","abdul","Admin"));
@@ -39,32 +42,23 @@ public class UserBackingBean extends JSFBeanSupport<User> implements JSFBeanInte
 	
 	public UserBackingBean(){}
 	
-	public User getModel() {
-		return (null==user?new User():user);
-	}
-	public void setModel(User user) {
-		this.user = user;
-	}
 	public void delete(){
-		usersList.remove(user);
-		setMessage(user.getName()+" "+user.getRole()+" is deleted successfully");
+		usersList.remove(getModel());
+		setMessage(getModel().getName()+" "+getModel().getRole()+" is deleted successfully");
 	}
 	 public void update(){
-		usersList.remove(user);
-		usersList.add(user);
-		setMessage(user.getName()+" updated successfully");
+		usersList.remove(getModel());
+		usersList.add(getModel());
+		setMessage(getModel().getName()+" updated successfully");
 	}
 	
 	public void add(){
-			usersList.add(user);
-			setMessage(user.getName()+" added successfully");
+			usersList.add(getModel());
+			setMessage(getModel().getName()+" added successfully");
 	}
 	@Override
 	public String actionListener(WebConstants.ACTION action, User user) {
-		if(null!=user){
-		setModel(user);
-		}
-		return performAction(this,WebConstants.DOMAIN.USER,action);
+		return performAction(this,action,user);
 	}
 	@Override
 	public List<User> getList() {

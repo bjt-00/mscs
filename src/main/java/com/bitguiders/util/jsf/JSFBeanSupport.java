@@ -1,19 +1,20 @@
 package com.bitguiders.util.jsf;
 
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
+
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
-
-import mum.cs545.model.User;
 
 
 /**
  * @author abdulkareem
  *
  */
-public abstract class JSFBeanSupport<E> extends JSFMessageSupport {
+public abstract class JSFBeanSupport<Model> extends JSFMessageSupport {
 
-	public E e;
+	public Model model;
 	private boolean isCreateAction;
 	private boolean isDeleteAction;
 	private boolean isListAction;
@@ -23,14 +24,9 @@ public abstract class JSFBeanSupport<E> extends JSFMessageSupport {
 	private boolean isUpdateAction;
 	private boolean isEditAction;
 	private boolean isDisabled;
-	private String rowid;
 	private String currentAction;
-	private boolean isSendAction;
 	private boolean isDeleteConfirmedAction;
 	private boolean isResetAction;
-	private boolean isAddRuleAction;
-	// create action for BI
-	private boolean isCreateDSFAction;
 	
 	private String pageTitle;
 	private Integer id;
@@ -43,11 +39,8 @@ public abstract class JSFBeanSupport<E> extends JSFMessageSupport {
 		isDeleteAction=true;
 		isDeleteConfirmedAction=true;
 		isSaveAction = true;
-		isSendAction = true;
 		this.isEditAction = true;
 		isDisabled = false;
-		isAddRuleAction = true;
-		
 	}
 	
 
@@ -92,9 +85,7 @@ public abstract class JSFBeanSupport<E> extends JSFMessageSupport {
 		this.isCancelAction = true;
 		this.isDeleteAction = true;
 		this.isDisabled = true;
-		this.isSendAction = true;
 		this.isEditAction = true;
-		this.isAddRuleAction = false;
 	}
 
 	public void setEditAction() {
@@ -118,22 +109,43 @@ public abstract class JSFBeanSupport<E> extends JSFMessageSupport {
 	public String getCurrentAction() {
 		return (currentAction!=null?currentAction:"");
 	}
+	public Model getModel() {
+		return model;
+	}
+	public void setModel(Model model) {
+		this.model = model;
+	}
+	
+	//create new instance of model by using java reflection
+	public void resetModel(){
+		try {
+			Class cls = Class.forName(this.model.getClass().getName());
+			Object arglist[] = new Object[0];
+			this.model = (Model) cls.getConstructors()[0].newInstance(arglist);
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e) {
+			e.printStackTrace();
+			setError(e.getMessage());
+		}
+	}
 
-	public String performAction(JSFBeanInterface bean,WebConstants.DOMAIN domain,WebConstants.ACTION action){
-		setCurrentAction(domain,action);
+	public String performAction(JSFBeanInterface bean,WebConstants.ACTION action,Model model){
+		if(null!=model){
+			setModel(model);
+			}
+		setDomain(bean);
+		setCurrentAction(action);
+		
 		switch(action){
 		case DELETE:
-			this.e=(E) bean.getModel();
 			setWarning("Do you really want to delete selected record..?");
 		break;
 		case DELETE_CONFIRMED:
 			bean.delete();
 		break;
 		case CREATE:
-			this.e = (E) bean.getModel();
+			resetModel();
 		break;
 		case EDIT:
-			this.e = (E) bean.getModel();
 		break;
 		case SAVE:
 			bean.add();
@@ -145,53 +157,45 @@ public abstract class JSFBeanSupport<E> extends JSFMessageSupport {
 		}
 		return getView();
 	}
-	private void setCurrentAction(WebConstants.DOMAIN domain,WebConstants.ACTION currentAction){
+	private void setCurrentAction(WebConstants.ACTION currentAction){
 		reset();
 		this.currentAction = currentAction.getAction();
-		this.domain = domain;
+		this.pageTitle = currentAction.getPageTitle();
+
 		switch(currentAction)
 		{
 		case CREATE:
-			this.pageTitle = currentAction.getPageTitle();
 			setView(domain.getFormViewName());
 			setCreateAction();
 			break;
 		case VIEW:
-			this.pageTitle ="View";
 			setView(domain.getListViewName());
 			setViewAction();
 			break;
 		case EDIT:
-			this.pageTitle ="Edit";
 			setView(domain.getFormViewName());
 			setEditAction();
 			break;
 		case UPDATE:
-			this.pageTitle ="Update";
 			setView(domain.getListViewName());
 			setUpdateAction();
 			break;
 		case CANCEL:
-			this.pageTitle ="Cancel";
 			setView(domain.getListViewName());
 			setViewAction();
 			break;
 		case DELETE_CONFIRMED:
-			this.pageTitle ="Delete Confirmed";
 			setView(domain.getListViewName());
 			setDeleteConfirmedAction();
 			break;
 		case SAVE:
-			this.pageTitle ="Save";
 			setView(domain.getListViewName());
 			setSaveAction();
 			break;
 		case DELETE:
-			this.pageTitle ="Delete";
 			setView(domain.getFormViewName());
 			setDeleteAction();
 			break;
-		
 		}
 	}
 
@@ -199,31 +203,17 @@ public abstract class JSFBeanSupport<E> extends JSFMessageSupport {
 		  isCreateAction = false;
 		  isDeleteAction = false;
 		  isListAction	 = false;
-		  isCreateDSFAction = false;
 		  isSaveAction = false;
 		  isUpdateAction = false;
 		  this.isDeleteConfirmedAction = false;
 		  isDisabled = true;
 		  isResetAction = false;
-		  setRowid("");
 		  currentAction="";
-		  isSendAction= false;
 		  this.isEditAction = false;
-		  isAddRuleAction = false;
 	}
 
-	/*
-	public String getAction() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		HttpServletRequest request = (HttpServletRequest) context
-				.getExternalContext().getRequest();
-		String action = request.getParameter("action");
-		action = (action != null ? action.trim() : "");
-		return action;
-	}
-	*/
 	private String view;
-	private WebConstants.DOMAIN  domain;
+	private Navigate.DOMAIN  domain;
 	public void setView(String viewName) {
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpServletRequest request = (HttpServletRequest) context
@@ -235,8 +225,16 @@ public abstract class JSFBeanSupport<E> extends JSFMessageSupport {
 	public String getView(){
 		return this.view;
 	}
-	public WebConstants.DOMAIN getDomain(){
+	public Navigate.DOMAIN getDomain(){
 		return this.domain;
+	}
+	public void setDomain(JSFBeanInterface bean){
+		//JSFBeanInterface bean
+		if(bean.getClass().isAnnotationPresent(Navigate.class)){
+			Annotation annocation = bean.getClass().getAnnotation(Navigate.class);
+			Navigate navigate = (Navigate)annocation;
+			this.domain = navigate.domain();
+		}
 	}
 	public String getSelectedApplication() {
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -251,11 +249,11 @@ public abstract class JSFBeanSupport<E> extends JSFMessageSupport {
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpServletRequest request = (HttpServletRequest) context
 				.getExternalContext().getRequest();
-		String action = request.getParameter(x);
-		action = (action != null ? action.trim() : "");
+		String param = request.getParameter(x);
+		param = (param != null ? param.trim() : "");
 		
 		
-		return action;
+		return param;
 	}
 
 	public boolean isListAction() {
@@ -266,29 +264,6 @@ public abstract class JSFBeanSupport<E> extends JSFMessageSupport {
 		this.isListAction = isListAction;
 	}
 
-	public String getRowid() {
-		return rowid;
-	}
-
-	public void setRowid(String rowid) {
-		this.rowid = rowid;
-	}
-
-	public boolean isSendAction() {
-		return isSendAction;
-	}
-
-	public void setSendAction(boolean isSendAction) {
-		this.isSendAction = isSendAction;
-	}
-
-	public boolean isCreateDSFAction() {
-		return isCreateDSFAction;
-	}
-
-	public void setCreateDSFAction(boolean isCreateDSFAction) {
-		this.isCreateDSFAction = isCreateDSFAction;
-	}
 
 	public boolean isCancelAction() {
 		return isCancelAction;

@@ -5,7 +5,7 @@
 	  xmlns:h="http://java.sun.com/jsf/html"
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
 	  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-	  xmlns:a="http://bitguiders.com/jsf/tags"
+	  xmlns:bt="http://bitguiders.com/jsf/tags"
 	  >
 <h:head>
 <ui:remove>CTRL+SHIF+D could use to see debug report</ui:remove>
@@ -20,7 +20,7 @@
 <h1><ui:insert name="pageTitle"/></h1>
 
 <!-- messages -->
-<a:alert/>
+<bt:alert message="${flash.message}" messageType="${flash.messageType}" />
 
 <h:form>
 <!-- page contents -->

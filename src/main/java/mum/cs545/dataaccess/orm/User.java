@@ -3,7 +3,11 @@ package mum.cs545.dataaccess.orm;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.apache.log4j.Logger;
+
+
 public class User implements Serializable {
+	final static Logger logger = Logger.getLogger(User.class);
 
 	private int id;
 	private String name;
@@ -37,6 +41,7 @@ public class User implements Serializable {
 	}
 	public void setRole(String role) {
 		this.role = role;
+		logger.info("Role changed to "+role);
 	}
 	public int getId() {
 		return id;

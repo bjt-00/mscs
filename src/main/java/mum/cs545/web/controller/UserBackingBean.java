@@ -6,6 +6,9 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 
 import com.bitguiders.util.jsf.JSFBeanInterface;
 import com.bitguiders.util.jsf.JSFBeanSupport;
@@ -56,5 +59,18 @@ UserService service = new UserServiceImpl();
 		return service.getList();
 	}
 
+	public void roleChanged(ValueChangeEvent e){
+		user = getModel();
+		setMessage("Role changed "+(null!=user && user.getRole()!=null?"from "+user.getRole():"")+" to "+e.getNewValue());
+		FacesContext.getCurrentInstance().renderResponse();
+	}
 
+  public void searchAction(ActionEvent e){
+	  setInfo("Searching "+e.getComponent().getId());
+  }
+  public String action(){
+	  setInfo("Link action is called");
+	  FacesContext.getCurrentInstance().renderResponse();
+	  return "index";
+  }
 }

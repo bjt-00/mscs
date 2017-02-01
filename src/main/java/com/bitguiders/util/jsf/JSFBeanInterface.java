@@ -8,6 +8,6 @@ public abstract interface JSFBeanInterface<Model> {
 	 void update();
 	 void delete();
 	 public List<Model> getList();
-	 public String actionListener(WebConstants.ACTION action,Model model);
+	 //public String actionListener(WebConstants.ACTION action,Model model);
 
 }

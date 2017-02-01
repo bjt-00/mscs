@@ -1,4 +1,4 @@
-package mum.cs545.model;
+package mum.cs545.web.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,27 +14,24 @@ import com.bitguiders.util.jsf.Navigate;
 import com.bitguiders.util.jsf.Navigate.DOMAIN;
 import com.bitguiders.util.jsf.WebConstants;
 
+import mum.cs545.dataaccess.orm.User;
+import mum.cs545.service.UserService;
+import mum.cs545.service.UserServiceImpl;
+
 @ManagedBean(name="userBean")
 @SessionScoped
 @Navigate(domain=DOMAIN.USER)
 public class UserBackingBean extends JSFBeanSupport<User> implements JSFBeanInterface<User>  {
 
 //@Inject
+UserService service = new UserServiceImpl();
 //User iUser;
 
-	private List<User> usersList;
 	User user;
 	@PostConstruct
 	public void init(){
 		user= new User();
 		performAction(this,WebConstants.ACTION.VIEW,user);
-		
-		usersList = new ArrayList<User>();
-		usersList.add(new User(usersList.size()+1,"Abdul","abdul","Admin"));
-		usersList.add(new User(usersList.size()+1,"Rakesh","rakesh","User"));
-		usersList.add(new User(usersList.size()+1,"Waqas","waqas","Guest"));
-		
-		setInfo("Total Users found "+usersList.size());
 	}
 	@PreDestroy
 	public void clean(){
@@ -43,26 +40,21 @@ public class UserBackingBean extends JSFBeanSupport<User> implements JSFBeanInte
 	public UserBackingBean(){}
 	
 	public void delete(){
-		usersList.remove(getModel());
+		service.delete(getModel());
 		setMessage(getModel().getName()+" "+getModel().getRole()+" is deleted successfully");
 	}
 	 public void update(){
-		usersList.remove(getModel());
-		usersList.add(getModel());
+		service.update(getModel());
 		setMessage(getModel().getName()+" updated successfully");
 	}
 	
 	public void add(){
-			usersList.add(getModel());
+			service.add(getModel());
 			setMessage(getModel().getName()+" added successfully");
 	}
 	@Override
-	public String actionListener(WebConstants.ACTION action, User user) {
-		return performAction(this,action,user);
-	}
-	@Override
 	public List<User> getList() {
-		return usersList;
+		return service.getList();
 	}
 
 

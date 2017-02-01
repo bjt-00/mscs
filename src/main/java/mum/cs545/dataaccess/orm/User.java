@@ -1,4 +1,4 @@
-package mum.cs545.model;
+package mum.cs545.dataaccess.orm;
 
 import java.io.Serializable;
 import java.util.Date;

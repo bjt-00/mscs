@@ -3,6 +3,7 @@ package com.bitguiders.util.jsf;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author abdulkareem
  *
  */
-public abstract class JSFBeanSupport<Model> extends JSFMessageSupport {
+public abstract class JSFBeanSupport<Model> extends JSFBeanValidator {
 
 	public Model model;
 	private boolean isCreateAction;
@@ -115,7 +116,8 @@ public abstract class JSFBeanSupport<Model> extends JSFMessageSupport {
 	public void setModel(Model model) {
 		this.model = model;
 	}
-	
+
+
 	//create new instance of model by using java reflection
 	public void resetModel(){
 		try {
@@ -236,6 +238,7 @@ public abstract class JSFBeanSupport<Model> extends JSFMessageSupport {
 			this.domain = navigate.domain();
 		}
 	}
+
 	public String getSelectedApplication() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpServletRequest request = (HttpServletRequest) context

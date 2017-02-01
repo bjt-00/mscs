@@ -5,16 +5,22 @@ xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
 	  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
 	  xmlns:bt="http://bitguiders.com/jsf/tags"
+	  xmlns:bc="http://java.sun.com/jsf/composite/components"
+	  xmlns:util="http://java.sun.com/jsf/composite/util"
 	   >
 	<ui:define name="pageTitle">Users List</ui:define>
 	<ui:define name="contents">
+
 			<h:dataTable id="usersList" value="#{userBean.list}" var="user" styleClass="table table-striped" >
 		<f:facet name="caption"> 
-			<bt:listButtons bean="#{userBean}"/>
+					<!-- search component -->
+					<bc:searchComponent defaultText="Enter First Name" bean="#{userBean}"/>
+					<bt:listButtons bean="#{userBean}"/>
 		</f:facet>
 		<h:column>
 		    <f:facet name="header">Name</f:facet>
-			<h:outputText value="#{user.name}" />
+			<util:icon image="#{user.id}" styleClass="icon" doValidation="false" actionMethod="#{userBean.action}" />
+			 <h:outputText value="#{user.name}" />
 		</h:column>
 		<h:column>
 			<f:facet name="header">Date Of Birth</f:facet>

@@ -27,5 +27,11 @@
  			<artifactId>junit</artifactId>
  			<version>4.12</version>
  		</dependency>
+  		<dependency>
+ 			<groupId>com.bitguiders.util.jsf</groupId>
+ 			<artifactId>bitguiders-jsf-util</artifactId>
+ 			<version>1.0</version>
+ 			<scope>provided</scope>
+ 		</dependency>
   </dependencies>
 </project>

@@ -43,4 +43,17 @@
             java.lang.String formatMessage(java.lang.String, java.util.Locale, java.lang.String)
         </function-signature>
 </function-->
+
+<!-- tag>
+<tag-name>convertCreditCard</tag-name>
+<converter>
+<converter-id>com.corejsf.Card</converter-id>
+</converter>
+</tag-->
+<!-- tag>
+<tag-name>validateCreditCard</tag-name>
+<validator>
+<validator-id>com.corejsf.Card</validator-id>
+</validator>
+</tag-->
 </facelet-taglib>

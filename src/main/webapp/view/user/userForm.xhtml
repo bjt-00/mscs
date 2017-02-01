@@ -34,7 +34,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 		</div>
 		<div class="form-group">
 			<label for="user">#{sid['label.SSN']}</label>
-			<h:inputText value="#{userBean.model.SSN}" id="SSN" validatorMessage="Walid SSN is required" p:placeholder="000-00-0000" styleClass="form-control">
+			<h:inputText value="#{userBean.model.SSN}" id="SSN" validator="#{userBean.ssnValidator}"  p:placeholder="000-00-0000" styleClass="form-control">
 				<f:validateLength minimum="9" maximum="11" />
 			</h:inputText>
 			<h:message for="SSN" styleClass="alert-danger" />

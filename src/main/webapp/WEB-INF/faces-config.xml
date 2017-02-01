@@ -5,6 +5,10 @@
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
     version="2.2">
 
+	<lifecycle>
+		<phase-listener>com.bitguiders.util.jsf.JSFPhaseListener</phase-listener>
+	</lifecycle>
+
 	<!-- Message Resource Boundle -->
 	<application>
 		<resource-bundle>
@@ -20,7 +24,7 @@
 		</locale-config>
 	</application>
 
-	<navigation-rule>
+	<!-- navigation-rule>
 		<from-view-id>/index.xhtml</from-view-id>
 		<navigation-case>
 		    <from-action>#{userBean.actionListener}</from-action>
@@ -32,6 +36,6 @@
 			<from-outcome>userList</from-outcome>
 			<to-view-id>index.xhtml</to-view-id>
 		</navigation-case>
-	</navigation-rule>
+	</navigation-rule-->
 
 </faces-config>

@@ -6,9 +6,13 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
+
+import org.apache.log4j.Logger;
 
 import com.bitguiders.util.jsf.JSFBeanInterface;
 import com.bitguiders.util.jsf.JSFBeanSupport;
@@ -24,7 +28,7 @@ import mum.cs545.service.UserServiceImpl;
 @SessionScoped
 @Navigate(domain=DOMAIN.USER)
 public class UserBackingBean extends JSFBeanSupport<User> implements JSFBeanInterface<User>  {
-
+private static final Logger logger = Logger.getLogger(UserBackingBean.class);
 //@Inject
 UserService service = new UserServiceImpl();
 //User iUser;
@@ -73,4 +77,19 @@ UserService service = new UserServiceImpl();
 	  FacesContext.getCurrentInstance().renderResponse();
 	  return "index";
   }
+	public void nameChangeListener(ValueChangeEvent e){
+		user = getModel();
+		if(service.getByName((String)e.getNewValue())!=null){
+		setError(e.getNewValue()+" Already Registered, Please chose other one ");
+		}else{
+			setInfo(e.getNewValue()+" is not registered yet");
+		}
+		FacesContext.getCurrentInstance().renderResponse();
+	}
+
+	public void ajaxListener(AjaxBehaviorEvent event) {
+	    //dosomething;
+		setInfo("ajax cal received"+event.getPhaseId());
+		logger.info("ajax call received"+event.getPhaseId());
+	}
 }

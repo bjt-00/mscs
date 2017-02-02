@@ -2,6 +2,7 @@ package mum.cs545.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import mum.cs545.dataaccess.orm.User;
 
@@ -42,6 +43,18 @@ public class UserServiceImpl implements UserService {
 		}
 		// TODO Auto-generated method stub
 		return usersList;
+	}
+	@Override
+	public User getByName(String name) {
+		
+		//User user = getList().stream().filter(u-> name.equals(u.getName())).findAny();
+		for(User user:usersList){
+			if(name.equals(user.getName())){
+				return user;
+			}
+		}
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

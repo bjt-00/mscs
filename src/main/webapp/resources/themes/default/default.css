@@ -10,7 +10,14 @@ body{
 	font-size:13px;
 	background-image: url("http://bitguiders.com/themes/default/images/contents.png");
 }
-.icon{
+.Icon{
 	width:30px;
 	height:30px;
+}
+.Loading{
+	display:none;
+	position:absolute;
+	margin:0 auto;
+	top:10px;
+	left:10px;
 }

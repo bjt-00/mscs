@@ -6,16 +6,22 @@ xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
 	  xmlns:bt="http://bitguiders.com/jsf/tags"
 	   >
-	<ui:define name="pageTitle">#{userBean.pageTitle} #{userBean.model.name}</ui:define>
+	<ui:define name="pageTitle">
+	#{userBean.pageTitle} #{userBean.model.name}
+	</ui:define>
 	<ui:define name="contents">
 		<div class="form-group">
 			<label for="user">${sid['label.userName']}</label>
-			<input type="text" jsfc="h:inputText" value="#{userBean.model.name}" p:label=":" id="user" p:placeholder="Enter User Name"  required="true" class="form-control" />
+			<h:inputText  value="#{userBean.model.name}"  valueChangeListener="#{userBean.nameChangeListener}" autocomplete="false"   p:label=":" id="user" p:placeholder="Enter User Name"  required="true" class="form-control">
+				<f:ajax event="blur" listener="#{userBean.ajaxListener}" execute="@this" render="message" onevent="showLoading" onerror="showError" />
+			</h:inputText>
 			<h:message for="user"/>
+			<h:outputText id="message" value="${userBean.message}" />
+			
 		</div>
 		<div class="form-group">
 			<label for="user">#{sid['label.password']}</label>
-			<h:inputText value="#{userBean.model.password}"  id="pwd" styleClass="form-control" />
+			<input type="text" jsfc="h:inputText"  value="#{userBean.model.password}"  id="pwd" styleClass="form-control" />
 		</div>
 		<div class="form-group">
 			<label for="user">#{sid['label.dateOfBirth']}</label>

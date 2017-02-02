@@ -22,7 +22,8 @@
 
 <!-- messages -->
 <bt:alert message="${flash.message}" messageType="${flash.messageType}" />
-<h:form>
+<h:form id="form">
+<h:graphicImage id="loading" url="resources/themes/default/images/loading.gif" styleClass="Icon Loading" />
 
 <!-- page contents -->
 <ui:insert name="contents" />

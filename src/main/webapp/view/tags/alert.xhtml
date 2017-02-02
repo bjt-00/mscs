@@ -3,13 +3,13 @@ xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
 	  xmlns:h="http://java.sun.com/jsf/html"
 	   >
-	  <div class="alert alert-${messageType}" id="${messageType}Message" style="display:${(message eq null ?'none':'')}" >
+	  <div class="alert alert-${(messageType eq null?'info':messageType)}" id="alert" style="display:${(message eq null ?'none':'')}" >
 	    <div id="message">
 	    	#{message}
 	    </div>
 	 </div>
   <script>
-  setTimeout(function(){$('#${messageType}Message').fadeOut("slow");},5000);
+  setTimeout(function(){$('#alert').fadeOut("slow");},5000);
   </script>	
 </ui:composition>
   

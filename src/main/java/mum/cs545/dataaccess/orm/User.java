@@ -3,16 +3,30 @@ package mum.cs545.dataaccess.orm;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.apache.log4j.Logger;
 
-
+//@Entity
+//@Table(name="CUSTOMER_CUSTOMER")
+@XmlRootElement(name="user")
+@XmlAccessorType(XmlAccessType.FIELD)//for var declaritions only. otherwise place annotations on getters
+//@NamedQuery(name="findAllCustomers", query="SELECT c FROM Customer c " +"ORDER BY c.id")
 public class User implements Serializable {
 	final static Logger logger = Logger.getLogger(User.class);
 
+	@XmlAttribute
 	private int id;
+	@XmlElement(required=true)
 	private String name;
+	@XmlElement(required=true)
 	private String password;
 	private Date   dateOfBirth;
+	@XmlElement(required=true)
 	private String SSN;
 	private String role;
 	
@@ -23,6 +37,7 @@ public class User implements Serializable {
 		this.password = password;
 		this.role = role;
 	}
+	
 	public String getName() {
 		return name;
 	}
@@ -43,6 +58,7 @@ public class User implements Serializable {
 		this.role = role;
 		logger.info("Role changed to "+role);
 	}
+	
 	public int getId() {
 		return id;
 	}
@@ -55,6 +71,7 @@ public class User implements Serializable {
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
+	
 	public String getSSN() {
 		return SSN;
 	}

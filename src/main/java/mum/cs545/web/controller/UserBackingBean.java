@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
+import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
 
@@ -29,19 +30,21 @@ import mum.cs545.service.UserServiceImpl;
 @Navigate(domain=DOMAIN.USER)
 public class UserBackingBean extends JSFBeanSupport<User> implements JSFBeanInterface<User>  {
 private static final Logger logger = Logger.getLogger(UserBackingBean.class);
-//@Inject
-UserService service = new UserServiceImpl();
+
+@Inject
+UserService service;// = new UserServiceImpl();
 //User iUser;
 
-	User user;
-	@PostConstruct
+//@Inject
+User user;
+	/*@PostConstruct
 	public void init(){
 		user= new User();
 		performAction(this,WebConstants.ACTION.VIEW,user);
 	}
 	@PreDestroy
 	public void clean(){
-	}
+	}*/
 	
 	public UserBackingBean(){}
 	

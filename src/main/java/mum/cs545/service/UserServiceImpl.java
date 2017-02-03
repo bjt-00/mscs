@@ -1,12 +1,17 @@
 package mum.cs545.service;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 
 import mum.cs545.dataaccess.orm.User;
 
-public class UserServiceImpl implements UserService {
+@Named
+@SessionScoped
+public class UserServiceImpl implements UserService, Serializable {
 
 	private List<User> usersList;
 
@@ -55,6 +60,11 @@ public class UserServiceImpl implements UserService {
 		}
 		// TODO Auto-generated method stub
 		return null;
+	}
+	@Override
+	public User getById(int id) {
+		User user = getList().stream().filter(u-> id == u.getId()).findAny().get();
+		return user;
 	}
 
 }

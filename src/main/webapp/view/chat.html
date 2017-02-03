@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html>
+<html>
+<body onload="connect();" onunload="disconnect();">
+	<h1>Chat Room</h1>
+	<textarea id="messages"  cols="40" rows="15" readonly> </textarea><br />
+	UserName:
+	<input id="userName" type="text" /><br />
+	Message
+	<input id="messageInput" type="text" width="300" /><br />
+	<input class="button" type="submit" value="Send" onclick="sendMessage();" /><br />
+	<div style="color: red" id="status"></div>
+	<script type="text/javascript">
+	var webSocket;
+	var messagesArea = document.getElementById("messages");
+	function connect() {
+	// Ensures only one connection is open at a time
+	if ((webSocket !== undefined) and (webSocket.readyState !== WebSocket.CLOSED)) {
+	writeStatus("Connection is already opened.");
+	return;
+	}
+	webSocket = new WebSocket("ws://localhost:8080/jsf-master-piece/chat");
+	webSocket.onopen = function(event) {
+	writeStatus("Connection open")
+	};
+	webSocket.onclose = function(event) {
+	writeStatus("Connection closed");
+	};
+	webSocket.onmessage = function(event) {
+	writeMessage(event.data);
+	};
+	}
+	function disconnect() {
+	webSocket.close();
+	}function sendMessage() {
+	var user = document.getElementById("userName").value.trim();
+	var message = document.getElementById("messageInput").value.trim();
+	webSocket.send(user + " : " + message + "\r\n")
+	}
+	function writeMessage(text) {
+	messagesArea.value = messagesArea.value + text;
+	}
+	function writeStatus(text) {
+	document.getElementById("status").innerHTML = text;
+	}
+	</script>
+</body>
+	</html>

@@ -14,11 +14,19 @@
     <url-pattern>*.jsf</url-pattern>
   </servlet-mapping>
   
+  <!-- java rest -->
+    <servlet-mapping>
+    <servlet-name>javax.ws.rs.core.Application</servlet-name>
+    <url-pattern>/rest/*</url-pattern>
+  </servlet-mapping>
+  
+  <!-- jsf custom tags -->
   	<context-param>
 		<param-name>facelets.LIBRARIES</param-name>
-		<param-value>/WEB-INF/corejsf.taglib.xml</param-value>
+		<param-value>/WEB-INF/bitguiders.taglib.xml</param-value>
 	</context-param>
 
+<!-- dev mode for auto jsf error message h:message will auto append at end of each page  -->
   <context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>Development</param-value>

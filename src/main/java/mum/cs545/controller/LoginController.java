@@ -70,4 +70,6 @@ public class LoginController {
 	public List<User> getAllUsers() {
 	return service.getAllUsers();
 	}
+	
+	
 }

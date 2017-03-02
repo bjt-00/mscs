@@ -1,0 +1,2 @@
+This is sample text to count names. Abdul is written three times
+in this file. And Abdul is first name of Abdul Kareem.

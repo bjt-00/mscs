@@ -1,0 +1,2 @@
+This is sample text to count names. Abdul is written twice
+in this file. And Abdul is first name.

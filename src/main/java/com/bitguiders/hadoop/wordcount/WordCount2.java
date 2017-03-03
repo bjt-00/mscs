@@ -1,4 +1,4 @@
-package com.bitguiders.hadoop;
+package com.bitguiders.hadoop.wordcount;
 
 import java.io.IOException;
 import java.util.Arrays;

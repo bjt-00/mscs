@@ -1,4 +1,4 @@
-package com.bitguiders.hadoop;
+package com.bitguiders.hadoop.wordcount;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
@@ -33,15 +33,18 @@ public class WordCount extends Configured implements Tool {
 
 	    job.setJobName("WordCount");
 	    job.setJarByClass(WordCount.class);
+	    
 	    job.setInputFormatClass(TextInputFormat.class);
 	    job.setOutputFormatClass(TextOutputFormat.class);
+	    
 	    job.setMapOutputKeyClass(Text.class);
 	    job.setMapOutputValueClass(IntWritable.class);
+	    
 	    job.setOutputKeyClass(Text.class);
 	    job.setOutputValueClass(IntWritable.class);
 
 	    job.setMapperClass(MapClass.class);
-	    job.setCombinerClass(ReduceClass.class);
+	    job.setCombinerClass(CombinerClass.class);
 	    job.setReducerClass(ReduceClass.class);
 
 	    return job.waitForCompletion(true) ? 0 : 1;

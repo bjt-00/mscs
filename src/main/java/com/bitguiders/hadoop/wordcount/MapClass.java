@@ -1,4 +1,4 @@
-package com.bitguiders.hadoop;
+package com.bitguiders.hadoop.wordcount;
 
 import java.io.IOException;
 import java.util.StringTokenizer;
@@ -16,9 +16,11 @@ public class MapClass extends Mapper<LongWritable, Text, Text, IntWritable> {
     public void map(LongWritable key, Text value,
                     Mapper.Context context) throws IOException, InterruptedException {
       String line = value.toString();
+      System.out.println("M1 <INPUT>\n <"+key+","+value+">");
       StringTokenizer tokenizer = new StringTokenizer(line);
       while (tokenizer.hasMoreTokens()) {
         word.set(tokenizer.nextToken());
+        System.out.println("<"+word+","+one+">");
         context.write(word, one);
       }
     }

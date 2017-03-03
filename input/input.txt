@@ -1,2 +1,4 @@
-This is sample text to count names. Abdul is written three times
-in this file. And Abdul is first name of Abdul Kareem.
+cherry mango olive cherry
+plum cherry banana cherry
+cherry banana radish radish
+carrot banana mango cherry

@@ -1,4 +1,4 @@
-package com.bitguiders.hadoop.temperature;
+package com.bitguiders.hadoop.temperature.without_in_mapper;
 
 import java.io.IOException;
 
@@ -7,7 +7,7 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class TempMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+public class TempMapper1 extends Mapper<LongWritable, Text, Text, IntWritable> {
 	    private Text date = new Text();
 	    private IntWritable temp = new IntWritable();
 

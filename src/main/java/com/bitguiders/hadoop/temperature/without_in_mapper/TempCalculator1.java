@@ -1,4 +1,4 @@
-package com.bitguiders.hadoop.temperature;
+package com.bitguiders.hadoop.temperature.without_in_mapper;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
@@ -15,9 +15,9 @@ import org.apache.hadoop.util.ToolRunner;
 
 import com.bitguiders.hadoop.wordcount.WordCount;
 
-public class TempCalculator  extends Configured implements Tool {
+public class TempCalculator1  extends Configured implements Tool {
 	  public static void main(String args[]) throws Exception {
-		    int res = ToolRunner.run(new TempCalculator(), args);
+		    int res = ToolRunner.run(new TempCalculator1(), args);
 		    System.exit(res);
 		  }
 
@@ -44,9 +44,8 @@ public class TempCalculator  extends Configured implements Tool {
 		    job.setOutputKeyClass(Text.class);
 		    job.setOutputValueClass(IntWritable.class);
 
-		    job.setMapperClass(TempMapper.class);
-		    job.setCombinerClass(TempCombiner.class);
-		    job.setReducerClass(TempReducer.class);
+		    job.setMapperClass(TempMapper1.class);
+		    job.setReducerClass(TempReducer1.class);
 
 		    return job.waitForCompletion(true) ? 0 : 1;
 		  }

@@ -2,18 +2,16 @@ package com.bitguiders.hadoop.temperature.with_in_mapper;
 
 import java.io.IOException;
 
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class TempMapper2 extends Mapper<LongWritable, Text, Text, IntWritable> {
+public class TempMapper2 extends Mapper<LongWritable, Text, Text, Text> {
 	    private Text year = new Text();
-
+	    private Text temperature = new Text();
 	    String activeYear="";
 	    int sum=0;
 	    int count=0;
-	    StringBuilder val = new StringBuilder();
 	    
 	    @Override
 	    public void map(LongWritable key, Text value,
@@ -26,18 +24,17 @@ public class TempMapper2 extends Mapper<LongWritable, Text, Text, IntWritable> {
 	      //catch new entry
 	      if(!currentYear.equals(activeYear)&& !activeYear.equals("")){
 	    	  
-	    	  year.set(activeYear+" ("+(val.toString()).substring(0,val.length()-1)+") => "+sum+"/"+count+" = ");
-		      context.write(year, new IntWritable(sum/count));
+	    	  year.set(activeYear);
+	    	  temperature.set(sum+"~"+count);
+		      context.write(year, temperature);
 		      
 		      //reset
-		      val.delete(0, val.length());
 		      activeYear = currentYear;
 		      sum=0;
 		      count=0;
 	      }
 	    	  	 activeYear = currentYear;
 		    	 sum += temp;
-		    	 val.append(temp).append("+");
 		    	 count++;
 	    }
 	    private String parseDate(String line){
@@ -49,7 +46,9 @@ public class TempMapper2 extends Mapper<LongWritable, Text, Text, IntWritable> {
 	    
 	    @Override
 	    public void cleanup(Context context) throws IOException, InterruptedException{
-	    	  year.set(activeYear+" ("+(val.toString()).substring(0,val.length()-1)+") => "+sum+"/"+count+" = ");
-		      context.write(year, new IntWritable(sum/count));
+	    	  year.set(activeYear);
+	    	  temperature.set(sum+"~"+count);
+		      context.write(year, temperature);
+
 	    }
  }

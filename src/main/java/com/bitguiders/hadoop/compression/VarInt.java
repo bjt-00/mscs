@@ -1,5 +1,8 @@
 package com.bitguiders.hadoop.compression;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class VarInt {
 	public static int byteRequiredForInt(int n){
 		int size = 1;
@@ -38,14 +41,26 @@ public class VarInt {
 		return n;
 	}
 	
-	public static byte[] encode(int[] a){
-	  // you can try this
-		return null;
+	public static Byte[] encode(int[] a){
+		
+		List<Byte> bytes = new ArrayList<Byte>();
+		for(int i=0;i<a.length;i++){
+			byte[] intBytes = encodeInt(a[i]);
+			for(byte b:intBytes){
+				bytes.add(intBytes[0]);
+			}
+		}
+		return bytes.toArray(new Byte[bytes.size()]);
 	}
 	
-	public static int[] decode(byte[] code){
-	  // you can try this
-		return null;
+	public static int[] decode(Byte[] code){
+		
+		int[] ints = new int[code.length];
+			for(int i=0;i<code.length;i++){
+				byte[] byt = {code[i]};
+				ints[i] = decodeInt(byt);
+			}
+		return ints;
 	}
 	 
 	public static String toStringByte(byte b){
@@ -58,8 +73,25 @@ public class VarInt {
 	}
 	
 	public static void main(String[] args) {
-		int[] plist = {100, 8, 150, 7, 300, 24, 500, 36};
-		// you can add whatever you want
-        
+		//127,128
+		//1 1111111, 0 0000001 1 0000000
+		int[] ints = {100, 8, 150, 7, 300, 24, 500, 36};
+		//int[] ints = {127,128};
+		Byte[] encoded = encode(ints);
+		
+		System.out.println("--ENCODING--");
+		for(int i=0;i<ints.length;i++){
+			System.out.println("");
+			byte[] byt ={encoded[i]};
+		  System.out.print("Encoded From int= "+ints[i]+" to ,byte= "+encoded[i]+" ,bits= "+ toStringByte(encoded[i])+ " ,bytesRequired= "+byteRequiredForInt(decodeInt(byt)) );
+		}
+		
+		System.out.print("\n\n--DECODING--");
+		ints = decode(encoded);
+		for(int i=0;i<encoded.length;i++){
+			System.out.println("");
+			byte[] byt ={encoded[i]};
+		  System.out.print("Decoded From byte= "+encoded[i]+" to ,int= "+ints[i]+" ,bits= "+ toStringByte(encoded[i])+ " ,bytesRequired= "+byteRequiredForInt(decodeInt(byt)) );
+		}
 	}
 }

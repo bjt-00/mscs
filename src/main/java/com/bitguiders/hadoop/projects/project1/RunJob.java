@@ -8,7 +8,7 @@ import org.apache.hadoop.util.ToolRunner;
 
 import com.bitguiders.hadoop.projects.project1.hybrid.HybridJob;
 import com.bitguiders.hadoop.projects.project1.pair.PairJob;
-import com.bitguiders.hadoop.projects.project1.stripes.StripesJob;
+import com.bitguiders.hadoop.projects.project1.stripes.StripesDriver;
 
 public class RunJob {
 	  public static void main(String args[]) throws Exception {
@@ -62,7 +62,7 @@ public class RunJob {
 			  break;
 		  case 2:
 			  System.out.println("Running Stripes...");
-			  res = ToolRunner.run(new StripesJob(), args);
+			  res = ToolRunner.run(new StripesDriver(), args);
 			  break;
 		  case 3:
 			  System.out.println("Running HybridJob...");

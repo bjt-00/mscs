@@ -34,7 +34,7 @@ import com.bitguiders.hadoop.wordcount.WordCount;
 			    FileOutputFormat.setOutputPath(job, outputPath);
 
 			    job.setJobName("Hybrid Job");
-			    job.setJarByClass(WordCount.class);
+			    job.setJarByClass(HybridJob.class);
 			    
 			    job.setInputFormatClass(TextInputFormat.class);
 			    job.setOutputFormatClass(TextOutputFormat.class);

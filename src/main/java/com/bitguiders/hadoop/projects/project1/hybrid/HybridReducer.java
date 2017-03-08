@@ -56,9 +56,11 @@ public class HybridReducer extends Reducer<Pair, IntWritable, Text, Text> {
     		int mapTotal = counterMap.get(m);
     			for(String sm: subMap.keySet()){
     				int subTotal = subMap.get(sm);
-    				float probability = subTotal/mapTotal;
+    				float probability = (subTotal/mapTotal)+0;
     				console.append("<(").append(sm).append(",")
-    				.append(subMap.get(sm)).append("/").append(mapTotal).append(")").append(">");
+    				.append(subMap.get(sm)).append("/").append(mapTotal)
+    				.append(",").append(probability).append("%")
+    				.append(")").append(">");
     		}
     		console.append("]");
     		context.write(new Text(),new Text(console.toString()));
@@ -66,8 +68,16 @@ public class HybridReducer extends Reducer<Pair, IntWritable, Text, Text> {
     	}
     }
     public static void main(String[] arg){
-    	Float  val= new Float(2/7);
+    	double kilobytes = (6/7);
     	
-    	System.out.println(String.format("%.2f", val));
+    	//kilobytes = 1205.6358;
+
+    	System.out.println("kilobytes : " + kilobytes);
+
+    	double newKB = Math.round(kilobytes*100.0)/100.0;
+    	System.out.println("kilobytes (Math.round) : " + newKB);
+
+    	DecimalFormat df = new DecimalFormat("###.##");
+    	System.out.println("kilobytes (DecimalFormat) : " + df.format(kilobytes));
     }
   }

@@ -38,7 +38,7 @@ import com.bitguiders.hadoop.projects.util.Pair;
 					   if(tokens[i].equals(tokens[j])){
 						   break neighboursLoop;
 					   }
-					   Pair pair = new Pair(customer+"~"+currentWord,tokens[j]);
+					   Pair pair = new Pair(currentWord,tokens[j]);
 					    context.write(pair, one);
 					   console.append("<(").append(pair.toString())
 					   .append(")").append(",").append(one.toString()).append(">");

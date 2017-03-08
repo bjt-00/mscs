@@ -17,10 +17,6 @@ import com.bitguiders.hadoop.projects.util.Pair;
 import com.bitguiders.hadoop.wordcount.WordCount;
 
 	public class HybridJob  extends Configured implements Tool {
-		  public static void main(String args[]) throws Exception {
-			    int res = ToolRunner.run(new HybridJob(), args);
-			    System.exit(res);
-			  }
 
 			  public int run(String[] args) throws Exception {
 			    Path inputPath = new Path(args[0]);

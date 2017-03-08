@@ -11,6 +11,7 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
 import com.bitguiders.hadoop.projects.util.Pair;
+import com.bitguiders.hadoop.projects.util.Util;
 
 public class HybridReducer extends Reducer<Pair, IntWritable, Text, Text> {
 	TreeMap<String,TreeMap> finalMap = new TreeMap<String,TreeMap>();
@@ -53,13 +54,13 @@ public class HybridReducer extends Reducer<Pair, IntWritable, Text, Text> {
 			   console.append("=>").append("[");
 
     		TreeMap<String,Integer> subMap = finalMap.get(m);
-    		int mapTotal = counterMap.get(m);
+    		double mapTotal = counterMap.get(m);
     			for(String sm: subMap.keySet()){
     				int subTotal = subMap.get(sm);
-    				float probability = (subTotal/mapTotal)+0;
+    				double probability = (subTotal/mapTotal);
     				console.append("<(").append(sm).append(",")
-    				.append(subMap.get(sm)).append("/").append(mapTotal)
-    				.append(",").append(probability).append("%")
+    				//.append(subMap.get(sm)).append("/").append(mapTotal)
+    				.append(Util.format(probability))
     				.append(")").append(">");
     		}
     		console.append("]");
@@ -68,9 +69,11 @@ public class HybridReducer extends Reducer<Pair, IntWritable, Text, Text> {
     	}
     }
     public static void main(String[] arg){
-    	double kilobytes = (6/7);
+    	int a = 6;
+    	double b = 7;
+    	double kilobytes = a/b;
     	
-    	//kilobytes = 1205.6358;
+    	//kilobytes = 0.857;
 
     	System.out.println("kilobytes : " + kilobytes);
 

@@ -13,12 +13,12 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-import com.bitguiders.hadoop.lab5.RevisedAlgoJob;
+import com.bitguiders.hadoop.projects.util.Pair;
 import com.bitguiders.hadoop.wordcount.WordCount;
 
 	public class HybridJob  extends Configured implements Tool {
 		  public static void main(String args[]) throws Exception {
-			    int res = ToolRunner.run(new RevisedAlgoJob(), args);
+			    int res = ToolRunner.run(new HybridJob(), args);
 			    System.exit(res);
 			  }
 
@@ -27,7 +27,7 @@ import com.bitguiders.hadoop.wordcount.WordCount;
 			    Path outputPath = new Path(args[1]);
 
 			    Configuration conf = getConf();
-			   // conf.set("fs.file.impl","com.conga.services.hadoop.patch.HADOOP_7682.WinLocalFileSystem");
+			    conf.set("fs.file.impl","com.conga.services.hadoop.patch.HADOOP_7682.WinLocalFileSystem");
 			    Job job = new Job(conf, this.getClass().toString());
 			    
 			    FileInputFormat.setInputPaths(job, inputPath);
@@ -39,12 +39,12 @@ import com.bitguiders.hadoop.wordcount.WordCount;
 			    job.setInputFormatClass(TextInputFormat.class);
 			    job.setOutputFormatClass(TextOutputFormat.class);
 			    
-			    job.setMapOutputKeyClass(Text.class);
+			    job.setMapOutputKeyClass(Pair.class);
 			    job.setMapOutputValueClass(IntWritable.class);
 			    
 			    job.setOutputKeyClass(Text.class);
-			    job.setOutputValueClass(IntWritable.class);
-
+			    job.setOutputValueClass(Text.class);
+			    
 			    job.setMapperClass(HybridMapper.class);
 			    job.setReducerClass(HybridReducer.class);
 

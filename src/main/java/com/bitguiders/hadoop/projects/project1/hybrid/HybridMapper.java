@@ -4,10 +4,15 @@ import java.io.IOException;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.MapWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.log4j.Logger;
 
-	public class HybridMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+import com.bitguiders.hadoop.projects.util.Pair;
+
+	public class HybridMapper extends Mapper<LongWritable, Text, Pair, IntWritable> {
+		 private static Logger logger = Logger.getLogger(HybridMapper.class);
 		IntWritable one = new IntWritable(1);   
 		@Override
 		    public void map(LongWritable key, Text value,
@@ -33,14 +38,15 @@ import org.apache.hadoop.mapreduce.Mapper;
 					   if(tokens[i].equals(tokens[j])){
 						   break neighboursLoop;
 					   }
-					   context.write(new Text(currentWord+","+tokens[j]), one);
-					   console.append("<(").append(currentWord).append(",").append(tokens[j])
+					   Pair pair = new Pair(customer+"~"+currentWord,tokens[j]);
+					    context.write(pair, one);
+					   console.append("<(").append(pair.toString())
 					   .append(")").append(",").append(one.toString()).append(">");
 				   }
 				   console.append("},");
 			   }
 			  console.append("]");
-			  System.out.println(console.toString());
+			  logger.info("Mapper: "+console.toString());
 		   }
 		   @Override
 		    public void cleanup(Context context) throws IOException, InterruptedException{

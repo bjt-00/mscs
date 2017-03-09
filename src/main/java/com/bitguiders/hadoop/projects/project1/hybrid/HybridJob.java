@@ -24,6 +24,7 @@ import com.bitguiders.hadoop.wordcount.WordCount;
 
 			    Configuration conf = getConf();
 			    conf.set("fs.file.impl","com.conga.services.hadoop.patch.HADOOP_7682.WinLocalFileSystem");
+			    conf.set("mapreduce.output.basename", "hybrid");
 			    Job job = new Job(conf, this.getClass().toString());
 			    
 			    FileInputFormat.setInputPaths(job, inputPath);
@@ -43,7 +44,10 @@ import com.bitguiders.hadoop.wordcount.WordCount;
 			    
 			    job.setMapperClass(HybridMapper.class);
 			    job.setReducerClass(HybridReducer.class);
-
+			    
+			    job.setNumReduceTasks(2);
+			    job.setPartitionerClass(HybridPartitioner.class);
+			    
 			    return job.waitForCompletion(true) ? 0 : 1;
 			  }
 

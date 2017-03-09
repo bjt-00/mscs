@@ -44,11 +44,6 @@ public class RunJob {
 		  }else{
 			  jobId = Integer.parseInt(args[2]);			  
 		  }
-		  //delete output for fresh run
-		  File output = new File(args[1]);
-		  output.setWritable(true);
-		  output.delete();
-		  Thread.sleep(1000);
 		  
 		  int res=0;
 		  switch(jobId){
@@ -58,14 +53,17 @@ public class RunJob {
 			  break;
 		  case 1:
 			  System.out.println("Running Stripes...");
+			  args[1] = args[1]+"//pair";
 			  res = ToolRunner.run(new PairJob(), args);
 			  break;
 		  case 2:
-			  System.out.println("Running Stripes...");
+			  System.out.println("Running Stripe...");
+			  args[1] = args[1]+"//stripe";
 			  res = ToolRunner.run(new StripesDriver(), args);
 			  break;
 		  case 3:
 			  System.out.println("Running HybridJob...");
+			  args[1] = args[1]+"//hybrid";
 			  res = ToolRunner.run(new HybridJob(), args);
 			  break;
 		 default:

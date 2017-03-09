@@ -20,7 +20,7 @@ then
 elif [ $jobId -eq 2 ]
 then
     echo "Cleaning $outputPath/stripe directories for fresh run"
-  hadoop fs -rm -r  $outputPath/stripe
+  hadoop fs -rm -r  $outputPath/stripes
 elif [ $jobId -eq 3 ]
 then
     echo "Cleaning $outputPath/hybrid directories for fresh run"

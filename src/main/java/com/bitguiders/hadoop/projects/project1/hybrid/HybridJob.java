@@ -13,13 +13,15 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
+import com.bitguiders.hadoop.projects.util.GenericConfigurations;
+import com.bitguiders.hadoop.projects.util.GenericPartitioner;
 import com.bitguiders.hadoop.projects.util.Pair;
 import com.bitguiders.hadoop.wordcount.WordCount;
 
-	public class HybridJob  extends Configured implements Tool {
+	public class HybridJob  extends GenericConfigurations implements Tool {
 
 			  public int run(String[] args) throws Exception {
-			    Path inputPath = new Path(args[0]);
+			/*    Path inputPath = new Path(args[0]);
 			    Path outputPath = new Path(args[1]);
 
 			    Configuration conf = getConf();
@@ -32,7 +34,8 @@ import com.bitguiders.hadoop.wordcount.WordCount;
 
 			    job.setJobName("Hybrid Job");
 			    job.setJarByClass(HybridJob.class);
-			    
+*/			    
+				Job job = getJob(args, "hybrid");
 			    job.setInputFormatClass(TextInputFormat.class);
 			    job.setOutputFormatClass(TextOutputFormat.class);
 			    
@@ -45,9 +48,9 @@ import com.bitguiders.hadoop.wordcount.WordCount;
 			    job.setMapperClass(HybridMapper.class);
 			    job.setReducerClass(HybridReducer.class);
 			    
-			    job.setNumReduceTasks(2);
-			    job.setPartitionerClass(HybridPartitioner.class);
-			    
+/*			    job.setNumReduceTasks(2);
+			    job.setPartitionerClass(GenericPartitioner.class);
+*/			    
 			    return job.waitForCompletion(true) ? 0 : 1;
 			  }
 

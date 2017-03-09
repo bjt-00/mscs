@@ -1,6 +1,5 @@
 package com.bitguiders.hadoop.projects.project1;
 
-import java.io.File;
 import java.util.Scanner;
 
 import org.apache.hadoop.mapred.FileAlreadyExistsException;

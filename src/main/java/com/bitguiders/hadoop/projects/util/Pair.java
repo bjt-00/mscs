@@ -40,9 +40,10 @@ public class Pair implements WritableComparable<Pair> {
 		WritableUtils.writeString(out, value+"");
 	}
 	public int compareTo(Pair pair) {
+		String key= toString();
 		if(pair==null)
 		return 0;
-		return key.compareTo(pair.getKey());//&value.compareTo(pair.getValue());
+		return key.compareTo(pair.toString());
 	}
 	
 	@Override

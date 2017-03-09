@@ -1,0 +1,1 @@
+java -jar D:\hadoop\hadoop.jar D:\hadoop\input\mr.txt D:\hadoop\output

@@ -51,12 +51,12 @@ public class RunJob {
 			  System.exit(0);
 			  break;
 		  case 1:
-			  System.out.println("Running Stripes...");
+			  System.out.println("Running Pair...");
 			  args[1] = args[1]+"//pair";
 			  res = ToolRunner.run(new PairJob(), args);
 			  break;
 		  case 2:
-			  System.out.println("Running Stripe...");
+			  System.out.println("Running Stripes...");
 			  args[1] = args[1]+"//stripes";
 			  res = ToolRunner.run(new StripesJob(), args);
 			  break;

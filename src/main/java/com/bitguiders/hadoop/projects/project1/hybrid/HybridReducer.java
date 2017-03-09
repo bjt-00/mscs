@@ -23,7 +23,7 @@ public class HybridReducer extends Reducer<Pair, IntWritable, Text, Text> {
  
   		for(IntWritable value:values){
   			count = (subMap.containsKey(key.getValue())? subMap.get(key.getValue()):0);
-  			count ++;
+  			count += value.get();
   			subMap.put(key.getValue(), count);
     	}
     	

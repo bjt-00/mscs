@@ -12,51 +12,51 @@ import com.bitguiders.hadoop.projects.util.Util;
 
 public class PairReducer extends Reducer<Pair, IntWritable, Text, Text> {
 
-	TreeMap<String,TreeMap> finalMap = new TreeMap<String,TreeMap>();
+	TreeMap<Pair,TreeMap> finalMap = new TreeMap<Pair,TreeMap>();
     @Override
     public void reduce(Pair key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
     	
     	//load if map already exists for given key
-    	TreeMap<String,Integer> subMap = (finalMap.containsKey(key.getKey())?finalMap.get(key.getKey()):new TreeMap<String,Integer>()); 
+    	TreeMap<Pair,Integer> subMap = (finalMap.containsKey(new Pair(key.getKey(),""))?finalMap.get(new Pair(key.getKey(),"")):new TreeMap<Pair,Integer>()); 
 
     	//get existing count for given key;
   		int count =0;
  
   		for(IntWritable value:values){
-  			count = (subMap.containsKey(key.getValue())? subMap.get(key.getValue()):0);
+  			Pair p = new Pair("",key.getValue());
+  			count = (subMap.containsKey(p)? subMap.get(p):0);
   			count += value.get();
-  			subMap.put(key.getValue(), count);
-    	}
+  			subMap.put(p, count);
+  			}
     	
-    	finalMap.put(key.getKey(),subMap);
+    	finalMap.put(new Pair(key.getKey(),""),subMap);
     }
     @Override
     public void cleanup(Context context) throws IOException, InterruptedException{
    	TreeMap<String, Integer> counterMap = new TreeMap<String,Integer>();
     	
-    	for(String m:finalMap.keySet()){
-    		TreeMap<String,Integer> subMap = finalMap.get(m);
+    	for(Pair m:finalMap.keySet()){
+    		TreeMap<Pair,Integer> subMap = finalMap.get(m);
     		int mapTotal = 0;
-    			for(String sm: subMap.keySet()){
+    			for(Pair sm: subMap.keySet()){
     				mapTotal +=subMap.get(sm);
     		}
-    		counterMap.put(m, mapTotal);
+    		counterMap.put(m.getKey(), mapTotal);
     	}
  
-    	StringBuilder console = new StringBuilder("");
-    	for(String m:finalMap.keySet()){
+    	StringBuilder console = new StringBuilder();
+    	for(Pair pair:finalMap.keySet()){
 			   
-    		   console.append(m);
-			   console.append("=>").append("[");
+    		   console.append("[");
 
-    		TreeMap<String,Integer> subMap = finalMap.get(m);
-    		double mapTotal = counterMap.get(m);
-    			for(String sm: subMap.keySet()){
+    		TreeMap<Pair,Integer> subMap = finalMap.get(pair);
+    		double mapTotal = counterMap.get(pair.getKey());
+    			for(Pair sm: subMap.keySet()){
     				int subTotal = subMap.get(sm);
     				double probability = (subTotal/mapTotal);
-    				console.append("<(").append(sm).append(",")
+    				console.append("<(").append(pair.getKey()).append(",").append(sm.getValue()).append("),")
     				.append(Util.format(probability))
-    				.append(")").append(">");
+    				.append(">");
     		}
     		console.append("]");
     		context.write(new Text(),new Text(console.toString()));

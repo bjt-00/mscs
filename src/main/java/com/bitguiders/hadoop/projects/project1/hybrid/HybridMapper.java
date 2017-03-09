@@ -1,6 +1,7 @@
 package com.bitguiders.hadoop.projects.project1.hybrid;
 
 import java.io.IOException;
+import java.util.TreeMap;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
@@ -13,7 +14,8 @@ import com.bitguiders.hadoop.projects.util.Pair;
 
 	public class HybridMapper extends Mapper<LongWritable, Text, Pair, IntWritable> {
 		 private static Logger logger = Logger.getLogger(HybridMapper.class);
-		IntWritable one = new IntWritable(1);   
+			IntWritable one = new IntWritable(1);   
+			TreeMap<Pair,Integer> subMap = new TreeMap<Pair,Integer>();
 		@Override
 		    public void map(LongWritable key, Text value,
 		                    Mapper.Context context) throws IOException, InterruptedException {
@@ -39,7 +41,9 @@ import com.bitguiders.hadoop.projects.util.Pair;
 						   break neighboursLoop;
 					   }
 					   Pair pair = new Pair(currentWord,tokens[j]);
-					    context.write(pair, one);
+					   int count = (subMap.containsKey(pair)? subMap.get(pair):0);
+					   count += one.get();
+					   subMap.put(pair, count);
 					   console.append("<(").append(pair.toString())
 					   .append(")").append(",").append(one.toString()).append(">");
 				   }
@@ -50,6 +54,9 @@ import com.bitguiders.hadoop.projects.util.Pair;
 		   }
 		   @Override
 		    public void cleanup(Context context) throws IOException, InterruptedException{
+		    	for(Pair val :subMap.keySet()){
+		    		context.write(val, new IntWritable(subMap.get(val)));
+		    	}
 		    }
 
 }

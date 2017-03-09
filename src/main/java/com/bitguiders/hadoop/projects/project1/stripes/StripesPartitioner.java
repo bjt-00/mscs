@@ -8,10 +8,14 @@ public class StripesPartitioner extends Partitioner<Text,NeighborMap>
 {
 
 	@Override
-	public int getPartition(Text keyWord, NeighborMap map, int numReduceTask) 
+	public int getPartition(Text key, NeighborMap map, int numReduceTask) 
 	{
-		int start=keyWord.toString().charAt(0);
-		return (start & Integer.MAX_VALUE)%numReduceTask;
+		
+		if(key.toString().equals("34") || key.toString().equals("12")){
+			return 1%numReduceTask;
+		}else{
+			return 2%numReduceTask;
+		}
 	}
 
 }

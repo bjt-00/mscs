@@ -14,11 +14,11 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-public class StripesDriver extends Configured implements Tool
+public class StripesJob extends Configured implements Tool
 {
 	public static void main(String [] args) throws Exception
 	{
-		StripesDriver driver =new StripesDriver();
+		StripesJob driver =new StripesJob();
 		int res=ToolRunner.run(driver, args);
 		System.exit(res);
 	}
@@ -35,9 +35,11 @@ public class StripesDriver extends Configured implements Tool
 			NoRedTask=2;
 		}
 	    Configuration conf = new Configuration();
+	    conf.set("fs.file.impl","com.conga.services.hadoop.patch.HADOOP_7682.WinLocalFileSystem");
+	    conf.set("mapreduce.output.basename", "stripes");
 	    Job job = Job.getInstance(conf, "Stripe Algorithm Frequency Occurrence");
-	    
-	    job.setJarByClass(StripesDriver.class);
+
+	    job.setJarByClass(StripesJob.class);
 	    
 	    FileInputFormat.addInputPath(job, new Path(args[0]));
 	    FileOutputFormat.setOutputPath(job, new Path(args[1]));

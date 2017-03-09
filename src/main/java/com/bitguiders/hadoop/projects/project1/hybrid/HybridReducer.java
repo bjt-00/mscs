@@ -1,9 +1,6 @@
 package com.bitguiders.hadoop.projects.project1.hybrid;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.TreeMap;
 
 import org.apache.hadoop.io.IntWritable;
@@ -30,7 +27,6 @@ public class HybridReducer extends Reducer<Pair, IntWritable, Text, Text> {
   			subMap.put(key.getValue(), count);
     	}
     	
-    	//(Mary~34,{(56,2),(num, count)}
     	finalMap.put(key.getKey(),subMap);
     }
     @Override
@@ -48,7 +44,6 @@ public class HybridReducer extends Reducer<Pair, IntWritable, Text, Text> {
  
     	StringBuilder console = new StringBuilder("");
     	for(String m:finalMap.keySet()){
-    		  // String keySplit[] = m.split("~");
 			   
     		   console.append(m);
 			   console.append("=>").append("[");
@@ -59,7 +54,6 @@ public class HybridReducer extends Reducer<Pair, IntWritable, Text, Text> {
     				int subTotal = subMap.get(sm);
     				double probability = (subTotal/mapTotal);
     				console.append("<(").append(sm).append(",")
-    				//.append(subMap.get(sm)).append("/").append(mapTotal)
     				.append(Util.format(probability))
     				.append(")").append(">");
     		}
@@ -67,20 +61,5 @@ public class HybridReducer extends Reducer<Pair, IntWritable, Text, Text> {
     		context.write(new Text(),new Text(console.toString()));
     		console.delete(0, console.length());
     	}
-    }
-    public static void main(String[] arg){
-    	int a = 6;
-    	double b = 7;
-    	double kilobytes = a/b;
-    	
-    	//kilobytes = 0.857;
-
-    	System.out.println("kilobytes : " + kilobytes);
-
-    	double newKB = Math.round(kilobytes*100.0)/100.0;
-    	System.out.println("kilobytes (Math.round) : " + newKB);
-
-    	DecimalFormat df = new DecimalFormat("###.##");
-    	System.out.println("kilobytes (DecimalFormat) : " + df.format(kilobytes));
     }
   }

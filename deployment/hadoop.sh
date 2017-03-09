@@ -12,9 +12,6 @@ read jobId
 
 if [ $jobId -eq 1 ]
 then
-  echo "Pair..."
-elif [ $jobId -eq 1 ]
-then
     echo "Cleaning $outputPath/pair directories for fresh run"
   hadoop fs -rm -r  $outputPath/pair
 elif [ $jobId -eq 2 ]

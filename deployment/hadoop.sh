@@ -6,7 +6,7 @@ echo 'Pair   Job Id : 1'
 echo 'Stripe Job Id : 2'
 echo 'Hybrid Job Id : 3'
 echo 'Exit   Job Id : 0'
-echo 'Enter your choice..'
+echo 'Enter Job Id from above list for example 3'
 
 read jobId
 

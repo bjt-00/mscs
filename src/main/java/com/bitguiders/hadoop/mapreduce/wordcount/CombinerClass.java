@@ -1,4 +1,4 @@
-package com.bitguiders.hadoop.wordcount;
+package com.bitguiders.hadoop.mapreduce.wordcount;
 
 import java.io.IOException;
 

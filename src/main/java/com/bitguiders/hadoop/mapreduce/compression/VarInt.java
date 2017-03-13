@@ -1,4 +1,4 @@
-package com.bitguiders.hadoop.compression;
+package com.bitguiders.hadoop.mapreduce.compression;
 
 import java.util.ArrayList;
 import java.util.List;

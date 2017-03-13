@@ -1,4 +1,4 @@
-package com.bitguiders.hadoop.temperature.with_in_mapper;
+package com.bitguiders.hadoop.mapreduce.sorting;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
@@ -13,11 +13,9 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-import com.bitguiders.hadoop.wordcount.WordCount;
-
-public class TempCalculator2  extends Configured implements Tool {
+public class EmpJob  extends Configured implements Tool {
 	  public static void main(String args[]) throws Exception {
-		    int res = ToolRunner.run(new TempCalculator2(), args);
+		    int res = ToolRunner.run(new EmpJob(), args);
 		    System.exit(res);
 		  }
 
@@ -32,20 +30,19 @@ public class TempCalculator2  extends Configured implements Tool {
 		    FileInputFormat.setInputPaths(job, inputPath);
 		    FileOutputFormat.setOutputPath(job, outputPath);
 
-		    job.setJobName("WordCount");
-		    job.setJarByClass(WordCount.class);
+		    job.setJobName("EmpJob");
+		    job.setJarByClass(EmpJob.class);
 		    
 		    job.setInputFormatClass(TextInputFormat.class);
 		    job.setOutputFormatClass(TextOutputFormat.class);
 		    
 		    job.setMapOutputKeyClass(Text.class);
-		    job.setMapOutputValueClass(Text.class);
+		    job.setMapOutputValueClass(Emp.class);
 		    
 		    job.setOutputKeyClass(Text.class);
 		    job.setOutputValueClass(IntWritable.class);
 
-		    job.setMapperClass(TempMapper2.class);
-		    job.setReducerClass(TempReducer2.class);
+		    job.setMapperClass(EmpMapper.class);
 
 		    return job.waitForCompletion(true) ? 0 : 1;
 		  }

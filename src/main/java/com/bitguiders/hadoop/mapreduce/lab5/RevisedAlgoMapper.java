@@ -1,4 +1,4 @@
-package com.bitguiders.hadoop.lab5;
+package com.bitguiders.hadoop.mapreduce.lab5;
 
 import java.io.IOException;
 import java.util.StringTokenizer;

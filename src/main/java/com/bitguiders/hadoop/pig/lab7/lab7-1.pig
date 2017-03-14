@@ -7,11 +7,7 @@ ptokenize = FOREACH pfilter GENERATE movieId,title,'Adventure' AS description;
 --ratings = LOAD '/home/cloudera/Desktop/hadoop/pig/ratings.txt' USING PigStorage('\\t') AS (mId,userId,rating);
 --mrjoin  = JOIN pfilter BY movieId, ratings BY mId;
 --foutput = FOREACH mrjoin GENERATE movieId,title,description,rating;
+--porder  = ORDER foutput by total DESC;
 
 pselect = LIMIT ptokenize 15;
 dump pselect;
-
---pflattern = FOREACH ptokenize GENERATE group, flattern(ptokenize);
---pgroup  = GROUP pfilter BY title;
---pcount  = FOREACH pgroup GENERATE group , COUNT(pfilter) AS total;
---porder  = ORDER pcount by total DESC;

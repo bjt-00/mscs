@@ -1,0 +1,39 @@
+CREATE TABLE records(year String, temprature INT, quality INT) ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t';
+LOAD DATA LOCAL INPATH '/home/cloudera/Desktop/hadoop/hive/hive.txt' INTO TABLE records;
+select year , max(temprature) from records where temprature!=9999 and quality in(0,1,4,5)  group by year;
+
+--load data from csv source
+CREATE TABLE employees(firstname String,lastname String, position String,department String,salary String) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',';
+LOAD DATA LOCAL INPATH '/home/cloudera/Desktop/hadoop/hive/employees.csv' INTO TABLE employees;
+
+-- extract salaries
+CREATE TABLE salaries(firstname String,lastname String,salary double) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',';
+
+
+--external employees table
+CREATE EXTERNAL TABLE employees(firstname String,lastname String, position String,department String,salary String) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' LOCATION '/user/hive/warehouse/employees';
+CREATE EXTERNAL TABLE salaries(firstname String,lastname String, position String,department String,salary1 String,salary double) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',';
+insert into salaries select firstname,lastname,position,department,salary,cast(substr(salary,2) as double) from employees limit 5
+
+--Top 5 highest paid persons
+select * from salaries where salary>0 sort by salary desc limit 5;
+"EVANS	  GINGER S"	COMMISSIONER OF AVIATION	AVIATION	$300000.00	300000.0
+"ESCALANTE	  JOHN J"	FIRST DEPUTY SUPERINTENDENT	POLICE	$197724.00	197724.0
+"JOHNSON	  EDDIE T"	CHIEF	POLICE	$185364.00	185364.0
+"RICCIO	  ANTHONY J"	CHIEF	POLICE	$185364.00	185364.0
+"WELCH III	  EDDIE L"	CHIEF	POLICE	$185364.00	185364.0
+
+--Top 5 lowest paid persons
+select * from salaries where salary>0 sort by salary asc limit 5;
+"WATKINS	  DEANDRE M"	POLICE CADET	POLICE	$9640.80	9640.8
+"CHAVEZ JR	  MANUEL"	POLICE CADET	POLICE	$9640.80	9640.8
+"GALLEGOS	  GRACE"	PROGRAM AIDE	POLICE	$9640.80	9640.8
+"CURTIS	  MATTHEW C"	POLICE CADET	POLICE	$9640.80	9640.8
+"DAVIS	  ALANA J"	    POLICE CADET	POLICE	$9640.80	9640.8
+
+--Overall department expense summary
+select department, sum(salary) as total from salaries where salary>0 group by department sort by total;
+HEALTH	    4.4006571400000006E7
+AVIATION	1.119751528000007E8
+POLICE	    1.0928495045999992E9
+

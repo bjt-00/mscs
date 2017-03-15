@@ -17,8 +17,8 @@ ratings = FILTER ratings by rating == 5;
 movies_rating= JOIN movies by movieId, ratings by movieId;
 movie_rating_Order= ORDER movies_rating by rating DESC, title;
 movie_rating_Order = distinct movie_rating_Order;
-partone = LIMIT movie_rating_Order 20;
-Store partone into 'part1Output';
+outputOne = LIMIT movie_rating_Order 20;
+Store outputOne into 'outputOne';
 
 -- Join with user to get gender 
 ratings = JOIN ratings by userId, user by userId;
@@ -30,8 +30,8 @@ highestEachMovie = ORDER highestEachMovie By rating;
 -- Join movies_Gen and Ratings
 movies_rating= JOIN movies by movieId, highestEachMovie by movieId;
 movie_rating_Order= ORDER movies_rating by rating DESC, title;
-parttwo = LIMIT movie_rating_Order 20;
-Store parttwo into 'part2Output';
+outputTwo = LIMIT movie_rating_Order 20;
+Store outputTwo into 'outputTwo';
 
 
 

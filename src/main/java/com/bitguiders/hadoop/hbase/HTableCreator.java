@@ -1,4 +1,4 @@
-package com.bitguiders.hadoop.hbase;
+/*package com.bitguiders.hadoop.hbase;
 
 import java.io.IOException;
 
@@ -30,3 +30,4 @@ public class HTableCreator {
 		System.out.println(" Done!");
 	}
 }
+*/

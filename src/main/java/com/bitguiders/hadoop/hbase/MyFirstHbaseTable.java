@@ -1,3 +1,5 @@
+package com.bitguiders.hadoop.hbase;
+
 import java.io.IOException;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
@@ -11,8 +13,9 @@ import org.apache.hadoop.hbase.io.compress.Compression.Algorithm;
 
 public class MyFirstHbaseTable {
 
-	private static final String TABLE_NAME = "user";
-	private static final String CF_DEFAULT = "personal_details";
+	private static final String TABLE_NAME = "userr";
+	private static final String CF_PERSONAL_DATA = "Personal Data";
+	private static final String CF_PROFESSIONAL_DATA = "Professional Data";
 
 	public static void main(String... args) throws IOException {
 
@@ -22,10 +25,12 @@ public class MyFirstHbaseTable {
 				Admin admin = connection.getAdmin()) {
 			HTableDescriptor table = new HTableDescriptor(
 					TableName.valueOf(TABLE_NAME));
-			table.addFamily(new HColumnDescriptor(CF_DEFAULT)
-					.setCompressionType(Algorithm.NONE));
-			table.addFamily(new HColumnDescriptor("prof_details"));
+			table.addFamily(new HColumnDescriptor("userId"));
+					//.setCompressionType(Algorithm.NONE));
+			
+			table.addFamily(new HColumnDescriptor("pwd"));
 
+			
 			System.out.print("Creating table.... ");
 
 			if (admin.tableExists(table.getTableName())) {

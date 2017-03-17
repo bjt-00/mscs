@@ -60,11 +60,11 @@ public class SparkTest {
             } 
 	public static void main(String arg[]){
 		//String filePath="/home/cloudera/workspace/hadoop/input/users.txt";
-		//String filePath="hdfs://quickstart.cloudera:8020/user/cloudera/input/users.txt";
+		String filePath="hdfs://quickstart.cloudera:8020/user/cloudera/input/users.txt";
 
 		String outputPath="/home/cloudera/workspace/hadoop/output";
 		//filePath ="/user/hive/warehouse/employees.csv";
-		String filePath="D:\\workspaces\\bitguiders\\java\\hadoop\\input\\input.txt";
+		//String filePath="D:\\workspaces\\bitguiders\\java\\hadoop\\input\\input.txt";
 		System.out.println(filePath);
 		
 		SparkConf conf = new SparkConf().setAppName(SparkTest.class.getName()).setMaster("local").set("spark.executor.memory","1g");

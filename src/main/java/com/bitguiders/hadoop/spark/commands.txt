@@ -1,1 +1,7 @@
+starting spark
+nc -lk 9999;
+
 kafka-topics --create --zookeeper zookeeper_server:2181 --topic wordcounttopic \ --partitions 1 --replication-factor 1
+
+
+https://github.com/cloudera/spark/blob/master/docs/streaming-programming-guide.md

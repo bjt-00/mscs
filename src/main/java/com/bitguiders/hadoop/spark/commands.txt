@@ -1,0 +1,1 @@
+kafka-topics --create --zookeeper zookeeper_server:2181 --topic wordcounttopic \ --partitions 1 --replication-factor 1

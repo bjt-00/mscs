@@ -1,10 +1,12 @@
-/*package com.bitguiders.hadoop.spark;
+package com.bitguiders.hadoop.spark;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
 import com.google.common.collect.Lists;
+
 import org.apache.spark.api.java.function.FlatMapFunction;
 import org.apache.spark.api.java.function.Function;
 import org.apache.spark.api.java.function.Function2;
@@ -14,9 +16,10 @@ import org.apache.spark.streaming.api.java.JavaDStream;
 import org.apache.spark.streaming.api.java.JavaPairDStream;
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
 import org.apache.spark.streaming.kafka.KafkaUtils;
+
 import scala.Tuple2;
 
-*//**
+/**
  * Consumes messages from one or more topics in Kafka and does wordcount.
  * Usage: JavaKafkaWordCount <master> <zkQuorum> <group> <topics> <numThreads>
  *   <master> is the Spark master URL. In local mode, <master> should be 'local[n]' with n > 1.
@@ -28,7 +31,7 @@ import scala.Tuple2;
  * Example:
  *    `./bin/run-example org.apache.spark.streaming.examples.JavaKafkaWordCount local[2] zoo01,zoo02,
  *    zoo03 my-consumer-group topic1,topic2 1`
- *//*
+ */
 
 public final class JavaKafkaWordCount {
   private static final Pattern SPACE = Pattern.compile(" ");
@@ -36,13 +39,15 @@ public final class JavaKafkaWordCount {
   private JavaKafkaWordCount() {
   }
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws InterruptedException {
+		String arg[] = {"local","/user/cloudera/input/users.txt","8020","wordcount","1"};
+		args = arg;
     if (args.length < 5) {
       System.err.println("Usage: KafkaWordCount <master> <zkQuorum> <group> <topics> <numThreads>");
       System.exit(1);
     }
 
-    StreamingExamples.setStreamingLogLevels();
+    //StreamingExamples.setStreamingLogLevels();
 
     // Create the context with a 1 second batch size
     JavaStreamingContext jssc = new JavaStreamingContext(args[0], "KafkaWordCount",
@@ -67,11 +72,11 @@ public final class JavaKafkaWordCount {
 
     JavaDStream<String> words = lines.flatMap(new FlatMapFunction<String, String>() {
       @Override
-      public Iterable<String> call(String x) {
-        return Lists.newArrayList(SPACE.split(x));
+      public Iterator<String> call(String x) {
+        return (Iterator<String>) Lists.newArrayList(SPACE.split(x));
       }
     });
-
+/*
     JavaPairDStream<String, Integer> wordCounts = words.map(
       new PairFunction<String, String, Integer>() {
         @Override
@@ -84,9 +89,10 @@ public final class JavaKafkaWordCount {
           return i1 + i2;
         }
       });
-
-    wordCounts.print();
+*/
+  //  wordCounts.print();
+    words.print();
     jssc.start();
     jssc.awaitTermination();
   }
-}*/
+}

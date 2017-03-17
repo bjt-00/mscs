@@ -17,7 +17,7 @@ import scala.Tuple2;
 
 public class SparkTest {
 
-	 private static final FlatMapFunction<String, String> WORDS_EXTRACTOR = 
+	/* private static final FlatMapFunction<String, String> WORDS_EXTRACTOR = 
 	            new FlatMapFunction<String, String>() { 
 	                @Override 
 	                public Iterator<String> call(String s) throws Exception { 
@@ -57,14 +57,14 @@ public class SparkTest {
                 
                 //System.out.println("Total words = "+file.count());
                 counter.saveAsTextFile(outputDirName); 
-            } 
+            } */
 	public static void main(String arg[]){
 		//String filePath="/home/cloudera/workspace/hadoop/input/users.txt";
-		String filePath="hdfs://quickstart.cloudera:8020/user/cloudera/input/users.txt";
+		//String filePath="hdfs://quickstart.cloudera:8020/user/cloudera/input/users.txt";
 
 		String outputPath="/home/cloudera/workspace/hadoop/output";
 		//filePath ="/user/hive/warehouse/employees.csv";
-		//String filePath="D:\\workspaces\\bitguiders\\java\\hadoop\\input\\input.txt";
+		String filePath="D:\\workspaces\\bitguiders\\java\\hadoop\\input\\input.txt";
 		System.out.println(filePath);
 		
 		SparkConf conf = new SparkConf().setAppName(SparkTest.class.getName()).setMaster("local").set("spark.executor.memory","1g");
@@ -89,7 +89,7 @@ public class SparkTest {
 			//System.out.println(lines.toString());
 		//}
 	}
-	public static void main_x(String arg[]){
+	/*public static void main_x(String arg[]){
 		String filePath="hdfs://namenode_host:8020/user/hive/warehouse/employees/employees.csv";
 		SparkConf conf = new SparkConf().setAppName(SparkTest.class.getName()).setMaster("local[*]");//.set("spark.executor.memory","1g");
 		JavaSparkContext context = new JavaSparkContext(conf);
@@ -104,5 +104,5 @@ public class SparkTest {
 			      }
 			    );
 		System.out.println("Finished...");
-	}
+	}*/
 }

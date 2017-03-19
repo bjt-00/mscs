@@ -23,9 +23,9 @@ public class SparkJdbcExample {
 		}
 		Connection con = DriverManager.getConnection("jdbc:hive2://localhost:10000/default", "", "");
 		Statement stmt = con.createStatement();
-		String tableName = "remoteShellLog";
+		String tableName = "etl_job";
 		stmt.execute("drop table if exists " + tableName);
-		stmt.execute("create table " + tableName + " (user String, cmd String, time String) row format delimited fields terminated by ','");
+		stmt.execute("create table " + tableName + " (user_id String, domain String, etl_job String,operation String) row format delimited fields terminated by ','");
 		// show tables
 		String sql = "show tables '" + tableName + "'";
 		System.out.println("Running: " + sql);
@@ -44,7 +44,7 @@ public class SparkJdbcExample {
 		// load data into table
 		// NOTE: filepath has to be local to the hive server
 		
-		String filepath = "/home/cloudera/Desktop/hadoop/hive/log.txt";
+		String filepath = "/home/cloudera/Desktop/hadoop/hive/etl_log.txt";
 		sql = "load data local inpath '" + filepath + "' into table "
 				+ tableName;
 		System.out.println("Running: " + sql);

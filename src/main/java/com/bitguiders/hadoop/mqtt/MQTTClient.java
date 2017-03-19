@@ -1,7 +1,7 @@
 package com.bitguiders.hadoop.mqtt;
 
 public class MQTTClient{
-  	static final String BROKER_URL = "tcp://test.mosquitto.org:1883";//"tcp://iot.eclipse.org:1883";
+  	static final String BROKER_URL = "tcp://test.mosquitto.org:1883";//"tcp://test.mosquitto.org:1883";
 	static final String TOPIC = "bitguiders";
 	static final String DEVICE = "webserver";
 	static final String CLIENT_ID = "temperature";

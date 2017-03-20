@@ -5,14 +5,15 @@ public class ShellHandler {
 
         public static void main(String[] args) throws Exception {
         	execute("hadoop fs -rm -r /user/cloudera/output/pair",
-        	"java -jar /home/cloudera/Desktop/hadoop/hadoop.jar /home/cloudera/Desktop/hadoop/input/mr.txt /user/cloudera/output/ 1"
+        			"bash /home/cloudera/Desktop/hadoop/hadoop.sh"
+        	//"java -jar /home/cloudera/Desktop/hadoop/hadoop.jar /home/cloudera/Desktop/hadoop/input/mr.txt /user/cloudera/output/ 1"
         	);
         }
          public static String execute(String... commands){
         	
         	StringBuffer response = new StringBuffer();
         	for(String command:commands){
-        		System.out.println("elt> "+ command);
+        		//System.out.println("elt> "+ command);
             try {
                 // String target = new String("mkdir stackOver");
                 Runtime rt = Runtime.getRuntime();
@@ -24,7 +25,7 @@ public class ShellHandler {
                 while ((line = reader.readLine())!= null) {
                 	response.append(line + "\n");
                 }
-                System.out.println("elt> " + response);
+                //System.out.println("elt> " + response);
         } catch (Throwable t) {
                 t.printStackTrace();
         }}//for end

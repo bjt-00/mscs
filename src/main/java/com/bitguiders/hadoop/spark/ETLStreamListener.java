@@ -34,7 +34,7 @@ public static void startStreaming(String master,String host,String port) throws 
 					}
 				}
 			}
-			rdd.saveAsTextFile("/home/cloudera/workspace/hadoop/output");
+			//rdd.saveAsTextFile("/home/cloudera/workspace/hadoop/output");
 		}
 		  
 	  });

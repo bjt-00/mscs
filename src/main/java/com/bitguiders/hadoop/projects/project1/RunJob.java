@@ -8,6 +8,7 @@ import org.apache.hadoop.util.ToolRunner;
 import com.bitguiders.hadoop.projects.project1.hybrid.HybridJob;
 import com.bitguiders.hadoop.projects.project1.pair.PairJob;
 import com.bitguiders.hadoop.projects.project1.stripes.StripesJob;
+import com.bitguiders.hadoop.shell.ShellHandler;
 
 public class RunJob {
 	  public static void main(String args[]) throws Exception {
@@ -53,16 +54,19 @@ public class RunJob {
 		  case 1:
 			  System.out.println("Running Pair...");
 			  args[1] = args[1]+"//pair";
+			  ShellHandler.execute("hadoop fs -rm -r "+args[1]);
 			  res = ToolRunner.run(new PairJob(), args);
 			  break;
 		  case 2:
 			  System.out.println("Running Stripes...");
 			  args[1] = args[1]+"//stripes";
+			  ShellHandler.execute("hadoop fs -rm -r "+args[1]);
 			  res = ToolRunner.run(new StripesJob(), args);
 			  break;
 		  case 3:
 			  System.out.println("Running HybridJob...");
 			  args[1] = args[1]+"//hybrid";
+			  ShellHandler.execute("hadoop fs -rm -r "+args[1]);
 			  res = ToolRunner.run(new HybridJob(), args);
 			  break;
 		 default:

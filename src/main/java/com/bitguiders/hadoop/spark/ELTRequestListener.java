@@ -2,6 +2,7 @@ package com.bitguiders.hadoop.spark;
 
 import java.util.TreeMap;
 
+import com.bitguiders.hadoop.projects.project1.RunJob;
 import com.bitguiders.hadoop.shell.ShellHandler;
 
 
@@ -28,15 +29,49 @@ public class ELTRequestListener {
 			        for(String job:etlJobs){
 			        	System.out.println(job);
 			        	String jobDetails[] = job.split(",");
-			        	jobPool.put(jobDetails[0], jobDetails[1]);
+			        	jobPool.put(jobDetails[1].trim(), jobDetails[0].trim());
 			        }
+			    }else if(null!=response && response.contains(",")){
+		       
+			        	System.out.println(response);
+			        	String jobDetails[] = response.split(",");
+			        	jobPool.put(jobDetails[1].trim(), jobDetails[0].trim());
+			       
 			    }
+		        if(jobPool.size()>0){
 		        run();
+		        }
 	    	}
     }
     private static void run(){
+    	String args[]={"hdfs://quickstart.cloudera:8020/user/cloudera/input/mr.txt",
+    			"hdfs://quickstart.cloudera:8020/user/cloudera/output","0"};
+    	
     	for(String jobId: jobPool.keySet()){
-    		send(jobId,STATUS_STARTED);
+    		send(jobPool.get(jobId).trim(),STATUS_STARTED);
+    		
+    		switch(jobId){
+    		case  "pair":
+    			args[2]="1";
+    			break;
+       		case  "stripes":
+    			args[2]="2";
+    			break;
+       		case  "hybrid":
+    			args[2]="3";
+    			break;
+    		}
+    		
+    		try {
+				RunJob.start(args);
+				send(jobPool.get(jobId).trim(),STATUS_STOPPED);
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally{
+				jobPool.clear();
+			}
     	}
     }
 }

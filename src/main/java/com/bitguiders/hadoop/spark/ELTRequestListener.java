@@ -13,16 +13,16 @@ public class ELTRequestListener {
 	public static TreeMap<String,String> jobPool = new TreeMap<String,String>();
 
 	public static void send(String userId,String domain,String etlJob,String operation){
-        String command = new String("curl http://bitguiders.com/rest/elt/?s=el&a=add&user_id="+userId+"&domain="+domain+"&etl_job="+etlJob+"&operation="+operation);
+        String command = new String("curl http://bitguiders.com/rest/ejt/?s=el&a=add&user_id="+userId+"&domain="+domain+"&etl_job="+etlJob+"&operation="+operation);
         ShellHandler.execute(command);
     }
 	public static void send(String jobId,String status){
-        String command = new String("curl http://bitguiders.com/rest/elt/?s=el&a=update&jid="+jobId+"&status="+status);
+        String command = new String("curl http://bitguiders.com/rest/ejt/?s=el&a=update&jid="+jobId+"&status="+status);
         ShellHandler.execute(command);
     }
     public static void receive(){
 	    	if(jobPool.size()==0){
-	        String command = new String("curl http://bitguiders.com/rest/elt/?s=el&a=list");
+	        String command = new String("curl http://bitguiders.com/rest/ejt/?s=el&a=list");
 	        String response = ShellHandler.execute(command);
 		        if(null!=response && response.contains(";")){
 		        String etlJobs[] = response.split(";");

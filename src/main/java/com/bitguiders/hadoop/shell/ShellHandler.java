@@ -4,8 +4,7 @@ import java.io.*;
 public class ShellHandler {
 
         public static void main(String[] args) throws Exception {
-        	execute("hadoop fs -rm -r /user/cloudera/output/pair",
-        			"bash /home/cloudera/Desktop/hadoop/hadoop.sh"
+        	execute("echo 'test' >> /home/cloudera/Desktop/test.txt"
         	//"java -jar /home/cloudera/Desktop/hadoop/hadoop.jar /home/cloudera/Desktop/hadoop/input/mr.txt /user/cloudera/output/ 1"
         	);
         }

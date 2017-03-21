@@ -4,10 +4,14 @@ import java.util.TreeMap;
 
 import com.bitguiders.hadoop.projects.project1.RunJob;
 import com.bitguiders.hadoop.shell.ShellHandler;
-import static com.bitguiders.hadoop.spark.EJTConstants.*;
+import com.bitguiders.hadoop.spark.sql.EJTDAO;
+
+import static com.bitguiders.hadoop.spark.util.EJTConstants.*;
 
 
 public class EJTRequestListener {
+	private static  EJTDAO dao = new EJTDAO();
+
 	private static final String STATUS_STARTED="started";
 	private static final String STATUS_COMPLETED="completed";
 	
@@ -27,15 +31,16 @@ public class EJTRequestListener {
 		        if(null!=response && response.contains(";")){
 		        String etlJobs[] = response.split(";");
 			        for(String job:etlJobs){
-			        	System.out.println(job);
 			        	String jobDetails[] = job.split(",");
+			        	System.out.println("EJT Client Request received =>  "+job);
+			        	dao.showJobDetails(jobDetails[1].trim());
 			        	jobPool.put(jobDetails[1].trim(), jobDetails[0].trim());
 			        }
 			    }else if(null!=response && response.contains(",")){
-		       
-			        	System.out.println(response);
 			        	String jobDetails[] = response.split(",");
 			        	jobPool.put(jobDetails[1].trim(), jobDetails[0].trim());
+				    	System.out.println("EJT Client Request received =>  "+response);
+			        	dao.showJobDetails(jobDetails[1].trim());
 			       
 			    }
 		        if(jobPool.size()>0){

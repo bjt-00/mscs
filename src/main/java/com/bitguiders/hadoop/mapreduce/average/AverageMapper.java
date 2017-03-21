@@ -1,4 +1,4 @@
-package com.bitguiders.hadoop.mapreduce.average;
+/*package com.bitguiders.hadoop.mapreduce.average;
 
 import java.io.IOException;
 import java.util.StringTokenizer;
@@ -44,3 +44,4 @@ public class AverageMapper extends Mapper<LongWritable, Text, Text, DoubleWritab
 	    	}
 	    }
  }
+*/

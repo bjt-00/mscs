@@ -1,4 +1,5 @@
-package com.bitguiders.hadoop.mapreduce.average;
+
+/*package com.bitguiders.hadoop.mapreduce.average;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
@@ -48,3 +49,4 @@ public class AverageJob  extends Configured implements Tool {
 		  }
 
 }
+*/

@@ -2,4 +2,4 @@ How to run ETL Job Tracker
 ----------------------------
 1: ejt.sh => change input path according your dir
 2: run ejt.sh
-3: run EJTStreamListener.java
+3: run=> com.bitguiders.hadoop.spark.EJTStreamListener.java

@@ -1,10 +1,9 @@
 package com.bitguiders.hadoop.spark.examples;
 
-import java.sql.SQLException;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class SparkJdbcExample {
 	private static String driverName = "org.apache.hive.jdbc.HiveDriver";
@@ -13,7 +12,8 @@ public class SparkJdbcExample {
 	 * @param args
 	 * @throws SQLException
 	 */
-	public static void main(String[] args) throws SQLException {
+	
+	public void init(String tableName) throws SQLException{
 		try {
 			Class.forName(driverName);
 		} catch (ClassNotFoundException e) {
@@ -23,10 +23,18 @@ public class SparkJdbcExample {
 		}
 		Connection con = DriverManager.getConnection("jdbc:hive2://localhost:10000/default", "", "");
 		Statement stmt = con.createStatement();
-		String tableName = "etl_job";
 		stmt.execute("drop table if exists " + tableName);
-		stmt.execute("create table " + tableName + " (user_id String, domain String, etl_job String,operation String) row format delimited fields terminated by ','");
+		stmt.execute("create table if not exists " + tableName + " (user_id String, domain String, etl_job String,operation String) row format delimited fields terminated by ','");
+		stmt.execute("delete from "+tableName);
+		stmt.execute("insert into etl_log values('abdul','mapreduce','hybrid','add')");
+	}
+	
+	public static void main(String[] args) throws SQLException {
+		SparkJdbcExample e = new SparkJdbcExample();
+		e.init("etl_log");
+		String sql;
 		// show tables
+		/*
 		String sql = "show tables '" + tableName + "'";
 		System.out.println("Running: " + sql);
 		ResultSet res = stmt.executeQuery(sql);
@@ -40,10 +48,10 @@ public class SparkJdbcExample {
 		while (res.next()) {
 			System.out.println(res.getString(1) + "\t" + res.getString(2)+ "\t" + res.getString(3));
 		}
-
+*/
 		// load data into table
 		// NOTE: filepath has to be local to the hive server
-		
+		/*
 		String filepath = "/home/cloudera/Desktop/hadoop/hive/etl_log.txt";
 		sql = "load data local inpath '" + filepath + "' into table "
 				+ tableName;
@@ -58,6 +66,6 @@ public class SparkJdbcExample {
 			System.out.println(String.valueOf(res.getInt(1)) + "\t"
 					+ res.getString(2)+ "\t" + res.getString(3));
 		}
-
+*/
 	}
 }

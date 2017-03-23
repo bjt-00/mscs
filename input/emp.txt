@@ -1,12 +1,7 @@
-d001 Yoshimura Alenka 463297
-d001 Yeung Yuguang 483161
-d004 Astous Berhard 427930
-d001 Acton Basim 105207
-d001 Aamodt Sreekrishna 493601
-d003 Acton Idoia 211583
-d001 Zykh Sudhanshu 205927
-d005 Zizka Aamer 409151
-d004 dAstous Candido 59201
-d001 Zykh Nidapan 452738
-d002 Aamodt Yakkov 43290
-d005 Zirintsis Xiaoqiang 52246
+Emp-001 C-Laname IT
+Emp-001 B-Laname SW
+Emp-002 B-Laname HW
+Emp-001 D-Laname GBS
+Emp-001 A-Laname IT
+Emp-002 D-Laname GBS
+Emp-002 A-Laname IT

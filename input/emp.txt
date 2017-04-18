@@ -1,0 +1,7 @@
+Emp-001 C-Laname IT
+Emp-001 B-Laname SW
+Emp-002 B-Laname HW
+Emp-001 D-Laname GBS
+Emp-001 A-Laname IT
+Emp-002 D-Laname GBS
+Emp-002 A-Laname IT

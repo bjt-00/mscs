@@ -1,0 +1,8 @@
+execute following command before Streaming app run
+nc -lk 9999;
+
+hive
+insert into employees values('Sohail','Ahmed','GBS','IT','$9000');
+
+
+https://github.com/cloudera/spark/blob/master/docs/streaming-programming-guide.md

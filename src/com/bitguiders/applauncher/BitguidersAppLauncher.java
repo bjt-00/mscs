@@ -15,12 +15,11 @@ public class BitguidersAppLauncher extends Application {
 
     @Override public void start(Stage stage) {
 
-        Splash splash = new Splash();
+        Splash splash = new Splash(props.getSplash());
         splash.showSplashWindow();
 
     	// create the scene
-        //stage.setTitle("Imtehan - امتحان");
-    	stage.setTitle(props.getTitle());//"EJT ::: ETL Java Tracker Client");
+    	stage.setTitle(props.getTitle());
     	
     	String url = props.getURL();//"http://bitguiders.com";
     	Browser browser= new Browser(url);

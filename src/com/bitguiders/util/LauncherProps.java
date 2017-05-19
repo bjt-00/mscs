@@ -12,11 +12,12 @@ import javax.swing.JOptionPane;
 
 		String title;
 		String url;
+		String splash;
 		
 	  public static void main(String[] args) {
 		LauncherProps obj = new LauncherProps();
 		//System.out.println("---"+LauncherProps.class.getName());
-		obj.loadResource();
+		//obj.loadResource();
 	  }
 	  
 	  public LauncherProps(){
@@ -35,46 +36,17 @@ import javax.swing.JOptionPane;
 		  
 		  this.title = bundle.getString("title");
 		  this.url   = bundle.getString("url");
+		  this.splash =bundle.getString("splash");
 	  }
 	  
-	  private String loadProps(String fileName) {
 
-		StringBuilder result = new StringBuilder("");
-
-		//Get file from resources folder
-		ClassLoader classLoader = getClass().getClassLoader();
-		File file = new File(classLoader.getResource(fileName).getFile());
-//		File file = new File(fileName);
-		System.out.println(file.getAbsolutePath());
-		
-		try (Scanner scanner = new Scanner(file)) {
-
-			while (scanner.hasNextLine()) {
-				String line = scanner.nextLine();
-				
-				if(line.startsWith("title")){
-					this.title = line.split("=")[1];
-					result.append("Title > ").append(title).append("\n");
-				}else if(line.startsWith("url")){
-					this.url = line.split("=")[1];
-					result.append("URL > ").append(url).append("\n");
-				}
-			}
-
-			scanner.close();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, e.getMessage());
-		}
-
-		return result.toString();
-
-	  }
 	  public String getTitle(){
 		  return title;
 	  }
 	  public String getURL(){
 		  return url;
+	  }
+	  public String getSplash(){
+		  return splash;
 	  }
 	}

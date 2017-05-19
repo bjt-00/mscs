@@ -11,10 +11,13 @@ import javax.swing.JLabel;
 import javax.swing.JWindow;
 
 public class Splash extends JWindow {
-
+		String splash="bitguiders";
+		public Splash(String splash){
+			this.splash = (splash.equals(null)?this.splash:splash);
+		}
 	   public void showSplashWindow()
 	    {
-	      URL url = this.getClass().getResource("images/ejt.png");
+	      URL url = this.getClass().getResource("images/"+splash+".png");
 	      
 	      Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 	      ImageIcon icon =new ImageIcon(url);
